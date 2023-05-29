@@ -1,0 +1,39 @@
+html[data-theme='default'] {
+  //colors
+  --app-accent: #2F64ED;
+  --app-message: #F8F9FF;
+  --app-hover-el: #F6F7FC;
+  --app-primary-text: #231F20;
+  --app-secondary-text: #FCFCFC;
+  --app-gray: #8A97A7;
+  --app-primary-bg: #FCFCFC;
+  --app-secondary-bg: #FAFAFA;
+  --app-controls: #4CA5FF;
+  --app-online: #2FED7B;
+  --app-tooltip: rgb(246, 247, 252, 80%);
+
+  //shadows
+  --app-shadow: 0 0 6px rgba(35, 31, 32, 25%);
+  --app-message-shadow-main: 1 2 6 rgba(69, 104, 232, 35%);
+  --app-message-shadow: -1 2 6 rgba(138, 151, 167, 35%);
+}
+
+html[data-theme='dark'] {
+  //colors
+  --app-accent: #7945E8;
+  --app-message: rgba(30, 35, 55, 30%);
+  --app-hover-el: rgba(24, 23, 69, 15%);
+  --app-primary-text: #FCFCFC;
+  --app-secondary-text: #FCFCFC;
+  --app-gray: #8A97A7;
+  --app-primary-bg: #3A456B;
+  --app-secondary-bg: #41436A;
+  --app-controls: #1976D2;
+  --app-online: #2FED7B;
+  --app-tooltip: rgba(24, 23, 69, 75%);
+
+  //shadows
+  --app-shadow: 0 0 6px rgba(30, 35, 55, 25%);
+  --app-message-shadow-main: 1 2 6 rgba(30, 35, 55, 50%);
+  --app-message-shadow: -1 2 6 rgba(13, 31, 62, 60%);
+}
