@@ -1,7 +1,14 @@
+@import "themes/default.scss";
 
 @font-face {
   font-family: Gilroy;
-  src: local('Gilroy'), url("assets/fonts/Gilroy-Bold.woff2") format('woff');
+  src: local('Gilroy'), url("../shared/assets/fonts/Gilroy-Regular.woff2") format('woff');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -16,3 +23,8 @@ code {
     monospace;
 }
 
+.App {
+  max-width: 1300px;
+  margin: 0 auto;
+
+}
