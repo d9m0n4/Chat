@@ -17,6 +17,8 @@ function App() {
     localStorage.setItem('theme', theme)
   }, [theme])
 
+  console.log(theme)
+
   return (
     <div className="app">
       <Sidebar />

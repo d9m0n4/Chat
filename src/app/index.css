@@ -1,4 +1,4 @@
-@import 'themes/default.scss';
+@import './themes/default.scss';
 
 @font-face {
   font-family: Gilroy;
@@ -33,3 +33,4 @@ code {
   display: flex;
   height: 100vh;
 }
+
