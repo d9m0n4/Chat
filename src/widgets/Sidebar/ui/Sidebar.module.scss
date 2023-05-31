@@ -1,12 +1,26 @@
 .sidebar {
-  background-color: var(--app-secondary-bg);
+  background-color: var(--app-primary-bg);
+  width: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &__links {
-
+    .icon {
+      width: 32px;
+      height: 32px;
+      transition: all 250ms ease;
+    }
   }
 
   .user {
+  }
 
+  .icon * {
+    stroke: var(--app-gray);
+  }
+  .icon:hover * {
+    transition: all 0.25s ease;
+    stroke: var(--app-accent);
   }
 }
-

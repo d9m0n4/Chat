@@ -1,14 +1,14 @@
 html[data-theme='default'] {
-  --app-accent: #2F64ED;
-  --app-message: #F8F9FF;
-  --app-hover-el: #F6F7FC;
-  --app-primary-text: #231F20;
-  --app-secondary-text: #FCFCFC;
-  --app-gray: #8A97A7;
-  --app-primary-bg: #FCFCFC;
-  --app-secondary-bg: #FAFAFA;
-  --app-controls: #4CA5FF;
-  --app-online: #2FED7B;
+  --app-accent: #2f64ed;
+  --app-message: #f8f9ff;
+  --app-hover-el: #f6f7fc;
+  --app-primary-text: #070928;
+  --app-secondary-text: #fcfcfc;
+  --app-gray: #8a97a7;
+  --app-primary-bg: #fcfcfc;
+  --app-secondary-bg: #fafafa;
+  --app-controls: #4ca5ff;
+  --app-online: #2fed7b;
   --app-tooltip: rgb(246, 247, 252, 80%);
 
   --app-shadow: 0 0 6px rgba(35, 31, 32, 25%);
@@ -17,17 +17,16 @@ html[data-theme='default'] {
 }
 
 html[data-theme='dark'] {
-
-  --app-accent: #7945E8;
+  --app-accent: #7945e8;
   --app-message: rgba(30, 35, 55, 30%);
   --app-hover-el: rgba(24, 23, 69, 15%);
-  --app-primary-text: #FCFCFC;
-  --app-secondary-text: #FCFCFC;
-  --app-gray: #8A97A7;
-  --app-primary-bg: #3A456B;
-  --app-secondary-bg: #41436A;
-  --app-controls: #1976D2;
-  --app-online: #2FED7B;
+  --app-primary-text: #fcfcfc;
+  --app-secondary-text: #fcfcfc;
+  --app-gray: #8a97a7;
+  --app-primary-bg: #3a456b;
+  --app-secondary-bg: #41436a;
+  --app-controls: #1976d2;
+  --app-online: #2fed7b;
   --app-tooltip: rgba(24, 23, 69, 75%);
 
   --app-shadow: 0 0 6px rgba(30, 35, 55, 25%);

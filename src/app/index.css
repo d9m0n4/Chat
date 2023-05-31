@@ -1,8 +1,8 @@
-@import "themes/default.scss";
+@import 'themes/default.scss';
 
 @font-face {
   font-family: Gilroy;
-  src: local('Gilroy'), url("../shared/assets/fonts/Gilroy-Regular.woff2") format('woff');
+  src: local('Gilroy'), url('../shared/assets/fonts/Gilroy-Regular.woff2') format('woff');
 }
 
 * {
@@ -19,12 +19,17 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-.App {
+#root {
+  background-color: var(--app-secondary-bg);
+}
+
+.app {
   max-width: 1300px;
   margin: 0 auto;
-
+  background-color: var(--app-secondary-bg);
+  display: flex;
+  height: 100vh;
 }
