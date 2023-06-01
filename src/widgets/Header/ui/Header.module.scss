@@ -1,0 +1,28 @@
+.header {
+  padding: 24px 16px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--app-primary-bg);
+  width: 100%;
+  backdrop-filter: blur(5px);
+  opacity: 0.85;
+  .search__field {
+    box-shadow: none;
+    background-color: var(--app-tooltip);
+    padding: 8px 10px;
+    width: 240px;
+  }
+
+  .name {
+    position: relative;
+    color: var(--app-primary-text);
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .online {
+    position: absolute;
+    top: 25%;
+    right: -16px;
+  }
+}

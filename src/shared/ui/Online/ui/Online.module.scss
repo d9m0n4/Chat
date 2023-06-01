@@ -1,0 +1,8 @@
+.online {
+  width: 8px;
+  height: 8px;
+  background-color: var(--app-online);
+  border-radius: 50%;
+  border: 1px solid var(--app-primary-bg);
+  transition: all 250ms ease;
+}
