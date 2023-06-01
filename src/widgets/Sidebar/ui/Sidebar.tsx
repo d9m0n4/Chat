@@ -16,18 +16,18 @@ export const Sidebar = () => {
       <div className={cls.sidebar__nav}>
         <div className={cls.links}>
           <Link to={'/'}>
-            <Chat className={cls.icon} />
+            <Chat className={`${cls.icon} icon`} />
           </Link>
           <Link to={'/'}>
-            <Bookmark className={cls.icon} />
+            <Bookmark className={`${cls.icon} icon`} />
           </Link>
         </div>
         <div className={cls.links}>
           <Link to={'/'}>
-            <Settings className={cls.icon} />
+            <Settings className={`${cls.icon} icon`} />
           </Link>
           <Link to={'/'}>
-            <Logout className={cls.icon} />
+            <Logout className={`${cls.icon} icon`} />
           </Link>
         </div>
       </div>

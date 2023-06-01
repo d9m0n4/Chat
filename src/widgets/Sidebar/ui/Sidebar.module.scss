@@ -25,12 +25,4 @@
   .user {
     margin-bottom: 32px;
   }
-
-  .icon * {
-    stroke: var(--app-gray);
-  }
-  .icon:hover * {
-    transition: all 0.25s ease;
-    stroke: var(--app-accent);
-  }
 }

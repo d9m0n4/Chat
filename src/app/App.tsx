@@ -1,5 +1,6 @@
 import './index.css'
 import React, { useEffect, useState } from 'react'
+import { Header } from 'widgets/Header'
 import { Sidebar } from 'widgets/Sidebar'
 
 export enum Theme {
@@ -11,6 +12,9 @@ const defaultTheme = Theme.DEFAULT
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || defaultTheme)
+  const changeTheme = () => {
+    setTheme((prev) => (prev === Theme.DARK ? Theme.DEFAULT : Theme.DARK))
+  }
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -21,7 +25,15 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar />
+      <button style={{ position: 'absolute', top: '50%', left: '50%' }} onClick={changeTheme}>
+        CHANGE THEME
+      </button>
+      <div className="main">
+        <Sidebar />
+        <div style={{ width: '100%' }}>
+          <Header />
+        </div>
+      </div>
     </div>
   )
 }
