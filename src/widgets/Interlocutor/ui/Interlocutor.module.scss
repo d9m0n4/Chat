@@ -1,0 +1,32 @@
+.interlocutor {
+  padding: 32px 16px;
+  background-color: var(--app-primary-bg);
+  width: 290px;
+  height: 100%;
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 0 16px 32px 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid;
+    .name {
+      color: var(--app-primary-text)
+    }
+    .isOnline {
+      color: var(--app-online);
+    }
+  }
+  .attaches {
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 16px;
+      color: var(--app-gray);
+    }
+    &__body {
+
+    }
+  }
+}

@@ -2,6 +2,7 @@ import './index.css'
 import React, { useEffect, useState } from 'react'
 import { Header } from 'widgets/Header'
 import { Sidebar } from 'widgets/Sidebar'
+import {Interlocutor} from "../widgets/Interlocutor";
 
 export enum Theme {
   DEFAULT = 'default',
@@ -32,6 +33,9 @@ function App() {
         <Sidebar />
         <div style={{ width: '100%' }}>
           <Header />
+          <div className="main-section">
+            <Interlocutor />
+          </div>
         </div>
       </div>
     </div>
