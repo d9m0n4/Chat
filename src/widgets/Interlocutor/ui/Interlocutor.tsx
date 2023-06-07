@@ -1,8 +1,9 @@
 import React from 'react';
 import cls from './Interlocutor.module.scss'
-import {Avatar} from "../../../shared/ui/Avatar";
+import {Avatar} from "shared/ui/Avatar";
 import {ReactComponent as Chevron} from "shared/assets/icons/cheveron-down.svg";
-import {Button} from "../../../shared/ui/Button";
+import {Button} from "shared/ui/Button";
+import {Attach} from "shared/ui/Attach";
 
 export const Interlocutor = () => {
     return (
@@ -18,7 +19,13 @@ export const Interlocutor = () => {
                     <Button><Chevron className={'icon'}/></Button>
                 </div>
                 <div className={cls.attaches__body}>
-
+                    <Attach />
+                    <Attach />
+                    <Attach />
+                    <Attach />
+                    <Attach />
+                    <Attach />
+                    <Attach />
                 </div>
             </div>
         </div>

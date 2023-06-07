@@ -39,7 +39,7 @@ code {
 }
 
 .app {
-  max-width: 1300px;
+  max-width: 1440px;
   margin: 0 auto;
   background-color: var(--app-secondary-bg);
   display: flex;
@@ -57,4 +57,9 @@ code {
 .icon:hover * {
   transition: all 0.25s ease;
   stroke: var(--app-accent);
+}
+
+.main-section {
+  display: flex;
+  justify-content: space-between;
 }
