@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Avatar} from "shared/ui/Avatar";
 import {Online} from "shared/ui/Online";
 import cls from './DialogItem.module.scss'
 
-export const DialogItem = () => {
+interface IDialogItem {
+    isActive?: boolean
+}
+
+export const DialogItem:FC<IDialogItem> = ({isActive}) => {
     return (
-        <li className={`${cls.item}`}>
+        <li className={`${cls.item} ${isActive && cls.active}`}>
             <div className={cls.user}>
                 <Online className={cls.isOnline}/>
                 <Avatar width={40} height={40} className={cls.avatar} />

@@ -1,0 +1,27 @@
+.message {
+  display: flex;
+  gap: 8px;
+  max-width: 400px;
+  width: 100%;
+  padding: 8px 0;
+  &.isSelf {
+    flex-direction: row-reverse;
+    margin-left: auto;
+    .body {
+      background-color: var(--app-message);
+      box-shadow: var(--app-message-shadow);
+      color: var(--app-primary-text);
+      border-radius: 16px 16px 0 16px;
+    }
+  }
+  .user {
+    align-self: flex-end;
+  }
+  .body {
+    background-color: var(--app-accent);
+    border-radius: 16px 16px 16px 0;
+    padding: 10px;
+    box-shadow: var(--app-message-shadow-main);
+    color: var(--app-secondary-text);
+  }
+}

@@ -4,6 +4,7 @@ import { Header } from 'widgets/Header'
 import { Sidebar } from 'widgets/Sidebar'
 import {Interlocutor} from "widgets/Interlocutor";
 import {Dialogs} from "widgets/Dialogs";
+import {Messages} from "../widgets/Messages";
 
 export enum Theme {
   DEFAULT = 'default',
@@ -35,8 +36,10 @@ function App() {
         <div style={{ width: '100%' }}>
           <Header />
           <div className="main-section">
-            <Dialogs />
-
+            <div>
+              <Dialogs />
+            </div>
+            <Messages />
             <Interlocutor />
           </div>
         </div>
