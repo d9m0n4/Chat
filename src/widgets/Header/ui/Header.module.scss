@@ -5,6 +5,8 @@
   background-color: var(--app-primary-bg);
   width: 100%;
   backdrop-filter: blur(5px);
+  opacity: 0.85;
+  position: relative;
   .search__field {
     box-shadow: none;
     background-color: var(--app-tooltip);
@@ -13,10 +15,13 @@
   }
 
   .name {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     color: var(--app-primary-text);
     font-size: 18px;
     font-weight: 500;
+
   }
 
   .online {

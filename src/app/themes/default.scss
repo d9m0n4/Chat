@@ -12,8 +12,8 @@ html[data-theme='default'] {
   --app-tooltip: rgb(246, 247, 252, 80%);
 
   --app-shadow: 0 0 6px rgba(35, 31, 32, 25%);
-  --app-message-shadow-main: 1 2 6 rgba(69, 104, 232, 35%);
-  --app-message-shadow: -1 2 6 rgba(138, 151, 167, 35%);
+  --app-message-shadow-main: 1px 2px 6px rgba(69, 104, 232, 35%);
+  --app-message-shadow: -1px 2px 6px rgba(138, 151, 167, 35%);
 }
 
 html[data-theme='dark'] {
@@ -30,6 +30,6 @@ html[data-theme='dark'] {
   --app-tooltip: rgba(24, 23, 69, 75%);
 
   --app-shadow: 0 0 6px rgba(30, 35, 55, 25%);
-  --app-message-shadow-main: 1 2 6 rgba(30, 35, 55, 50%);
-  --app-message-shadow: -1 2 6 rgba(13, 31, 62, 60%);
+  --app-message-shadow-main: 1px 2px 6px rgba(30, 35, 55, 50%);
+  --app-message-shadow: -1px 2px 6px rgba(13, 31, 62, 60%);
 }
