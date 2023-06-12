@@ -1,0 +1,29 @@
+.form {
+  padding: 16px 32px;
+  background-color: var(--app-primary-bg);
+  border-radius: 8px;
+  color: var(--app-secondary-text);
+  max-width: 520px;
+  width: 100%;
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(var(--app-gray), .2);
+    .title {
+      font-size: 18px;
+    }
+    .close {
+
+    }
+  }
+  .search {
+
+  }
+  .body {
+
+  }
+  .footer {
+
+  }
+}

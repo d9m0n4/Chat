@@ -1,10 +1,10 @@
-import './index.css'
+import './styles/index.scss'
 import React, { useEffect, useState } from 'react'
+import { Dialogs } from 'widgets/Dialogs'
 import { Header } from 'widgets/Header'
+import { Interlocutor } from 'widgets/Interlocutor'
+import { Messages } from 'widgets/Messages'
 import { Sidebar } from 'widgets/Sidebar'
-import {Interlocutor} from "widgets/Interlocutor";
-import {Dialogs} from "widgets/Dialogs";
-import {Messages} from "../widgets/Messages";
 
 export enum Theme {
   DEFAULT = 'default',
@@ -23,8 +23,6 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('theme', theme)
   }, [theme])
-
-  console.log(theme)
 
   return (
     <div className="app">
