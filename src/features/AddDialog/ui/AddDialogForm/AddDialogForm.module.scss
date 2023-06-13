@@ -4,6 +4,7 @@
   border-radius: 8px;
   color: var(--app-secondary-text);
   width: 520px;
+  letter-spacing: 0.02em;
   .heading {
     display: flex;
     justify-content: space-between;
@@ -12,17 +13,59 @@
     border-bottom: 1px solid var(--app-border);
     .title {
       font-size: 18px;
+      color: var(--app-primary-text);
     }
     .close {
 
     }
   }
   .search {
-    padding: 1em 0;
+    padding: 1.5em 0;
+    border-bottom: 1px solid var(--app-border);
+    &__field {
+      background-color: var(--app-message);
+      width: 100%;
+    }
   }
-  .body {
 
+  .body {
+    .list {
+      padding: 1.5em 0;
+      &__item {
+        margin-bottom: 8px;
+
+        .wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .user {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            .name {
+              color: var(--app-primary-text);
+              font-weight: 500;
+              font-size: .95em;
+            }
+          }
+          .status {
+            color: var(--app-online);
+            font-size: .9em;
+          }
+          .button {
+            font-size: .95em;
+            color: var(--app-gray);
+            transition: color .250s ease-in-out;
+            &:hover {
+              color: var(--app-secondary-text);
+            }
+          }
+        }
+
+      }
+    }
   }
+
   .footer {
 
   }
