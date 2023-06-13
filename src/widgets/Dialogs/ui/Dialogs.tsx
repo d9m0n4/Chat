@@ -20,7 +20,7 @@ export const Dialogs = () => {
       <div>
         <DialogList />
       </div>
-      {isOpen && <AddDialogModal onClose={() => setIsOpen(false)} />}
+      {isOpen && <AddDialogModal isOpened={isOpen} onClose={() => setIsOpen(false)} />}
     </div>
   )
 }

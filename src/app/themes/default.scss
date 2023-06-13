@@ -11,6 +11,7 @@ html[data-theme='default'] {
   --app-online: #2fed7b;
   --app-tooltip: rgb(246, 247, 252, 80%);
   --app-modal-overlay: rgba(35, 31, 32, 0.5);
+  --app-border: rgba(138, 151, 167, 20%);
 
   --app-shadow: 0 0 6px rgba(35, 31, 32, 25%);
   --app-message-shadow-main: 1px 2px 6px rgba(69, 104, 232, 35%);
@@ -30,6 +31,7 @@ html[data-theme='dark'] {
   --app-online: #2fed7b;
   --app-tooltip: rgba(24, 23, 69, 75%);
   --app-modal-overlay: rgba(35, 31, 32, 0.5);
+  --app-border: rgba(138, 151, 167, 20%);
 
   --app-shadow: 0 0 6px rgba(30, 35, 55, 25%);
   --app-message-shadow-main: 1px 2px 6px rgba(30, 35, 55, 50%);

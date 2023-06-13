@@ -3,13 +3,13 @@
   background-color: var(--app-primary-bg);
   border-radius: 8px;
   color: var(--app-secondary-text);
-  max-width: 520px;
-  width: 100%;
+  width: 520px;
   .heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(var(--app-gray), .2);
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--app-border);
     .title {
       font-size: 18px;
     }
@@ -18,7 +18,7 @@
     }
   }
   .search {
-
+    padding: 1em 0;
   }
   .body {
 

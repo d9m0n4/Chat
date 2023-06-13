@@ -5,12 +5,13 @@ import { Modal } from 'shared/ui/Modal/ui/Modal'
 
 interface AddDialogModalProps {
   onClose: () => void
+    isOpened: boolean
 }
 
-export const AddDialogModal: FC<AddDialogModalProps> = ({ onClose }) => {
+export const AddDialogModal: FC<AddDialogModalProps> = ({ onClose, isOpened }) => {
   return (
     <Portal>
-      <Modal onClose={onClose}>
+      <Modal onClose={onClose} isOpened={isOpened}>
         <AddDialogForm />
       </Modal>
     </Portal>
