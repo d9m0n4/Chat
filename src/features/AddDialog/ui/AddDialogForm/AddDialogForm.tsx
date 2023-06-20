@@ -29,8 +29,10 @@ export const AddDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
                 <Avatar width={40} height={40} />
                 <div className={cls.name}>Александр Пушкин</div>
               </div>
-              <div className={cls.status}>онлайн</div>
-              <Button className={cls.button}> {'Написать'} </Button>
+              <div className={cls.info}>
+                <div className={cls.status}>онлайн</div>
+                <Button className={cls.button}> {'Написать'} </Button>
+              </div>
             </div>
           </li>
           <li className={cls.list__item}>
@@ -39,8 +41,10 @@ export const AddDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
                 <Avatar width={40} height={40} />
                 <div className={cls.name}>Александр Пушкин</div>
               </div>
-              <div className={cls.status}>онлайн</div>
-              <Button className={cls.button}> {'Написать'} </Button>
+              <div className={cls.info}>
+                <div className={cls.status}>онлайн</div>
+                <Button className={cls.button}> {'Написать'} </Button>
+              </div>
             </div>
           </li>
           <li className={cls.list__item}>
@@ -49,23 +53,27 @@ export const AddDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
                 <Avatar width={40} height={40} />
                 <div className={cls.name}>Пушкин</div>
               </div>
-              <div className={cls.status}>онлайн</div>
-              <Button className={cls.button}> {'Написать'} </Button>
+              <div className={cls.info}>
+                <div className={cls.status}>онлайн</div>
+                <Button className={cls.button}> {'Написать'} </Button>
+              </div>
             </div>
           </li>
           <li className={cls.list__item}>
             <div className={cls.wrapper}>
               <div className={cls.user}>
                 <Avatar width={40} height={40} />
-                <div className={cls.name}>Александр Пушкин</div>
+                <div className={cls.name}>Александр Пушкин </div>
               </div>
-              <div className={cls.status}>онлайн</div>
-              <Button className={cls.button}> {'Написать'} </Button>
+              <div className={cls.info}>
+                <div className={cls.status}>онлайн</div>
+                <Button className={cls.button}> {'Написать'} </Button>
+              </div>
             </div>
           </li>
         </ul>
       </div>
-      <div className={cls.footer}>321</div>
+      <div className={cls.footer}></div>
     </div>
   )
 }

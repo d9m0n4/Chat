@@ -9,17 +9,20 @@ export const Dialogs = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   return (
     <div className={cls.dialogs}>
-      <div>
-        <div className={cls.title}>
-          <p>Диалоги</p>
-          <Button onClick={() => setIsOpen(true)}>
-            <Add className="icon" />
-          </Button>
+      <div className={cls.dialogs__wrapper}>
+        <div className={cls.dialogs__heading}>
+          <div className={cls.title}>
+            <p>Диалоги</p>
+            <Button onClick={() => setIsOpen(true)}>
+              <Add className="icon" />
+            </Button>
+          </div>
+        </div>
+        <div className={cls.dialogs__body}>
+          <DialogList />
         </div>
       </div>
-      <div>
-        <DialogList />
-      </div>
+
       {isOpen && <AddDialogModal isOpened={isOpen} onClose={() => setIsOpen(false)} />}
     </div>
   )

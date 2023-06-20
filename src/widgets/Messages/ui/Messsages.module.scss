@@ -3,4 +3,20 @@
   width: 100%;
   overflow: auto;
   height: calc(100vh - 125px);
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--app-border);
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--app-gray);
+  }
 }

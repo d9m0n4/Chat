@@ -34,9 +34,7 @@ function App() {
         <div style={{ width: '100%' }}>
           <Header />
           <div className="main-section">
-            <div>
-              <Dialogs />
-            </div>
+            <Dialogs />
             <Messages />
             <Interlocutor />
           </div>

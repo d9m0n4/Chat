@@ -2,4 +2,23 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  overflow: auto;
+  height: 100%;
+  padding-right: 16px;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--app-border);
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--app-gray);
+  }
 }
