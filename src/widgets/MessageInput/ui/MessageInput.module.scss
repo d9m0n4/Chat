@@ -1,0 +1,18 @@
+.messages__input {
+  padding: 16px 32px;
+
+  .input__block {
+    padding-top: 16px;
+    border-top: 1px solid var(--app-border);
+    display: flex;
+    align-items: end;
+    gap: 24px;
+    .attach {
+    }
+    .body {
+      color: var(--app-primary-text);
+    }
+    .send {
+    }
+  }
+}

@@ -1,8 +1,12 @@
+.messages__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 .messages {
   padding: 32px;
   width: 100%;
   overflow: auto;
-  height: calc(100vh - 125px);
   &::-webkit-scrollbar {
     width: 6px;
   }

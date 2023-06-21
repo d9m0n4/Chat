@@ -47,15 +47,15 @@ code {
 .app {
   max-width: 1440px;
   margin: 0 auto;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   background-color: var(--app-secondary-bg);
   display: flex;
   height: 100vh;
 }
 
 .main {
-  display: flex;
-  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
 }
 
 .icon * {
