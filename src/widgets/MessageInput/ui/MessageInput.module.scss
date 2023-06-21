@@ -8,10 +8,51 @@
     align-items: end;
     gap: 24px;
     .attach {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .body {
-      color: var(--app-primary-text);
+    .input__body {
+      flex-grow: 1;
+      transition: all 250ms ease-in;
     }
+    .input__scroller {
+      max-height: 200px;
+      overflow: auto;
+      transition: all 250ms ease-in;
+      .input {
+          position: relative;
+          color: var(--app-primary-text);
+          padding: 8px;
+          word-break: break-word;
+          white-space: pre-wrap;
+          width: 100%;
+          height: auto;
+          outline: none;
+          transition: all 250ms ease-in;
+        &::before {
+          content:attr(placeholder);
+          cursor: text;
+        }
+      }
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        border-radius: 100px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--app-border);
+        border-radius: 100px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: var(--app-gray);
+      }
+    }
+
     .send {
     }
   }

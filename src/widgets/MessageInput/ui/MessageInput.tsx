@@ -1,6 +1,7 @@
 import cls from './MessageInput.module.scss'
 import React from 'react'
-import { ReactComponent as Cog } from 'shared/assets/icons/cog.svg'
+import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg'
+import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg'
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg'
 import { Button } from 'shared/ui/Button'
 
@@ -10,15 +11,16 @@ export const MessageInput = () => {
       <div className={cls.input__block}>
         <div className={cls.attach}>
           <Button>
-            <Cog className="icon" />
+            <Attach className="icon" />
+          </Button>
+          <Button>
+            <Emoji className="icon" />
           </Button>
         </div>
 
-        <div style={{ flexGrow: 1 }}>
-          <div style={{ overflow: 'hidden', height: '56px' }}>
-            <div style={{ position: 'relative' }}>
-              <div className={cls.body} contentEditable placeholder="Введите сообщение..." />
-            </div>
+        <div className={cls.input__body}>
+          <div className={cls.input__scroller}>
+              <div className={cls.input} contentEditable placeholder="Введите сообщение..." role='textbox' />
           </div>
         </div>
 

@@ -31,14 +31,7 @@ function App() {
       </button>
       <div className="main">
         <Sidebar />
-        <div style={{ width: '100%' }}>
-          <Header />
-          <div className="main-section">
-            <Dialogs />
-            <Messages />
-            <Interlocutor />
-          </div>
-        </div>
+
       </div>
     </div>
   )
