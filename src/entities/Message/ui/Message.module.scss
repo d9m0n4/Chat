@@ -12,6 +12,7 @@
       box-shadow: var(--app-message-shadow);
       color: var(--app-primary-text);
       border-radius: 16px 16px 0 16px;
+      transition: color 250ms ease-in;
     }
   }
   .user {
@@ -23,6 +24,6 @@
     padding: 10px;
     box-shadow: var(--app-message-shadow-main);
     color: var(--app-secondary-text);
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }

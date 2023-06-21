@@ -1,0 +1,21 @@
+.page__content {
+  padding: 3em;
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  border-radius: 0.5em;
+  background-color: var(--app-primary-bg);
+  padding: 3em;
+  box-shadow: var(--app-message-shadow);
+}
+
+.theme__card {
+  width: 155px;
+  height: 90px;
+  border-radius: 0.5em;
+  background-color: var(--app-secondary-bg);
+  box-shadow: var(--app-message-shadow);
+}

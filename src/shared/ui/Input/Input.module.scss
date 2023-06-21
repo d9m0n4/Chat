@@ -2,10 +2,11 @@
   border: none;
   outline: none;
   background-color: var(--app-message);
-  box-shadow: 1px 2px 6px rgba(35, 31, 32, 0.25);
+  box-shadow: var(--app-message-shadow);
   border-radius: 8px;
-  padding: 8px;
+  padding: 0.5em;
   color: var(--app-gray);
   font-family: Gilroy;
-  font-size: 14px;
+  font-size: 0.9em;
+  color: var(--app-primary-text);
 }

@@ -1,5 +1,5 @@
 .header {
-  padding: 24px 16px;
+  padding: 1.5em 1em;
   display: flex;
   justify-content: space-between;
   background-color: var(--app-primary-bg);
@@ -10,7 +10,7 @@
   .search__field {
     box-shadow: none;
     background-color: var(--app-tooltip);
-    padding: 8px 10px;
+    padding: 0.5em 0.6em;
     width: 240px;
   }
 
@@ -19,14 +19,14 @@
     left: 50%;
     transform: translateX(-50%);
     color: var(--app-primary-text);
-    font-size: 18px;
+    font-size: 1.15em;
     font-weight: 500;
-
   }
 
   .online {
     position: absolute;
-    top: 25%;
-    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -1em;
   }
 }

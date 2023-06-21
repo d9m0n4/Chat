@@ -1,12 +1,12 @@
 .messages__input {
-  padding: 16px 32px;
+  padding: 1em 2em;
 
   .input__block {
-    padding-top: 16px;
+    padding-top: 1em;
     border-top: 1px solid var(--app-border);
     display: flex;
     align-items: end;
-    gap: 24px;
+    gap: 1.5em;
     .attach {
       display: flex;
       align-items: center;
@@ -21,17 +21,17 @@
       overflow: auto;
       transition: all 250ms ease-in;
       .input {
-          position: relative;
-          color: var(--app-primary-text);
-          padding: 8px;
-          word-break: break-word;
-          white-space: pre-wrap;
-          width: 100%;
-          height: auto;
-          outline: none;
-          transition: all 250ms ease-in;
+        position: relative;
+        color: var(--app-primary-text);
+        padding: 0.5em;
+        word-break: break-word;
+        white-space: pre-wrap;
+        width: 100%;
+        height: auto;
+        outline: none;
+        transition: all 250ms ease-in;
         &::before {
-          content:attr(placeholder);
+          content: attr(placeholder);
           cursor: text;
         }
       }
@@ -54,6 +54,7 @@
     }
 
     .send {
+      transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
   }
 }

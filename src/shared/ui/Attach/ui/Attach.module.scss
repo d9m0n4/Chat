@@ -1,20 +1,21 @@
 .attach {
-  border-radius: 8px;
+  border-radius: 0.5em;
   padding: 8px 10px;
   display: flex;
   align-items: center;
   transition: background-color 250ms ease;
-  gap: 16px;
+  gap: 1em;
   &:hover {
     background-color: var(--app-hover-el);
   }
   .icon {
-
+    position: relative;
+    display: flex;
   }
   .body {
     overflow: hidden;
     .title {
-      font-size: 14px;
+      font-size: 0.9em;
       color: var(--app-primary-text);
       p {
         white-space: nowrap;
@@ -24,10 +25,10 @@
       }
     }
     .info {
-      font-size: 10px;
+      font-size: 0.7em;
       display: flex;
       justify-content: space-between;
-      margin-top: 8px;
+      margin-top: 0.5em;
       color: var(--app-gray);
     }
   }

@@ -20,5 +20,5 @@
       "*": ["*"]
     }
   },
-  "include": ["./src/custom.d.ts", "./src/**/*.ts", "./src/**/*.tsx", "src"]
+  "include": ["src/app/types/global.d.ts", "./src/**/*.ts", "./src/**/*.tsx", "src"]
 }

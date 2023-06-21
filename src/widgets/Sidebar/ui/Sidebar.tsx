@@ -1,6 +1,6 @@
 import cls from './Sidebar.module.scss'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { ReactComponent as Bookmark } from 'shared/assets/icons/bookmark.svg'
 import { ReactComponent as Chat } from 'shared/assets/icons/chat.svg'
 import { ReactComponent as Settings } from 'shared/assets/icons/cog.svg'
@@ -11,24 +11,29 @@ export const Sidebar = () => {
   return (
     <div className={cls.sidebar}>
       <div className={cls.user}>
-        <Avatar />
+        <NavLink to={'/profile'}>
+          <Avatar />
+        </NavLink>
       </div>
       <div className={cls.sidebar__nav}>
         <div className={cls.links}>
-          <Link to={'/'}>
+          <NavLink to={'/'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
             <Chat className={`${cls.icon} icon`} />
-          </Link>
-          <Link to={'/'}>
+          </NavLink>
+          <NavLink
+            to={'/favorites'}
+            className={({ isActive }) => (isActive ? `${cls.active}` : '')}
+          >
             <Bookmark className={`${cls.icon} icon`} />
-          </Link>
+          </NavLink>
         </div>
         <div className={cls.links}>
-          <Link to={'/'}>
+          <NavLink to={'/settings'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
             <Settings className={`${cls.icon} icon`} />
-          </Link>
-          <Link to={'/'}>
+          </NavLink>
+          <NavLink to={'/logout'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
             <Logout className={`${cls.icon} icon`} />
-          </Link>
+          </NavLink>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { AppRouter } from './providers/routerProvider'
 import './styles/index.scss'
 import React, { useEffect, useState } from 'react'
 import { Dialogs } from 'widgets/Dialogs'
@@ -31,7 +32,7 @@ function App() {
       </button>
       <div className="main">
         <Sidebar />
-
+        <AppRouter />
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 .dialogs {
-  padding: 16px 0 32px 16px;
+  padding: 1em 0 2em 1em;
   background-color: var(--app-primary-bg);
   width: 300px;
   height: 100%;
@@ -17,13 +17,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 0 12px;
+      margin-bottom: 1em;
+      padding: 0 0.75em;
       color: var(--app-primary-text);
     }
   }
   &__body {
     overflow: hidden;
   }
-
 }
