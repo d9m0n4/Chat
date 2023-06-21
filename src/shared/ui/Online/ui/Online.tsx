@@ -6,5 +6,5 @@ interface OnlineProps {
 }
 
 export const Online: FC<OnlineProps> = ({ className }) => {
-  return <span className={`${cls.online} ${className}`}></span>
+  return <span className={`${cls.online} ${className}`} />
 }

@@ -1,6 +1,9 @@
-import './index.css'
+import './styles/index.scss'
 import React, { useEffect, useState } from 'react'
+import { Dialogs } from 'widgets/Dialogs'
 import { Header } from 'widgets/Header'
+import { Interlocutor } from 'widgets/Interlocutor'
+import { Messages } from 'widgets/Messages'
 import { Sidebar } from 'widgets/Sidebar'
 
 export enum Theme {
@@ -21,8 +24,6 @@ function App() {
     localStorage.setItem('theme', theme)
   }, [theme])
 
-  console.log(theme)
-
   return (
     <div className="app">
       <button style={{ position: 'absolute', top: '50%', left: '50%' }} onClick={changeTheme}>
@@ -30,9 +31,7 @@ function App() {
       </button>
       <div className="main">
         <Sidebar />
-        <div style={{ width: '100%' }}>
-          <Header />
-        </div>
+
       </div>
     </div>
   )

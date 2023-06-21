@@ -1,0 +1,59 @@
+.interlocutor {
+  padding: 32px 0 32px 16px;
+  background-color: var(--app-primary-bg);
+  width: 290px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 0 16px 32px 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid;
+    .name {
+      color: var(--app-primary-text)
+    }
+    .isOnline {
+      color: var(--app-online);
+    }
+  }
+  .attaches {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    &__heading {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 16px;
+      color: var(--app-gray);
+    }
+    &__body {
+      overflow: hidden;
+
+    }
+    &__list {
+      overflow: auto;
+      padding-right: 16px;
+      height: 100%;
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        border-radius: 100px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--app-border);
+        border-radius: 100px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: var(--app-gray);
+      }
+    }
+  }
+}

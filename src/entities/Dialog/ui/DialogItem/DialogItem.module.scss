@@ -1,0 +1,95 @@
+.item {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--app-primary-text);
+  border-radius: 8px;
+  transition: all 250ms ease;
+  cursor: pointer;
+  &.active {
+    background-color: var(--app-accent);
+    &:hover {
+      background-color: var(--app-accent);
+    }
+    .user {
+      .count {
+        box-shadow: var(--app-shadow);
+      }
+      .isOnline {
+        border:  1px solid var(--app-accent);
+      }
+    }
+    .body {
+      .title {
+        color: var(--app-secondary-text);
+      }
+      .subtitle {
+        color: var(--app-secondary-text);
+      }
+    }
+    .info {
+      .date {
+        color: var(--app-secondary-text);
+      }
+    }
+
+
+  }
+  &:hover {
+    background-color: var(--app-hover-el);
+    color: var(--app-secondary-text);
+  }
+  .user {
+    position: relative;
+    .avatar {
+      position: absolute;
+      border:  2px solid var(--app-primary-bg);
+    }
+    .isOnline {
+      position: absolute;
+      border: 1px solid var(--app-primary-bg);
+      right: 2px;
+      top: 2px;
+    }
+    .count {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      font-size: .65em;
+      color: var(--app-secondary-text);
+      background-color: var(--app-controls);
+      border-radius: 50%;
+      padding: 1px 2px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+  .body {
+    overflow: hidden;
+    .title {
+      font-size: .9em;
+      font-weight: 500;
+      color: var(--app-primary-text);
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      font-size: .8em;
+      color: var(--app-gray);
+    }
+    span {
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+  .info {
+    align-self: flex-start;
+    .date {
+      color: var(--app-gray);
+      font-size: .75em;
+    }
+  }
+}

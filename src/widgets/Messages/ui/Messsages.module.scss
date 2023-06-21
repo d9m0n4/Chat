@@ -1,0 +1,26 @@
+.messages__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.messages {
+  padding: 32px;
+  width: 100%;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--app-border);
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--app-gray);
+  }
+}

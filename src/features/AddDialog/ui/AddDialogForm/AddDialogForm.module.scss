@@ -1,0 +1,75 @@
+.form {
+  padding: 16px 32px;
+  background-color: var(--app-primary-bg);
+  border-radius: 8px;
+  color: var(--app-secondary-text);
+  width: 520px;
+  letter-spacing: 0.02em;
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--app-border);
+    .title {
+      font-size: 18px;
+      color: var(--app-primary-text);
+    }
+    .close {
+
+    }
+  }
+  .search {
+    padding: 1.5em 0;
+    &__field {
+      background-color: var(--app-message);
+      width: 100%;
+    }
+  }
+
+  .body {
+    border-top: 1px solid var(--app-border);
+    .list {
+      padding: 1.5em 0;
+      &__item {
+        margin-bottom: 8px;
+        .wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .user {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            .name {
+              color: var(--app-primary-text);
+              font-weight: 500;
+              font-size: .95em;
+            }
+        }
+          .info {
+            display: flex;
+            gap: 64px;
+            .status {
+              color: var(--app-online);
+              font-size: .9em;
+            }
+            .button {
+              font-size: .95em;
+              color: var(--app-gray);
+              transition: color .250s ease-in-out;
+              &:hover {
+                color: var(--app-secondary-text);
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  .footer {
+
+  }
+}
