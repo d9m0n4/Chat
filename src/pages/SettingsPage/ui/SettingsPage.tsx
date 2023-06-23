@@ -6,7 +6,7 @@ interface SettingsPageProps {}
 export const SettingsPage: FC<SettingsPageProps> = ({}) => {
   return (
     <div>
-      <div className="page__header">'header'</div>
+      <div className="page__header">123</div>
       <div className={cls.page__content}>
         <div className={cls.body}>
           <div className={cls.theme__card} />

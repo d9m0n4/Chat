@@ -13,8 +13,12 @@ export const Header = () => {
   }
   return (
     <div className={cls.header}>
-      <Input className={cls.search__field} placeholder="Поиск диалогов" value={v} onChange={c} />
-
+      <Input
+          className={cls.search__field}
+          placeholder="Поиск диалогов"
+          value={v}
+          onChange={c}
+      />
       <div className={cls.name}>
         Cokrat <Online className={cls.online} />
       </div>
