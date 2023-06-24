@@ -1,4 +1,5 @@
-import cls from './Messsages.module.scss'
+import cls from './Messages.module.scss'
+import { MessagesList } from './MessagesList/MessagesList'
 import { Message } from 'entities/Message/ui/Message'
 import React from 'react'
 import { Input } from 'shared/ui/Input/Input'
@@ -7,20 +8,7 @@ import { MessageInput } from 'widgets/MessageInput'
 export const Messages = () => {
   return (
     <div className={cls.messages__wrapper}>
-      <div className={cls.messages}>
-        <Message />
-        <Message isSelf />
-        <Message />
-        <Message isSelf />
-        <Message />
-        <Message isSelf />
-        <Message />
-        <Message isSelf />
-        <Message />
-        <Message isSelf />
-        <Message />
-        <Message isSelf />
-      </div>
+      <MessagesList messages={[1, 2]} />
       <MessageInput />
     </div>
   )

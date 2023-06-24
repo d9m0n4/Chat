@@ -11,6 +11,8 @@ export const AppRoutesPaths: Record<AppRoutes, string> = {
   [AppRoutes.FAVORITES]: '/favorites',
   [AppRoutes.SETTINGS]: '/settings',
   [AppRoutes.PROFILE]: '/profile',
+  [AppRoutes.SIGNUP]: '/signUp',
+  [AppRoutes.SIGNIN]: '/signIn',
   [AppRoutes.NOT_FOUND]: '*',
 }
 
@@ -29,6 +31,14 @@ export const routerConfig: Record<AppRoutes, RouteProps> = {
   },
   [AppRoutes.PROFILE]: {
     path: AppRoutesPaths.profile,
+    element: <ProfilePage />,
+  },
+  [AppRoutes.SIGNUP]: {
+    path: AppRoutesPaths.signUp,
+    element: <ProfilePage />,
+  },
+  [AppRoutes.SIGNIN]: {
+    path: AppRoutesPaths.signIn,
     element: <ProfilePage />,
   },
   [AppRoutes.NOT_FOUND]: {
