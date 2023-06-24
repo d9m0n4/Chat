@@ -1,11 +1,24 @@
-import { Dialogs } from '../../../widgets/Dialogs'
-import { Header } from '../../../widgets/Header'
-import { Interlocutor } from '../../../widgets/Interlocutor'
-import { Messages } from '../../../widgets/Messages'
+import cls from './ProfilePage.module.scss'
 import React, { FC } from 'react'
+import { Avatar } from 'shared/ui/Avatar'
+import { Button } from 'shared/ui/Button'
+import { ButtonVariants } from 'shared/ui/Button/ui/Button'
+import { Input } from 'shared/ui/Input/Input'
 
 interface ProfilePageProps {}
 
 export const ProfilePage: FC<ProfilePageProps> = ({}) => {
-  return <div>'PROFILE'</div>
+  return (
+    <div className={cls.profile}>
+      <div className={cls.info}>
+        <Avatar width={100} />
+        <form className={cls.profile__form} action="">
+          <Input />
+          <Input />
+          <Input />
+          <Button variant={ButtonVariants.PRIMARY}>Сохранить</Button>
+        </form>
+      </div>
+    </div>
+  )
 }

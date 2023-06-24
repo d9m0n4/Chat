@@ -6,6 +6,7 @@ import { ReactComponent as Chat } from 'shared/assets/icons/chat.svg'
 import { ReactComponent as Settings } from 'shared/assets/icons/cog.svg'
 import { ReactComponent as Logout } from 'shared/assets/icons/logout.svg'
 import { Avatar } from 'shared/ui/Avatar'
+import { Button } from 'shared/ui/Button'
 
 export const Sidebar = () => {
   return (
@@ -26,14 +27,14 @@ export const Sidebar = () => {
           >
             <Bookmark className={`${cls.icon} icon`} />
           </NavLink>
-        </div>
-        <div className={cls.links}>
           <NavLink to={'/settings'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
             <Settings className={`${cls.icon} icon`} />
           </NavLink>
-          <NavLink to={'/logout'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
+        </div>
+        <div className={cls.links}>
+          <Button>
             <Logout className={`${cls.icon} icon`} />
-          </NavLink>
+          </Button>
         </div>
       </div>
     </div>

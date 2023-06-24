@@ -1,4 +1,5 @@
 import cls from './Input.module.scss'
+import clsx from 'classnames'
 import React, { ChangeEvent, FC, HTMLAttributes } from 'react'
 
 interface InputProps extends Omit<HTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
@@ -17,7 +18,7 @@ export const Input: FC<InputProps> = ({ className, onChange, value, ...props }) 
     <input
       value={value}
       onChange={changeHandler}
-      className={`${cls.input} ${className}`}
+      className={clsx(cls.input, className)}
       {...props}
     />
   )

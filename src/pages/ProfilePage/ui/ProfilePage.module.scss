@@ -1,0 +1,17 @@
+.profile {
+  border-radius: 0.5em;
+  margin: 1.5em 2em;
+  background-color: var(--app-primary-bg);
+  padding: 1.5em;
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+}
