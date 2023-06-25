@@ -4,6 +4,8 @@ import React, { FC, PropsWithChildren } from 'react'
 import { Outlet } from 'react-router-dom'
 import { ChatHeader } from 'widgets/ChatHeader'
 import { PageHeader } from 'widgets/PageHeader'
+import {Sidebar} from "../Sidebar";
+import {AppRouter} from "../../app/providers/routerProvider";
 
 interface MainLayoutProps {
   path: string | undefined
@@ -11,9 +13,13 @@ interface MainLayoutProps {
 
 export const Layout: FC<MainLayoutProps> = ({ path }) => {
   return (
-    <div>
-      {path === AppRoutesPaths.main ? <ChatHeader /> : <PageHeader children={'123123'} />}
-      <Outlet />
-    </div>
+      <div className="main">
+          <Sidebar />
+          <div>
+              {path === AppRoutesPaths.main ? <ChatHeader /> : <PageHeader children={'123123'} />}
+              <Outlet />
+          </div>
+      </div>
+
   )
 }

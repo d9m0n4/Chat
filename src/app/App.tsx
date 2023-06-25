@@ -13,10 +13,7 @@ function App() {
   }, [theme])
   return (
     <div className="app">
-      <div className="main">
-        <Sidebar />
-        <AppRouter />
-      </div>
+      <AppRouter />
     </div>
   )
 }
