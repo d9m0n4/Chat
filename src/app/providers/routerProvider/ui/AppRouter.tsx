@@ -14,7 +14,7 @@ export const AppRouter = () => {
             <Route path={route.path} element={<RequireAuth>{element}</RequireAuth>} />
           </Route>
         }
-        return <Route path={route.path} element={route.element} />
+        return <Route key={route.path} path={route.path} element={route.element} />
       })}
     </Routes>
   )

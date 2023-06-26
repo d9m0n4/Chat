@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const RequireAuth = ({ children }: Props) => {
-    const auth = false
+    const auth = true
     return auth ? (
         children
     ) : (

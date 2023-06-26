@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1em;
+  .title {
+    color: var(--app-primary-text);
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    .button {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
