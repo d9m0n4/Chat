@@ -1,1 +1,1 @@
-export { ChatHeader } from './ui/ChatHeader'
+export { ChatHeader } from './ui/ChatHeader';

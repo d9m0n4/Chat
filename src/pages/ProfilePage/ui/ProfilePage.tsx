@@ -1,9 +1,10 @@
-import cls from './ProfilePage.module.scss'
-import React, { FC } from 'react'
-import { Avatar } from 'shared/ui/Avatar'
-import { Button } from 'shared/ui/Button'
-import { ButtonVariants } from 'shared/ui/Button/ui/Button'
-import { Input } from 'shared/ui/Input/Input'
+import React, { FC } from 'react';
+import { Avatar } from 'shared/ui/Avatar';
+import { Button } from 'shared/ui/Button';
+import { ButtonVariants } from 'shared/ui/Button/ui/Button';
+import { Input } from 'shared/ui/Input/Input';
+
+import cls from './ProfilePage.module.scss';
 
 interface ProfilePageProps {}
 
@@ -20,5 +21,5 @@ export const ProfilePage: FC<ProfilePageProps> = ({}) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};

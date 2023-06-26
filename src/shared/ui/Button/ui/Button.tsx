@@ -1,6 +1,7 @@
-import cls from './Button.module.scss'
-import clsx from 'classnames'
-import React, { FC, HTMLAttributes, PropsWithChildren } from 'react'
+import clsx from 'classnames';
+import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+
+import cls from './Button.module.scss';
 
 export enum ButtonVariants {
   EMPTY = 'empty',
@@ -9,9 +10,9 @@ export enum ButtonVariants {
 }
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  className?: string
-  children?: React.ReactNode
-  variant?: ButtonVariants
+  className?: string;
+  children?: React.ReactNode;
+  variant?: ButtonVariants;
 }
 
 export const Button: FC<PropsWithChildren<ButtonProps>> = ({
@@ -25,5 +26,5 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
     <button className={clsx(cls.button, cls[variant], className)} onClick={onClick} {...props}>
       {children}
     </button>
-  )
-}
+  );
+};

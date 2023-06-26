@@ -1,1 +1,1 @@
-export { Dialogs } from './ui/Dialogs'
+export { Dialogs } from './ui/Dialogs';

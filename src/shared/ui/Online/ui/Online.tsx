@@ -1,10 +1,11 @@
-import cls from './Online.module.scss'
-import React, { FC } from 'react'
+import React, { FC } from 'react';
+
+import cls from './Online.module.scss';
 
 interface OnlineProps {
-  className?: string
+  className?: string;
 }
 
 export const Online: FC<OnlineProps> = ({ className }) => {
-  return <span className={`${cls.online} ${className}`} />
-}
+  return <span className={`${cls.online} ${className}`} />;
+};

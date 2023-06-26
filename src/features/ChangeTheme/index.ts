@@ -1,1 +1,1 @@
-export { ThemeCard } from './ui/ThemeCard'
+export { ThemeCard } from './ui/ThemeCard';

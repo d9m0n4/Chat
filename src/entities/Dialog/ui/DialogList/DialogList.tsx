@@ -1,6 +1,7 @@
-import { DialogItem } from '../DialogItem/DialogItem'
-import cls from './DialogList.module.scss'
-import React from 'react'
+import React from 'react';
+
+import { DialogItem } from '../DialogItem/DialogItem';
+import cls from './DialogList.module.scss';
 
 export const DialogList = () => {
   return (
@@ -22,5 +23,5 @@ export const DialogList = () => {
       <DialogItem />
       <DialogItem />
     </ul>
-  )
-}
+  );
+};

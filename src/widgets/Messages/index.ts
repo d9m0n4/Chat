@@ -1,2 +1,2 @@
-export {Messages} from './ui/Messages'
-export {MessagesList} from './ui/MessagesList/MessagesList'
+export { Messages } from './ui/Messages';
+export { MessagesList } from './ui/MessagesList/MessagesList';

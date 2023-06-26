@@ -1,16 +1,17 @@
-import cls from './ChatHeader.module.scss'
-import React from 'react'
-import { ReactComponent as Dots } from 'shared/assets/icons/dots-horizontal.svg'
-import { Button } from 'shared/ui/Button'
-import { Input } from 'shared/ui/Input/Input'
-import { Online } from 'shared/ui/Online'
+import React from 'react';
+import { ReactComponent as Dots } from 'shared/assets/icons/dots-horizontal.svg';
+import { Button } from 'shared/ui/Button';
+import { Input } from 'shared/ui/Input/Input';
+import { Online } from 'shared/ui/Online';
+
+import cls from './ChatHeader.module.scss';
 
 export const ChatHeader = () => {
-  const [v, setV] = React.useState('')
+  const [v, setV] = React.useState('');
   const c = (s: string) => {
-    setV(s)
-    console.log(s)
-  }
+    setV(s);
+    console.log(s);
+  };
   return (
     <div className={cls.header}>
       <Input className={cls.search__field} placeholder="Поиск диалогов" value={v} onChange={c} />
@@ -21,5 +22,5 @@ export const ChatHeader = () => {
         <Dots className="icon" />
       </Button>
     </div>
-  )
-}
+  );
+};

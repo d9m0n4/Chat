@@ -1,11 +1,12 @@
-import { Avatar } from '../../../shared/ui/Avatar'
-import cls from './Message.module.scss'
-import clsx from 'classnames'
-import React, { FC } from 'react'
+import clsx from 'classnames';
+import React, { FC } from 'react';
+
+import { Avatar } from '../../../shared/ui/Avatar';
+import cls from './Message.module.scss';
 
 interface IMessage {
-  className?: string
-  isSelf?: boolean
+  className?: string;
+  isSelf?: boolean;
 }
 
 export const Message: FC<IMessage> = ({ isSelf, className }) => {
@@ -19,5 +20,5 @@ export const Message: FC<IMessage> = ({ isSelf, className }) => {
         хороший руль?
       </div>
     </div>
-  )
-}
+  );
+};

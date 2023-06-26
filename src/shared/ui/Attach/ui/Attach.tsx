@@ -1,8 +1,9 @@
-import { Button } from '../../Button'
-import cls from './Attach.module.scss'
-import React from 'react'
-import { ReactComponent as Download } from 'shared/assets/icons/download.svg'
-import { ReactComponent as PDF } from 'shared/assets/icons/pdf.svg'
+import React from 'react';
+import { ReactComponent as Download } from 'shared/assets/icons/download.svg';
+import { ReactComponent as PDF } from 'shared/assets/icons/pdf.svg';
+
+import { Button } from '../../Button';
+import cls from './Attach.module.scss';
 
 export const Attach = () => {
   return (
@@ -23,5 +24,5 @@ export const Attach = () => {
         <Download className="icon" />
       </Button>
     </li>
-  )
-}
+  );
+};

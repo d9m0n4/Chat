@@ -1,15 +1,16 @@
-import cls from './SettingsPage.module.scss'
-import { ThemeCard } from 'features/ChangeTheme'
-import React, { FC } from 'react'
+import { ThemeCard } from 'features/ChangeTheme';
+import React, { FC } from 'react';
 
-interface SettingsPageProps {}
+import cls from './SettingsPage.module.scss';
 
-export const SettingsPage: FC<SettingsPageProps> = ({}) => {
+// interface SettingsPageProps {}
+
+export const SettingsPage: FC = () => {
   return (
     <div className={cls.page__content}>
       <div className={cls.body}>
         <ThemeCard themeName="w" />
       </div>
     </div>
-  )
-}
+  );
+};

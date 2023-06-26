@@ -1,12 +1,13 @@
-import cls from './Dialogs.module.scss'
-import { DialogList } from 'entities/Dialog'
-import { AddDialogModal } from 'features/AddDialog'
-import React from 'react'
-import { ReactComponent as Add } from 'shared/assets/icons/plus.svg'
-import { Button } from 'shared/ui/Button'
+import { DialogList } from 'entities/Dialog';
+import { AddDialogModal } from 'features/AddDialog';
+import React from 'react';
+import { ReactComponent as Add } from 'shared/assets/icons/plus.svg';
+import { Button } from 'shared/ui/Button';
+
+import cls from './Dialogs.module.scss';
 
 export const Dialogs = () => {
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
     <div className={cls.dialogs}>
       <div className={cls.dialogs__wrapper}>
@@ -25,5 +26,5 @@ export const Dialogs = () => {
 
       {isOpen && <AddDialogModal isOpened={isOpen} onClose={() => setIsOpen(false)} />}
     </div>
-  )
-}
+  );
+};

@@ -1,6 +1,7 @@
-import cls from '../Messages.module.scss'
-import { Message } from 'entities/Message/ui/Message'
-import React from 'react'
+import { Message } from 'entities/Message/ui/Message';
+import React from 'react';
+
+import cls from '../Messages.module.scss';
 
 // interface MessagesListProps {
 //     message: IMessage
@@ -13,5 +14,5 @@ export const MessagesList = ({ messages }: { messages: number[] }) => {
         <Message key={message} />
       ))}
     </div>
-  )
-}
+  );
+};

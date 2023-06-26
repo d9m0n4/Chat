@@ -1,9 +1,10 @@
-import cls from './MessageInput.module.scss'
-import React from 'react'
-import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg'
-import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg'
-import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg'
-import { Button } from 'shared/ui/Button'
+import React from 'react';
+import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg';
+import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
+import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg';
+import { Button } from 'shared/ui/Button';
+
+import cls from './MessageInput.module.scss';
 
 export const MessageInput = () => {
   return (
@@ -20,7 +21,12 @@ export const MessageInput = () => {
 
         <div className={cls.input__body}>
           <div className={cls.input__scroller}>
-              <div className={cls.input} contentEditable placeholder="Введите сообщение..." role='textbox' />
+            <div
+              className={cls.input}
+              contentEditable
+              placeholder="Введите сообщение..."
+              role="textbox"
+            />
           </div>
         </div>
 
@@ -31,5 +37,5 @@ export const MessageInput = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

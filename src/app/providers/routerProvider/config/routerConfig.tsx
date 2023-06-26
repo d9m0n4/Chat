@@ -1,11 +1,11 @@
-import {AppRoutes, AppRoutesProps} from './types'
-import { FavoritesPage } from 'pages/FavoritesPage/ui/FavoritesPage'
-import { MainPage } from 'pages/MainPage/ui/MainPage'
-import { NotFoundPage } from 'pages/NotFoundPage'
-import { ProfilePage } from 'pages/ProfilePage'
-import { SettingsPage } from 'pages/SettingsPage/ui/SettingsPage'
-import { RouteProps } from 'react-router-dom'
-import {AuthPage} from "../../../../pages/AuthPage";
+import { AuthPage } from 'pages/AuthPage';
+import { FavoritesPage } from 'pages/FavoritesPage/ui/FavoritesPage';
+import { MainPage } from 'pages/MainPage/ui/MainPage';
+import { NotFoundPage } from 'pages/NotFoundPage';
+import { ProfilePage } from 'pages/ProfilePage';
+import { SettingsPage } from 'pages/SettingsPage/ui/SettingsPage';
+
+import { AppRoutes, AppRoutesProps } from './types';
 
 export const AppRoutesPaths: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
@@ -14,7 +14,7 @@ export const AppRoutesPaths: Record<AppRoutes, string> = {
   [AppRoutes.PROFILE]: '/profile',
   [AppRoutes.AUTH]: '/auth',
   [AppRoutes.NOT_FOUND]: '*',
-}
+};
 
 export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -46,4 +46,4 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     path: AppRoutesPaths.not_found,
     element: <NotFoundPage />,
   },
-}
+};

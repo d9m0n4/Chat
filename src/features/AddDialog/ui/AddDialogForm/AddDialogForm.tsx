@@ -1,12 +1,13 @@
-import { Avatar } from '../../../../shared/ui/Avatar'
-import cls from './AddDialogForm.module.scss'
-import React, { FC } from 'react'
-import { ReactComponent as Close } from 'shared/assets/icons/x.svg'
-import { Button } from 'shared/ui/Button'
-import { Input } from 'shared/ui/Input/Input'
+import React, { FC } from 'react';
+import { ReactComponent as Close } from 'shared/assets/icons/x.svg';
+import { Avatar } from 'shared/ui/Avatar';
+import { Button } from 'shared/ui/Button';
+import { Input } from 'shared/ui/Input/Input';
+
+import cls from './AddDialogForm.module.scss';
 
 interface AddDialogFormProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
 export const AddDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
@@ -75,5 +76,5 @@ export const AddDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
       </div>
       <div className={cls.footer}></div>
     </div>
-  )
-}
+  );
+};

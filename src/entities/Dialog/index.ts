@@ -1,1 +1,1 @@
-export {DialogList} from './ui/DialogList/DialogList'
+export { DialogList } from './ui/DialogList/DialogList';

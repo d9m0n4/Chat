@@ -1,21 +1,21 @@
-import { AppRouter } from './providers/routerProvider'
-import './styles/index.scss'
-import { Theme } from 'features/ChangeTheme/ui/ThemeCard'
-import { useEffect } from 'react'
-import { Sidebar } from 'widgets/Sidebar'
+import { Theme } from 'features/ChangeTheme/ui/ThemeCard';
+import { useEffect } from 'react';
 
-const defaultTheme = Theme.DEFAULT
+import { AppRouter } from './providers/routerProvider';
+import './styles/index.scss';
+
+const defaultTheme = Theme.DEFAULT;
 
 function App() {
-  const theme = localStorage.getItem('theme') || defaultTheme
+  const theme = localStorage.getItem('theme') || defaultTheme;
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-  }, [theme])
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
   return (
     <div className="app">
       <AppRouter />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

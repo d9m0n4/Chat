@@ -1,11 +1,12 @@
-import { Portal } from '../../../../shared/ui/Portal'
-import { AddDialogForm } from '../AddDialogForm/AddDialogForm'
-import React, { FC } from 'react'
-import { Modal } from 'shared/ui/Modal/ui/Modal'
+import React, { FC } from 'react';
+import { Modal } from 'shared/ui/Modal/ui/Modal';
+
+import { Portal } from '../../../../shared/ui/Portal';
+import { AddDialogForm } from '../AddDialogForm/AddDialogForm';
 
 interface AddDialogModalProps {
-  onClose: () => void
-  isOpened: boolean
+  onClose: () => void;
+  isOpened: boolean;
 }
 
 export const AddDialogModal: FC<AddDialogModalProps> = ({ onClose, isOpened }) => {
@@ -15,5 +16,5 @@ export const AddDialogModal: FC<AddDialogModalProps> = ({ onClose, isOpened }) =
         <AddDialogForm onClose={onClose} />
       </Modal>
     </Portal>
-  )
-}
+  );
+};

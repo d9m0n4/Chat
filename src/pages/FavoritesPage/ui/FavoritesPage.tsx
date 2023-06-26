@@ -1,7 +1,8 @@
-import { MessagesList } from '../../../widgets/Messages'
-import cls from './Favorites.module.scss'
-import { DialogList } from 'entities/Dialog'
-import React, { FC } from 'react'
+import { DialogList } from 'entities/Dialog';
+import React, { FC } from 'react';
+
+import { MessagesList } from '../../../widgets/Messages';
+import cls from './Favorites.module.scss';
 
 interface FavoritesPageProps {}
 
@@ -15,5 +16,5 @@ export const FavoritesPage: FC<FavoritesPageProps> = ({}) => {
         <MessagesList messages={[1]} />
       </div>
     </div>
-  )
-}
+  );
+};

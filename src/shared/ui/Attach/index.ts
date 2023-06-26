@@ -1,1 +1,1 @@
-export {Attach} from './ui/Attach'
+export { Attach } from './ui/Attach';

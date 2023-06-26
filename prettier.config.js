@@ -1,8 +1,19 @@
+// eslint-disable-next-line no-undef
 module.exports = {
   trailingComma: 'es5',
   tabWidth: 2,
-  semi: false,
+  semi: true,
   singleQuote: true,
   printWidth: 100,
-  importOrder: [],
-}
+  importOrder: [
+    '^@app/(.*)$',
+    '^@pages/(.*)$',
+    '^@widgets/(.*)$',
+    '^@features/(.*)$',
+    '^@entities/(.*)$',
+    '^@shared/(.*)$',
+    '^[./]',
+  ],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+};

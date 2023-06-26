@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 
 interface NotFoundPageProps {}
 
 export const NotFoundPage: FC<NotFoundPageProps> = ({}) => {
-  return <div>'PAGE NOT FOUND'</div>
-}
+  return <div>'PAGE NOT FOUND'</div>;
+};

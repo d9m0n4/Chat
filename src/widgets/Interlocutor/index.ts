@@ -1,1 +1,1 @@
-export {Interlocutor} from './ui/Interlocutor'
+export { Interlocutor } from './ui/Interlocutor';

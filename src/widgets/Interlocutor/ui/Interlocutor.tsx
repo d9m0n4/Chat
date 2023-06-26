@@ -1,9 +1,10 @@
-import cls from './Interlocutor.module.scss'
-import React from 'react'
-import { ReactComponent as Chevron } from 'shared/assets/icons/cheveron-down.svg'
-import { Attach } from 'shared/ui/Attach'
-import { Avatar } from 'shared/ui/Avatar'
-import { Button } from 'shared/ui/Button'
+import React from 'react';
+import { ReactComponent as Chevron } from 'shared/assets/icons/cheveron-down.svg';
+import { Attach } from 'shared/ui/Attach';
+import { Avatar } from 'shared/ui/Avatar';
+import { Button } from 'shared/ui/Button';
+
+import cls from './Interlocutor.module.scss';
 
 export const Interlocutor = () => {
   return (
@@ -46,5 +47,5 @@ export const Interlocutor = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export { AddDialogModal } from './ui/AddDialogModal/AddDialogModal'
+export { AddDialogModal } from './ui/AddDialogModal/AddDialogModal';

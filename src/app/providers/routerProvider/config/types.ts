@@ -1,4 +1,4 @@
-import {RouteProps} from "react-router-dom";
+import { RouteProps } from 'react-router-dom';
 
 export enum AppRoutes {
   MAIN = 'main',
@@ -9,5 +9,5 @@ export enum AppRoutes {
   NOT_FOUND = 'not_found',
 }
 export type AppRoutesProps = RouteProps & {
-  authOnly?: boolean
-}
+  authOnly?: boolean;
+};

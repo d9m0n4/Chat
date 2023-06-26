@@ -1,38 +1,42 @@
-import cls from './Modal.module.scss'
-import React, {FC, ReactNode, useCallback, useEffect} from 'react'
+import React, { FC, ReactNode, useCallback, useEffect } from 'react';
+
+import cls from './Modal.module.scss';
 
 interface ModalProps {
-  children: ReactNode
-  onClose?: () => void
-    isOpened: boolean
+  children: ReactNode;
+  onClose?: () => void;
+  isOpened: boolean;
 }
 
-export const Modal: FC<ModalProps> = ({ children, onClose , isOpened}) => {
-    const noClick = (e: React.MouseEvent) => {
-        e.stopPropagation()
-    }
+export const Modal: FC<ModalProps> = ({ children, onClose, isOpened }) => {
+  const noClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
 
-    const onKeyDown = useCallback((e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-            if (onClose) {
-                onClose()
-            }
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (onClose) {
+          onClose();
         }
-    }, [onClose])
+      }
+    },
+    [onClose]
+  );
 
-    useEffect(() => {
-        document.addEventListener('keydown', onKeyDown)
-        return () => {
-            document.removeEventListener('keydown', onKeyDown)
-        };
-    }, [onKeyDown]);
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [onKeyDown]);
 
   return (
-    <div className={`${cls.modal} ${isOpened ? cls.opened : ''}`} >
-      <div className={cls.backdrop} onClick={onClose}/>
+    <div className={`${cls.modal} ${isOpened ? cls.opened : ''}`}>
+      <div className={cls.backdrop} onClick={onClose} />
       <div className={cls.modal__container} onClick={noClick}>
-          {children}
+        {children}
       </div>
     </div>
-  )
-}
+  );
+};

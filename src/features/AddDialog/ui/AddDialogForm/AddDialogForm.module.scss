@@ -16,7 +16,6 @@
       color: var(--app-primary-text);
     }
     .close {
-
     }
   }
   .search {
@@ -44,32 +43,30 @@
             .name {
               color: var(--app-primary-text);
               font-weight: 500;
-              font-size: .95em;
+              font-size: 0.95em;
             }
-        }
+          }
           .info {
             display: flex;
             gap: 64px;
             .status {
               color: var(--app-online);
-              font-size: .9em;
+              font-size: 0.9em;
             }
             .button {
-              font-size: .95em;
+              font-size: 0.95em;
               color: var(--app-gray);
-              transition: color .250s ease-in-out;
+              transition: color 0.25s ease-in-out;
               &:hover {
                 color: var(--app-secondary-text);
               }
             }
           }
         }
-
       }
     }
   }
 
   .footer {
-
   }
 }
