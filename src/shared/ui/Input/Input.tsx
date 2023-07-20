@@ -1,5 +1,5 @@
 import clsx from 'classnames';
-import React, { ChangeEvent, FC, HTMLAttributes, HTMLInputTypeAttribute } from 'react';
+import React, { FC, HTMLAttributes, HTMLInputTypeAttribute } from 'react';
 
 import cls from './Input.module.scss';
 
@@ -21,6 +21,7 @@ export const Input: FC<InputProps> = ({ className, onChange, value, type, ...pro
       value={value}
       onChange={changeHandler}
       className={clsx(cls.input, className)}
+      type={type}
       {...props}
     />
   );

@@ -6,9 +6,9 @@ import { Input } from 'shared/ui/Input/Input';
 
 import cls from './ProfilePage.module.scss';
 
-interface ProfilePageProps {}
+// interface ProfilePageProps {}
 
-export const ProfilePage: FC<ProfilePageProps> = ({}) => {
+export const ProfilePage: FC = () => {
   return (
     <div className={cls.profile}>
       <div className={cls.info}>

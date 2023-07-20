@@ -76,3 +76,9 @@ code {
   height: calc(100vh - 80px);
   overflow: hidden;
 }
+
+a {
+  text-decoration: none;
+  color: var(--app-primary-text);
+}
+

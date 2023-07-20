@@ -1,6 +1,4 @@
-import { Message } from 'entities/Message/ui/Message';
 import React from 'react';
-import { Input } from 'shared/ui/Input/Input';
 import { MessageInput } from 'widgets/MessageInput';
 
 import cls from './Messages.module.scss';

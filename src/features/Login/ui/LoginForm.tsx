@@ -1,14 +1,12 @@
 import React, { FC } from 'react';
 import { ReactComponent as Arrow } from 'shared/assets/icons/arrowR.svg';
+import { Button } from 'shared/ui/Button';
+import { ButtonVariants } from 'shared/ui/Button/ui/Button';
+import { Input } from 'shared/ui/Input/Input';
 
-import { Button } from '../../../shared/ui/Button';
-import { ButtonVariants } from '../../../shared/ui/Button/ui/Button';
-import { Input } from '../../../shared/ui/Input/Input';
 import cls from './LoginForm.module.scss';
 
-interface LoginFormProps {}
-
-export const LoginForm: FC<LoginFormProps> = ({}) => {
+export const LoginForm: FC = () => {
   return (
     <div className={cls.wrapper}>
       <div className={cls.title}>Войти</div>

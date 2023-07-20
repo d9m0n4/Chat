@@ -1,7 +1,7 @@
 import clsx from 'classnames';
 import React, { FC } from 'react';
+import { Avatar } from 'shared/ui/Avatar';
 
-import { Avatar } from '../../../shared/ui/Avatar';
 import cls from './Message.module.scss';
 
 interface IMessage {

@@ -3,4 +3,10 @@
   border-radius: 50%;
   text-align: center;
   display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  span {
+    font-weight: 500;
+  }
 }

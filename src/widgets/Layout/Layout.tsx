@@ -1,11 +1,9 @@
 import { AppRoutesPaths } from 'app/providers/routerProvider/config/routerConfig';
-import { AppRoutes } from 'app/providers/routerProvider/config/types';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ChatHeader } from 'widgets/ChatHeader';
 import { PageHeader } from 'widgets/PageHeader';
 
-import { AppRouter } from '../../app/providers/routerProvider';
 import { Sidebar } from '../Sidebar';
 
 interface MainLayoutProps {
@@ -17,7 +15,7 @@ export const Layout: FC<MainLayoutProps> = ({ path }) => {
     <div className="main">
       <Sidebar />
       <div>
-        {path === AppRoutesPaths.main ? <ChatHeader /> : <PageHeader children={'123123'} />}
+        {path === AppRoutesPaths.main ? <ChatHeader /> : <PageHeader>{'123123'}</PageHeader>}
         <Outlet />
       </div>
     </div>

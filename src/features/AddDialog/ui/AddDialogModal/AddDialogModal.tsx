@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Modal } from 'shared/ui/Modal/ui/Modal';
+import { Portal } from 'shared/ui/Portal';
 
-import { Portal } from '../../../../shared/ui/Portal';
 import { AddDialogForm } from '../AddDialogForm/AddDialogForm';
 
 interface AddDialogModalProps {

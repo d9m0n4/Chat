@@ -1,12 +1,10 @@
+import { LoginForm } from 'features/Login';
 import React, { FC } from 'react';
 import { ReactComponent as Logo } from 'shared/assets/icons/logo.svg';
 
-import { LoginForm } from '../../../features/Login';
 import cls from './AuthPage.module.scss';
 
-interface AuthPageProps {}
-
-export const AuthPage: FC<AuthPageProps> = ({}) => {
+export const AuthPage: FC = () => {
   return (
     <div className={cls.auth}>
       <div className={cls.auth__title}>
