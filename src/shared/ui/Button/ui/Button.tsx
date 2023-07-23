@@ -13,6 +13,7 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   className?: string;
   children?: React.ReactNode;
   variant?: ButtonVariants;
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
 export const Button: FC<PropsWithChildren<ButtonProps>> = ({
@@ -20,10 +21,16 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
   className,
   onClick,
   variant = ButtonVariants.EMPTY,
+  type,
   ...props
 }) => {
   return (
-    <button className={clsx(cls.button, cls[variant], className)} onClick={onClick} {...props}>
+    <button
+      className={clsx(cls.button, cls[variant], className)}
+      onClick={onClick}
+      {...props}
+      type={type}
+    >
       {children}
     </button>
   );

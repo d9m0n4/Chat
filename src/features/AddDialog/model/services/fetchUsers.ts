@@ -14,11 +14,10 @@ export const fetchUsers = createAsyncThunk(
     try {
       if (query) {
         const response = await api.get<User[]>(`/user/search?nickname=${query}`);
-        console.log(response.data);
         return response.data;
       }
     } catch (e) {
-      rejectWithValue(e);
+      return rejectWithValue(e);
     }
   }
 );

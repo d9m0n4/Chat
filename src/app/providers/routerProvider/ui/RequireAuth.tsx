@@ -1,11 +1,15 @@
+import { getUserData } from 'entities/User/model/selectors/getUserData';
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate, useLocation } from 'react-router-dom';
 
 interface Props {
   children: JSX.Element;
 }
 
 export const RequireAuth = ({ children }: Props) => {
-  const auth = true;
-  return auth ? children : <Navigate to="/auth" />;
+  const auth = useSelector(getUserData);
+  const location = useLocation();
+
+  return auth ? children : <Navigate to="/auth" state={{ from: location }} replace />;
 };

@@ -1,19 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Arrow } from 'shared/assets/icons/arrowR.svg';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
 import { Input } from 'shared/ui/Input/Input';
 
+import { Login } from '../model/services/Login';
 import cls from './LoginForm.module.scss';
 
 export const LoginForm: FC = () => {
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(Login({ nickName: login, password }));
+    navigate('/');
+  };
   return (
     <div className={cls.wrapper}>
       <div className={cls.title}>Войти</div>
-      <form className={cls.form}>
-        <Input placeholder="Имя" />
-        <Input placeholder="Пароль" />
-        <Button variant={ButtonVariants.PRIMARY} className={cls.button}>
+      <form onSubmit={handleSubmit} className={cls.form}>
+        <Input placeholder="Имя" value={login} onChange={setLogin} />
+        <Input placeholder="Пароль" value={password} onChange={setPassword} />
+        <Button type="submit" variant={ButtonVariants.PRIMARY} className={cls.button}>
           <Arrow />
         </Button>
       </form>

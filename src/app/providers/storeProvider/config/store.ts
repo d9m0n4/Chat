@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { userReducer } from 'entities/User/model/slices/userSlice';
 import { AddDialogReducer } from 'features/AddDialog/model/slices/createDialog';
 
 export const store = configureStore({
   reducer: {
-    AddDialog: AddDialogReducer,
+    addDialog: AddDialogReducer,
+    user: userReducer,
   },
 });
 
