@@ -1,4 +1,6 @@
-import React, { FC } from 'react';
+import { getUserData } from 'entities/User/model/selectors/getUserData';
+import React, { FC, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
@@ -9,13 +11,21 @@ import cls from './ProfilePage.module.scss';
 // interface ProfilePageProps {}
 
 export const ProfilePage: FC = () => {
+  const userData = useSelector(getUserData);
+  const inputRef = useRef<HTMLInputElement>(null);
   return (
     <div className={cls.profile}>
       <div className={cls.info}>
-        <Avatar width={100} />
-        <form className={cls.profile__form} action="">
-          <Input />
-          <Input />
+        <input type="file" ref={inputRef} hidden />
+        <Avatar
+          width={100}
+          src={userData?.avatar}
+          onClick={() => inputRef.current?.click()}
+          className={cls.profile__avatar}
+        />
+        <form className={cls.profile__form}>
+          <Input value={userData?.name} />
+          <Input value={userData?.name} />
           <Input />
           <Button variant={ButtonVariants.PRIMARY}>Сохранить</Button>
         </form>

@@ -6,26 +6,36 @@ import cls from './DialogItem.module.scss';
 
 interface IDialogItem {
   isActive?: boolean;
+  isOnline: boolean;
+  partnerName: string;
+  lastMessage: string;
+  date: number;
 }
 
-export const DialogItem: FC<IDialogItem> = ({ isActive }) => {
+export const DialogItem: FC<IDialogItem> = ({
+  isActive,
+  date,
+  lastMessage,
+  partnerName,
+  isOnline,
+}) => {
   return (
     <li className={`${cls.item} ${isActive && cls.active}`}>
       <div className={cls.user}>
-        <Online className={cls.isOnline} />
+        {isOnline && <Online className={cls.isOnline} />}
         <Avatar width={40} height={40} className={cls.avatar} />
         <span className={cls.count}>99</span>
       </div>
       <div className={cls.body}>
         <div className={cls.title}>
-          <span>Александр Пушкин</span>
+          <span>{partnerName}</span>
         </div>
         <div className={cls.subtitle}>
-          <span>Шо как мужуки???Шо как мужуки???</span>
+          <span>{lastMessage}</span>
         </div>
       </div>
       <div className={cls.info}>
-        <span className={cls.date}>21.04.2021</span>
+        <span className={cls.date}>{date}</span>
       </div>
     </li>
   );

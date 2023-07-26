@@ -7,7 +7,7 @@ import { PageHeader } from 'widgets/PageHeader';
 import { Sidebar } from '../Sidebar';
 
 interface MainLayoutProps {
-  path: string | undefined;
+  path?: string | undefined;
 }
 
 export const Layout: FC<MainLayoutProps> = ({ path }) => {
@@ -15,7 +15,7 @@ export const Layout: FC<MainLayoutProps> = ({ path }) => {
     <div className="main">
       <Sidebar />
       <div>
-        {path === AppRoutesPaths.main ? <ChatHeader /> : <PageHeader>{'123123'}</PageHeader>}
+        <ChatHeader />
         <Outlet />
       </div>
     </div>

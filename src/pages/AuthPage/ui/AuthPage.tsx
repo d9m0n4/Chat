@@ -11,12 +11,6 @@ export const AuthPage: FC = () => {
   const userData = useSelector(getUserData);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (userData) {
-      navigate('/');
-    }
-  }, [userData]);
-
   return (
     <div className={cls.auth}>
       <div className={cls.auth__title}>
