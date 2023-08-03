@@ -2,21 +2,19 @@ import React, { FC } from 'react';
 import { Avatar } from 'shared/ui/Avatar';
 import { Online } from 'shared/ui/Online';
 
+import { IDialog, IDialogData } from '../../model/types/dialogs';
 import cls from './DialogItem.module.scss';
 
-interface IDialogItem {
+interface IDialogItem extends IDialog {
   isActive?: boolean;
   isOnline: boolean;
-  partnerName: string;
-  lastMessage: string;
-  date: number;
 }
 
 export const DialogItem: FC<IDialogItem> = ({
   isActive,
-  date,
-  lastMessage,
-  partnerName,
+  created_at,
+  latestMessage,
+  partner,
   isOnline,
 }) => {
   return (
@@ -28,14 +26,14 @@ export const DialogItem: FC<IDialogItem> = ({
       </div>
       <div className={cls.body}>
         <div className={cls.title}>
-          <span>{partnerName}</span>
+          <span>{partner.name}</span>
         </div>
         <div className={cls.subtitle}>
-          <span>{lastMessage}</span>
+          <span>{latestMessage && latestMessage.content}</span>
         </div>
       </div>
       <div className={cls.info}>
-        <span className={cls.date}>{date}</span>
+        <span className={cls.date}>{new Date(created_at).toLocaleDateString()}</span>
       </div>
     </li>
   );

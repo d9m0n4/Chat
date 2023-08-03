@@ -30,10 +30,38 @@ export const AppRouter = () => {
     // </Routes>
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <MainPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <RequireAuth>
+              <FavoritesPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <RequireAuth>
+              <SettingsPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <RequireAuth>
+              <ProfilePage />
+            </RequireAuth>
+          }
+        />
       </Route>
 
       <Route path="/auth" element={user ? <Navigate to="/" /> : <AuthPage />} />

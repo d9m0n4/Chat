@@ -7,6 +7,6 @@ export const fetchUserData = createAsyncThunk('fetchUserData', async (arg, thunk
     const response = await api.get('user/me');
     return response.data;
   } catch (e) {
-    return rejectWithValue(e);
+    return rejectWithValue('error');
   }
 });

@@ -26,7 +26,6 @@ api.interceptors.response.use(
         const refreshResponse = await axios.get(`${BASE_URL}/auth/refresh`, {
           withCredentials: true,
         });
-
         return api.request(orginalRequest!);
       } catch (e) {
         console.log(e);
