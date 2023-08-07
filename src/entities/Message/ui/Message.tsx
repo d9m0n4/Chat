@@ -7,18 +7,16 @@ import cls from './Message.module.scss';
 interface IMessage {
   className?: string;
   isSelf?: boolean;
+  content: string;
 }
 
-export const Message: FC<IMessage> = ({ isSelf, className }) => {
+export const Message: FC<IMessage> = ({ isSelf, className, content }) => {
   return (
     <div className={clsx(cls.message, { [cls.isSelf]: isSelf }, className)}>
       <div className={cls.user}>
         <Avatar />
       </div>
-      <div className={cls.body}>
-        Значит, мастеру должно изготовлять руль под присмотром кормчего, если он намерен сделать
-        хороший руль?
-      </div>
+      <div className={cls.body}>{content}</div>
     </div>
   );
 };

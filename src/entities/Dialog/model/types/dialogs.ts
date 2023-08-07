@@ -20,6 +20,7 @@ export interface IDialog {
 
 export interface IDialogData {
   dialogData?: IDialog[];
+  activeDialog?: number;
   error?: string;
   loading?: boolean;
 }

@@ -12,9 +12,7 @@ export const FavoritesPage: FC = () => {
       <div>
         <DialogList />
       </div>
-      <div>
-        <MessagesList messages={[1]} />
-      </div>
+      <div>{/*<MessagesList messages={[1]} />*/}</div>
     </div>
   );
 };

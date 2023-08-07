@@ -7,7 +7,11 @@ const initialState: IDialogData = {};
 export const dialogSlice = createSlice({
   name: 'dialog',
   initialState,
-  reducers: {},
+  reducers: {
+    setActiveDialog: (state, action) => {
+      state.activeDialog = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDialogs.fulfilled, (state, action) => {

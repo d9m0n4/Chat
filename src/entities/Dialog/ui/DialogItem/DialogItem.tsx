@@ -2,12 +2,13 @@ import React, { FC } from 'react';
 import { Avatar } from 'shared/ui/Avatar';
 import { Online } from 'shared/ui/Online';
 
-import { IDialog, IDialogData } from '../../model/types/dialogs';
+import { IDialog } from '../../model/types/dialogs';
 import cls from './DialogItem.module.scss';
 
 interface IDialogItem extends IDialog {
   isActive?: boolean;
   isOnline: boolean;
+  onClick: () => void;
 }
 
 export const DialogItem: FC<IDialogItem> = ({
@@ -16,9 +17,10 @@ export const DialogItem: FC<IDialogItem> = ({
   latestMessage,
   partner,
   isOnline,
+  onClick,
 }) => {
   return (
-    <li className={`${cls.item} ${isActive && cls.active}`}>
+    <li className={`${cls.item} ${isActive && cls.active}`} onClick={onClick}>
       <div className={cls.user}>
         {isOnline && <Online className={cls.isOnline} />}
         <Avatar width={40} height={40} className={cls.avatar} />
