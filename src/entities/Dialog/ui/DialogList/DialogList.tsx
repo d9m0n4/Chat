@@ -18,8 +18,8 @@ export const DialogList = () => {
     dispatch(fetchDialogs());
   }, []);
 
-  const setActiveDialog = (id: number) => {
-    dispatch(dialogActions.setActiveDialog(id));
+  const setActiveDialog = ({ id, partner }: { id: number; partner: any }) => {
+    dispatch(dialogActions.setActiveDialog({ id, partner }));
   };
 
   return (
@@ -27,11 +27,13 @@ export const DialogList = () => {
       {dialogs &&
         dialogs.map((dialog) => (
           <DialogItem
-            isActive={dialog.id === dialogId}
+            isActive={dialog.id === dialogId?.id}
             {...dialog}
             isOnline={false}
             key={dialog.id}
-            onClick={() => setActiveDialog(dialog.id)}
+            onClick={() =>
+              setActiveDialog({ id: dialog.id, partner: dialog.partner })
+            }
           />
         ))}
     </ul>

@@ -20,6 +20,13 @@
       max-height: 200px;
       overflow: auto;
       transition: all 250ms ease-in;
+      position: relative;
+      .placeholder {
+        position: absolute;
+        color: var(--app-primary-text);
+        padding: 0.5em;
+        top: 0
+      }
       .input {
         position: relative;
         color: var(--app-primary-text);
@@ -30,6 +37,7 @@
         height: auto;
         outline: none;
         transition: all 250ms ease-in;
+        z-index: 1;
         &::before {
           content: attr(placeholder);
           cursor: text;

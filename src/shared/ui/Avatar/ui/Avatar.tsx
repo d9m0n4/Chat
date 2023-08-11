@@ -4,7 +4,7 @@ import React, { FC, HTMLAttributes } from 'react';
 import cls from './Avatar.module.scss';
 
 interface AvatarProps extends HTMLAttributes<HTMLImageElement> {
-  src?: string;
+  src?: string | null;
   width?: number;
   height?: number;
   name?: string;
@@ -23,7 +23,11 @@ export const Avatar: FC<AvatarProps> = ({
     <div
       onClick={onClick}
       className={clsx(cls.avatar, className)}
-      style={{ maxWidth: `${width}px`, width: `${width}px`, height: `${width}px` }}
+      style={{
+        maxWidth: `${width}px`,
+        width: `${width}px`,
+        height: `${width}px`,
+      }}
     >
       {src ? (
         <img src={src} width={width} height={width} alt="avatar" />

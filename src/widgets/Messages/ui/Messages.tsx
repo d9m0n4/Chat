@@ -15,7 +15,7 @@ export const Messages = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (activeDialogId) {
-      dispatch(fetchMessages(activeDialogId));
+      dispatch(fetchMessages(activeDialogId.id));
     }
   }, [activeDialogId]);
 

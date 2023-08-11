@@ -18,9 +18,14 @@ export interface IDialog {
   updated_at: Date;
 }
 
+interface activeDialog {
+  id: number;
+  partner: User;
+}
+
 export interface IDialogData {
   dialogData?: IDialog[];
-  activeDialog?: number;
+  activeDialog?: activeDialog;
   error?: string;
   loading?: boolean;
 }
