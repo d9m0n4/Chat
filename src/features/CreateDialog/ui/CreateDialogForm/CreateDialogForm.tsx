@@ -8,22 +8,27 @@ import { Button } from 'shared/ui/Button';
 import { Input } from 'shared/ui/Input/Input';
 
 import { getUsers } from '../../model/selectors/getUsers';
-import { fetchUsers } from '../../model/services/fetchUsers';
-import cls from './AddDialogForm.module.scss';
+import { createDialog } from '../../model/services/createDialog';
+import { findUsers } from '../../model/services/findUsers';
+import cls from './CreateDialogForm.module.scss';
 
 interface AddDialogFormProps {
   onClose: () => void;
 }
 
-export const AddDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
+export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
   const [value, setValue] = useState('');
   const debounceValue = useDebounce(value, 1000);
   const dispatch = useAppDispatch();
 
   const users = useSelector(getUsers);
 
+  const handleCreateDialog = (id: number) => {
+    dispatch(createDialog(id));
+  };
+
   useEffect(() => {
-    dispatch(fetchUsers(debounceValue));
+    dispatch(findUsers(debounceValue));
   }, [debounceValue]);
 
   return (
@@ -54,7 +59,12 @@ export const AddDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
                   </div>
                   <div className={cls.info}>
                     <div className={cls.status}>онлайн</div>
-                    <Button className={cls.button}> {'Написать'} </Button>
+                    <Button
+                      className={cls.button}
+                      onClick={() => handleCreateDialog(user.id)}
+                    >
+                      Написать
+                    </Button>
                   </div>
                 </div>
               </li>

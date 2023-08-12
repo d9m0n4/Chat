@@ -1,20 +1,19 @@
-import { getActiveDialog } from 'entities/Dialog';
+import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 import { Dialogs } from 'widgets/Dialogs';
 import { Interlocutor } from 'widgets/Interlocutor';
-import { Messages } from 'widgets/Messages';
 
 // interface MainPageProps {}
 
 export const MainPage: FC = () => {
-  const activeDialog = useSelector(getActiveDialog);
-  const partner = activeDialog?.partner;
+  const partner = useSelector(getDialogPartner);
   return (
     <div className="main-section">
       <Dialogs />
-      <Messages />
-      {activeDialog && (
+      <Outlet />
+      {partner && (
         <Interlocutor
           id={partner?.id}
           name={partner?.name}

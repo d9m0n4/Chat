@@ -4,10 +4,11 @@ import { FavoritesPage } from 'pages/FavoritesPage';
 import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { SettingsPage } from 'pages/SettingsPage';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from 'widgets/Layout/Layout';
+import { Messages } from 'widgets/Messages';
 
 import { routerConfig } from '../config/routerConfig';
 import { RequireAuth } from './RequireAuth';
@@ -37,7 +38,9 @@ export const AppRouter = () => {
               <MainPage />
             </RequireAuth>
           }
-        />
+        >
+          <Route path={'/:id'} element={<Messages />} />
+        </Route>
         <Route
           path="/favorites"
           element={

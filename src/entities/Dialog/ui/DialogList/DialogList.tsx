@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 
 import { getActiveDialog } from '../../model/selectors/getActiveDialog';
@@ -26,15 +27,16 @@ export const DialogList = () => {
     <ul className={cls.list}>
       {dialogs &&
         dialogs.map((dialog) => (
-          <DialogItem
-            isActive={dialog.id === dialogId?.id}
-            {...dialog}
-            isOnline={false}
-            key={dialog.id}
-            onClick={() =>
-              setActiveDialog({ id: dialog.id, partner: dialog.partner })
-            }
-          />
+          <Link key={dialog.id} to={`/${dialog.id}`}>
+            <DialogItem
+              isActive={dialog.id === dialogId?.id}
+              {...dialog}
+              isOnline={false}
+              onClick={() =>
+                setActiveDialog({ id: dialog.id, partner: dialog.partner })
+              }
+            />
+          </Link>
         ))}
     </ul>
   );

@@ -1,5 +1,5 @@
 import { DialogList } from 'entities/Dialog';
-import { AddDialogModal } from 'features/AddDialog';
+import { CreateDialogModal } from 'features/CreateDialog';
 import React from 'react';
 import { ReactComponent as Add } from 'shared/assets/icons/plus.svg';
 import { Button } from 'shared/ui/Button';
@@ -24,7 +24,9 @@ export const Dialogs = () => {
         </div>
       </div>
 
-      {isOpen && <AddDialogModal isOpened={isOpen} onClose={() => setIsOpen(false)} />}
+      {isOpen && (
+        <CreateDialogModal isOpened={isOpen} onClose={() => setIsOpen(false)} />
+      )}
     </div>
   );
 };

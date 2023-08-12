@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { dialogReducer } from 'entities/Dialog/model/slices/dialogSlice';
 import { messagesReducer } from 'entities/Message/model/slices/messageSlice';
 import { userReducer } from 'entities/User/model/slices/userSlice';
-import { AddDialogReducer } from 'features/AddDialog/model/slices/createDialog';
+import { AddDialogReducer } from 'features/CreateDialog/model/slices/createDialog';
 
 export const store = configureStore({
   reducer: {

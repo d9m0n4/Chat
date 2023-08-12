@@ -7,13 +7,15 @@ export interface User {
   id: number;
   avatar: string | null;
 }
-export const fetchUsers = createAsyncThunk(
+export const findUsers = createAsyncThunk(
   'createDialog/fetchUsers',
   async (query: string, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       if (query) {
-        const response = await api.get<User[]>(`/user/search?nickname=${query}`);
+        const response = await api.get<User[]>(
+          `/user/search?nickname=${query}`
+        );
         return response.data;
       }
     } catch (e) {

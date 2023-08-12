@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { User, fetchUsers } from '../services/fetchUsers';
+import { User, findUsers } from '../services/findUsers';
 
 interface CreateDialog {
   error: null | undefined | string;
@@ -13,22 +13,22 @@ const initialState: CreateDialog = {
   error: '',
   users: [],
 };
-export const AddDialogSlice = createSlice({
+export const CreateDialogSlice = createSlice({
   name: 'searchUser',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUsers.pending, (state) => {
+      .addCase(findUsers.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchUsers.rejected, (state) => {
+      .addCase(findUsers.rejected, (state) => {
         state.error = 'error';
       })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
+      .addCase(findUsers.fulfilled, (state, action) => {
         state.users = action.payload;
       });
   },
 });
 
-export const { reducer: AddDialogReducer } = AddDialogSlice;
+export const { reducer: AddDialogReducer } = CreateDialogSlice;
