@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { socket } from 'shared/config/api/ws';
 import { Modal } from 'shared/ui/Modal/ui/Modal';
 import { Portal } from 'shared/ui/Portal';
 
