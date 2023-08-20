@@ -11,6 +11,17 @@ export const dialogSlice = createSlice({
     setActiveDialog: (state, action) => {
       state.activeDialog = action.payload;
     },
+    setUserOnline: (state, action) => {
+      const { userId, isOnline } = action.payload;
+      if (state.dialogData) {
+        const dialogToUpdate = state.dialogData.find(
+          (dialog) => dialog.partner.id === userId
+        );
+        if (dialogToUpdate) {
+          dialogToUpdate.partner.isOnline = isOnline;
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder

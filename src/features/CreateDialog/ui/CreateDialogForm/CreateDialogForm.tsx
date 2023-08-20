@@ -25,13 +25,18 @@ export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
   const users = useSelector(getUsers);
 
   const handleCreateDialog = (id: number) => {
-    // dispatch(createDialog(id));
+    dispatch(createDialog(id));
     socket.emit('create_dialog', { dialogId: id });
   };
 
   useEffect(() => {
     dispatch(findUsers(debounceValue));
+    socket.emit('create_dialog', { dialogId: '987' });
   }, [debounceValue]);
+
+  socket.on('users', (data) => {
+    console.log(data);
+  });
 
   return (
     <div className={cls.form}>

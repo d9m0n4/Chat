@@ -1,9 +1,11 @@
 import { getActiveDialog } from 'entities/Dialog';
+import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
 import React, { memo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg';
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
 import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg';
+import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Button } from 'shared/ui/Button';
 
@@ -14,6 +16,8 @@ export const MessageInput = memo(() => {
   const placeholder = 'Введите сообщение...';
   const inputDiv = useRef<HTMLDivElement>(null);
   const placeholderRef = useRef<HTMLSpanElement>(null);
+  const partner = useSelector(getDialogPartner);
+  const dialog = useSelector(getActiveDialog);
 
   const [message, setMessage] = useState('');
 
@@ -26,6 +30,15 @@ export const MessageInput = memo(() => {
     }
     if (textContent) {
       setMessage(textContent);
+      socket.emit('on_typing_message', {
+        partner: partner?.id,
+        dialog: dialog?.id,
+      });
+    } else {
+      socket.emit('on_stop_typing_message', {
+        partner: partner?.id,
+        dialog: dialog?.id,
+      });
     }
   };
 
@@ -39,11 +52,12 @@ export const MessageInput = memo(() => {
   const dispatch = useAppDispatch();
   const dialogId = useSelector(getActiveDialog);
 
-  const onSendMessage = () => {
+  const onSendMessage = async () => {
     if (!dialogId) {
       return;
     }
-    dispatch(sendMessage({ dialogId: dialogId.id, content: message }));
+    await dispatch(sendMessage({ dialogId: dialogId.id, content: message }));
+    setMessage('');
   };
 
   return (

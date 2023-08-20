@@ -8,14 +8,20 @@ interface LoginData {
   password: string;
 }
 
-export const Login = createAsyncThunk('login', async (data: LoginData, thunkAPI) => {
-  const { rejectWithValue, dispatch } = thunkAPI;
-  try {
-    const { data: UserData } = await api.post<User>('auth/signIn', data);
-    localStorage.setItem('user', JSON.stringify({ username: UserData.nickName }));
-    dispatch(userActions.setAuthData(UserData));
-    return UserData;
-  } catch (e) {
-    return rejectWithValue(e);
+export const Login = createAsyncThunk(
+  'login',
+  async (data: LoginData, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI;
+    try {
+      const { data: UserData } = await api.post<User>('auth/signIn', data);
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ username: UserData.nickName })
+      );
+      dispatch(userActions.setAuthData(UserData));
+      return UserData;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   }
-});
+);

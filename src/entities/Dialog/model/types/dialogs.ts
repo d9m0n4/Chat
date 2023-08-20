@@ -4,6 +4,10 @@ interface User {
   id: number;
   avatar: string | null;
 }
+
+type Partner = User & {
+  isOnline?: boolean;
+};
 interface IDialogLastMessage {
   content: string;
   created_at: Date;
@@ -14,7 +18,7 @@ export interface IDialog {
   created_at: Date;
   id: number;
   latestMessage: IDialogLastMessage;
-  partner: User;
+  partner: Partner;
   updated_at: Date;
 }
 

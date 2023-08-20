@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { ReactComponent as Arrow } from 'shared/assets/icons/arrowR.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Button } from 'shared/ui/Button';
@@ -13,11 +13,10 @@ export const LoginForm: FC = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(Login({ nickName: login, password }));
-    navigate('/');
+    await dispatch(Login({ nickName: login, password }));
+    return <Navigate to={'/'} />;
   };
   return (
     <div className={cls.wrapper}>
@@ -25,7 +24,11 @@ export const LoginForm: FC = () => {
       <form onSubmit={handleSubmit} className={cls.form}>
         <Input placeholder="Имя" value={login} onChange={setLogin} />
         <Input placeholder="Пароль" value={password} onChange={setPassword} />
-        <Button type="submit" variant={ButtonVariants.PRIMARY} className={cls.button}>
+        <Button
+          type="submit"
+          variant={ButtonVariants.PRIMARY}
+          className={cls.button}
+        >
           <Arrow />
         </Button>
       </form>

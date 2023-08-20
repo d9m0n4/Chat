@@ -1,4 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { socket } from 'shared/config/api/ws';
+import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';
 import { Avatar } from 'shared/ui/Avatar';
 import { Online } from 'shared/ui/Online';
 
@@ -7,7 +9,7 @@ import cls from './DialogItem.module.scss';
 
 interface IDialogItem extends IDialog {
   isActive?: boolean;
-  isOnline: boolean;
+  isOnline: boolean | undefined;
   onClick: () => void;
 }
 
@@ -18,7 +20,9 @@ export const DialogItem: FC<IDialogItem> = ({
   partner,
   isOnline,
   onClick,
+  id,
 }) => {
+  const isTyping = useTypingIndicator(id);
   return (
     <li className={`${cls.item} ${isActive && cls.active}`} onClick={onClick}>
       <div className={cls.user}>
@@ -32,10 +36,13 @@ export const DialogItem: FC<IDialogItem> = ({
         </div>
         <div className={cls.subtitle}>
           <span>{latestMessage && latestMessage.content}</span>
+          <span>{isTyping && 'набирает сообщение...'}</span>
         </div>
       </div>
       <div className={cls.info}>
-        <span className={cls.date}>{new Date(created_at).toLocaleDateString()}</span>
+        <span className={cls.date}>
+          {new Date(created_at).toLocaleDateString()}
+        </span>
       </div>
     </li>
   );

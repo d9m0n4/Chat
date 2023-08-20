@@ -31,7 +31,7 @@ export const DialogList = () => {
             <DialogItem
               isActive={dialog.id === dialogId?.id}
               {...dialog}
-              isOnline={false}
+              isOnline={dialog.partner.isOnline}
               onClick={() =>
                 setActiveDialog({ id: dialog.id, partner: dialog.partner })
               }

@@ -4,17 +4,16 @@ import { FavoritesPage } from 'pages/FavoritesPage';
 import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { SettingsPage } from 'pages/SettingsPage';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from 'widgets/Layout/Layout';
 import { Messages } from 'widgets/Messages';
 
-import { routerConfig } from '../config/routerConfig';
-import { RequireAuth } from './RequireAuth';
-
 export const AppRouter = () => {
-  const user = useSelector(getUserData);
+  const token = localStorage.getItem('user');
+  const isAuthenticated = !!token;
+
   return (
     // <Routes>
     //   {Object.values(routerConfig).map((route) => {
@@ -30,44 +29,24 @@ export const AppRouter = () => {
     //   })}
     // </Routes>
     <Routes>
-      <Route element={<Layout />}>
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <MainPage />
-            </RequireAuth>
-          }
-        >
+      <Route
+        element={
+          isAuthenticated ? <Layout /> : <Navigate to={'auth'} replace={true} />
+        }
+      >
+        <Route path="/" element={<MainPage />}>
           <Route path={'/:id'} element={<Messages />} />
         </Route>
-        <Route
-          path="/favorites"
-          element={
-            <RequireAuth>
-              <FavoritesPage />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <RequireAuth>
-              <SettingsPage />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <RequireAuth>
-              <ProfilePage />
-            </RequireAuth>
-          }
-        />
+        <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Route>
-
-      <Route path="/auth" element={user ? <Navigate to="/" /> : <AuthPage />} />
+      <Route
+        path="auth"
+        element={
+          isAuthenticated ? <Navigate to={'/'} replace={true} /> : <AuthPage />
+        }
+      />
     </Routes>
   );
 };
