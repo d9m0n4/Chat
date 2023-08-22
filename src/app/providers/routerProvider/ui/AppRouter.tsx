@@ -4,11 +4,13 @@ import { FavoritesPage } from 'pages/FavoritesPage';
 import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { SettingsPage } from 'pages/SettingsPage';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from 'widgets/Layout/Layout';
 import { Messages } from 'widgets/Messages';
+
+import { RequireAuth } from './RequireAuth';
 
 export const AppRouter = () => {
   const token = localStorage.getItem('user');
@@ -29,24 +31,24 @@ export const AppRouter = () => {
     //   })}
     // </Routes>
     <Routes>
-      <Route
-        element={
-          isAuthenticated ? <Layout /> : <Navigate to={'auth'} replace={true} />
-        }
-      >
-        <Route path="/" element={<MainPage />}>
-          <Route path={'/:id'} element={<Messages />} />
+      <Route element={<RequireAuth />}>
+        <Route
+          path={'/'}
+          element={
+            <Suspense fallback={'loading....'}>
+              <Layout />
+            </Suspense>
+          }
+        >
+          <Route path={'/'} element={<MainPage />}>
+            <Route path={'/:id'} element={<Messages />} />
+          </Route>
+          <Route path="favorites" element={<FavoritesPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
-        <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
       </Route>
-      <Route
-        path="auth"
-        element={
-          isAuthenticated ? <Navigate to={'/'} replace={true} /> : <AuthPage />
-        }
-      />
+      <Route path="auth" element={<AuthPage />} />
     </Routes>
   );
 };

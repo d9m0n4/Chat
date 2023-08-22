@@ -35,8 +35,11 @@ export const DialogItem: FC<IDialogItem> = ({
           <span>{partner.name}</span>
         </div>
         <div className={cls.subtitle}>
-          <span>{latestMessage && latestMessage.content}</span>
-          <span>{isTyping && 'набирает сообщение...'}</span>
+          {isTyping ? (
+            '...'
+          ) : (
+            <span>{latestMessage && latestMessage.content}</span>
+          )}
         </div>
       </div>
       <div className={cls.info}>

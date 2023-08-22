@@ -4,13 +4,13 @@
   max-width: 400px;
   width: 100%;
   padding: 8px 0;
+  color: var(--app-primary-text);
   &.isSelf {
     flex-direction: row-reverse;
     margin-left: auto;
     .body {
       background-color: var(--app-message);
       box-shadow: var(--app-message-shadow);
-      color: var(--app-primary-text);
       border-radius: 16px 16px 0 16px;
       transition: color 250ms ease-in;
     }

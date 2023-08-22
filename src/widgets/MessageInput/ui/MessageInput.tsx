@@ -58,6 +58,14 @@ export const MessageInput = memo(() => {
     }
     await dispatch(sendMessage({ dialogId: dialogId.id, content: message }));
     setMessage('');
+    if (inputDiv.current) {
+      inputDiv.current.textContent = null;
+      inputDiv.current.focus();
+      socket.emit('on_stop_typing_message', {
+        partner: partner?.id,
+        dialog: dialog?.id,
+      });
+    }
   };
 
   return (

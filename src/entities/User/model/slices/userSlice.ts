@@ -25,7 +25,7 @@ export const userSlice = createSlice({
         state.authData = action.payload;
       })
       .addCase(fetchUserData.pending, (state) => {
-        state.authData = undefined;
+        state.isLoading = true;
       })
       .addCase(fetchUserData.rejected, (state) => {
         state.authData = undefined;

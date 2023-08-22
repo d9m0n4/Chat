@@ -12,7 +12,11 @@ const initialState: IMessagesData = {
 export const messagesSlice = createSlice({
   name: 'messages',
   initialState,
-  reducers: {},
+  reducers: {
+    addNewMessage: (state, action: any) => {
+      state.messagesData?.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMessages.fulfilled, (state, action) => {

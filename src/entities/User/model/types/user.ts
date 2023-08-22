@@ -9,4 +9,5 @@ export interface User {
 
 export interface AuthData {
   authData?: Omit<User, 'refreshToken' | 'accessToken'>;
+  isLoading?: boolean;
 }
