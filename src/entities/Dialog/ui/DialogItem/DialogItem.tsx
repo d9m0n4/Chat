@@ -1,8 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
-import { socket } from 'shared/config/api/ws';
+import React, { FC } from 'react';
 import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';
 import { Avatar } from 'shared/ui/Avatar';
 import { Online } from 'shared/ui/Online';
+import { TypingDots } from 'shared/ui/TypingMessage';
 
 import { IDialog } from '../../model/types/dialogs';
 import cls from './DialogItem.module.scss';
@@ -34,9 +34,15 @@ export const DialogItem: FC<IDialogItem> = ({
         <div className={cls.title}>
           <span>{partner.name}</span>
         </div>
+
         <div className={cls.subtitle}>
           {isTyping ? (
-            '...'
+            <>
+              <div>
+                <TypingDots width={4} />
+              </div>
+              печатает
+            </>
           ) : (
             <span>{latestMessage && latestMessage.content}</span>
           )}

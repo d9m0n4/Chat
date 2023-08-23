@@ -1,5 +1,8 @@
 import { getActiveDialog } from 'entities/Dialog';
-import { IMessage } from 'entities/Message/model/types/Message';
+import {
+  GroupedMessages,
+  IMessage,
+} from 'entities/Message/model/types/Message';
 import { Message } from 'entities/Message/ui/Message';
 import { getUserData } from 'entities/User/model/selectors/getUserData';
 import React, { useEffect, useRef } from 'react';
@@ -13,7 +16,7 @@ import cls from '../Messages.module.scss';
 //     message: IMessage
 // }
 
-export const MessagesList = ({ messages }: { messages: IMessage[] }) => {
+export const MessagesList = ({ messages }: { messages: GroupedMessages }) => {
   const user = useSelector(getUserData);
   const dialog = useSelector(getActiveDialog);
   const isTyping = useTypingIndicator(dialog?.id);
@@ -30,13 +33,20 @@ export const MessagesList = ({ messages }: { messages: IMessage[] }) => {
 
   return (
     <div className={cls.messages} ref={messagesContainer}>
-      {messages.map((message) => (
-        <Message
-          key={message.id}
-          content={message.content}
-          user={message.user}
-          isSelf={message.user.id === user?.id}
-        />
+      {Object.keys(messages).map((date) => (
+        <div className={cls.messages__group} key={date}>
+          <div className={cls.messages__group_date}>
+            {new Date(date).toLocaleDateString()}
+          </div>
+          {messages[date].map((message) => (
+            <Message
+              key={message.id}
+              content={message.content}
+              user={message.user}
+              isSelf={message.user.id === user?.id}
+            />
+          ))}
+        </div>
       ))}
       {isTyping && (
         <div className={cls.typing__message_wrapper}>

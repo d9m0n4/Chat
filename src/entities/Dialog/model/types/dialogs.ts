@@ -24,7 +24,7 @@ export interface IDialog {
 
 interface activeDialog {
   id: number;
-  partner: User;
+  partner: Partner;
 }
 
 export interface IDialogData {

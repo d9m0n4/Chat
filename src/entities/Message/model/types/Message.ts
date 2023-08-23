@@ -8,14 +8,18 @@ type User = {
 export interface IMessage {
   id: number;
   content: string;
-  created_at: Date;
+  created_at: string;
   updated_at: Date;
   users: User[];
   user: User;
 }
 
+export interface GroupedMessages {
+  [date: string]: IMessage[];
+}
+
 export interface IMessagesData {
-  messagesData: IMessage[] | undefined;
+  messagesData: GroupedMessages | undefined;
   error: string | null;
   loading: boolean;
 }

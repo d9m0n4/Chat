@@ -25,6 +25,21 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const setUserOnline = (user: number) => {
+      dispatch(dialogActions.setUserOnline({ userId: user, isOnline: true }));
+    };
+    const setUserOffline = (user: number) => {
+      dispatch(dialogActions.setUserOnline({ userId: user, isOnline: false }));
+    };
+    socket.on('online', setUserOnline);
+    socket.on('offline', setUserOffline);
+    return () => {
+      socket.off('online', setUserOnline);
+      socket.off('offline', setUserOffline);
+    };
+  }, [dispatch]);
+
   return (
     <div className="app">
       <AppRouter />

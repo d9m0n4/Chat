@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { fetchMessages } from '../services/fetchMessages';
-import { IMessagesData } from '../types/Message';
+import { IMessage, IMessagesData } from '../types/Message';
 
 const initialState: IMessagesData = {
   messagesData: undefined,
@@ -13,8 +13,15 @@ export const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addNewMessage: (state, action: any) => {
-      state.messagesData?.push(action.payload);
+    addNewMessage: (state, action: PayloadAction<IMessage>) => {
+      const { created_at } = action.payload;
+      const date = created_at.substr(0, 10);
+      if (state.messagesData) {
+        if (!state.messagesData[date]) {
+          state.messagesData[date] = [];
+        }
+        state.messagesData[date].push(action.payload);
+      }
     },
   },
   extraReducers: (builder) => {

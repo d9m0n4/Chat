@@ -71,6 +71,9 @@
       margin-bottom: 4px;
     }
     .subtitle {
+      display: flex;
+      gap: .5em;
+      align-items: center;
       font-size: 0.8em;
       color: var(--app-gray);
     }

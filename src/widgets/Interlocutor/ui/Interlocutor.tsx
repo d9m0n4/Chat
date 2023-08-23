@@ -11,10 +11,11 @@ type InterlocutorProps = {
   avatar?: string | null;
   id?: number;
   nickName?: string;
+  isOnline?: boolean;
 };
 
 export const Interlocutor: FC<InterlocutorProps> = memo(
-  ({ id, avatar, nickName, name }) => {
+  ({ id, avatar, nickName, name, isOnline }) => {
     const attachItems = useMemo(
       () => (
         <>
@@ -49,7 +50,7 @@ export const Interlocutor: FC<InterlocutorProps> = memo(
           <div className={cls.name}>
             {name} {nickName}
           </div>
-          <span className={cls.isOnline}>в сети {id}</span>
+          <span className={cls.isOnline}>{isOnline && 'в сети'}</span>
         </div>
         <div className={cls.attaches}>
           <div className={cls.attaches__heading}>

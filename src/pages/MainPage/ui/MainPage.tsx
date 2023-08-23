@@ -19,6 +19,7 @@ export const MainPage: FC = () => {
           name={partner?.name}
           avatar={partner?.avatar}
           nickName={partner?.nickName}
+          isOnline={partner.isOnline}
         />
       )}
     </div>

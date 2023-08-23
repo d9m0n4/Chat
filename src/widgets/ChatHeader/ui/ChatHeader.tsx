@@ -29,7 +29,7 @@ export const ChatHeader = () => {
         {partner && (
           <>
             {partner.name}
-            <Online className={cls.online} />
+            {partner.isOnline && <Online className={cls.online} />}
           </>
         )}
       </div>

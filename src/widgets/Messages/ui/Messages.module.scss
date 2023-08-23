@@ -12,6 +12,17 @@
   width: 100%;
   height: 100%;
   overflow: auto;
+  &__group {
+    text-align: center;
+    font-size: 0.9em;
+    padding: 8px 0;
+    &_date {
+      position: sticky;
+      color: var(--app-gray);
+      top: 0;
+      mix-blend-mode: color-burn;
+    }
+  }
   &::-webkit-scrollbar {
     width: 6px;
   }

@@ -29,16 +29,6 @@ export const Layout: FC<MainLayoutProps> = ({ path }) => {
   }, []);
 
   useEffect(() => {
-    socket.on('online', (user) => {
-      console.log(user);
-      dispatch(dialogActions.setUserOnline({ userId: user, isOnline: true }));
-    });
-    return () => {
-      socket.off('online');
-    };
-  }, [socket]);
-
-  useEffect(() => {
     socket.emit(
       'user_online',
       myDialogs?.map((dialog) => dialog.partner.id)
@@ -46,7 +36,7 @@ export const Layout: FC<MainLayoutProps> = ({ path }) => {
     return () => {
       socket.off('user_online');
     };
-  }, [myDialogs, socket]);
+  }, [myDialogs]);
 
   return (
     <div className="main">
