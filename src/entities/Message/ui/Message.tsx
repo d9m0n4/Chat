@@ -2,10 +2,10 @@ import clsx from 'classnames';
 import React, { FC } from 'react';
 import { Avatar } from 'shared/ui/Avatar';
 
-import { User } from '../../User/model/types/user';
 import cls from './Message.module.scss';
 
 interface IMessage {
+  dataAttr?: string | number;
   className?: string;
   isSelf?: boolean;
   content: string;
@@ -17,9 +17,18 @@ interface IMessage {
   };
 }
 
-export const Message: FC<IMessage> = ({ isSelf, className, content, user }) => {
+export const Message: FC<IMessage> = ({
+  isSelf,
+  className,
+  content,
+  user,
+  dataAttr,
+}) => {
   return (
-    <div className={clsx(cls.message, { [cls.isSelf]: isSelf }, className)}>
+    <div
+      data-message-id={dataAttr}
+      className={clsx(cls.message, { [cls.isSelf]: isSelf }, className)}
+    >
       <div className={cls.user}>
         <Avatar name={user?.name} />
       </div>

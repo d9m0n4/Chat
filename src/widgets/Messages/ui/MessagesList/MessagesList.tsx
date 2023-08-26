@@ -31,15 +31,25 @@ export const MessagesList = ({ messages }: { messages: GroupedMessages }) => {
     }
   }, [messagesContainer, messages]);
 
+  const messagesGroup = useRef<HTMLDivElement>(null);
+
+  const handleScrollToTop = () => {
+    console.log(messagesGroup.current);
+    if (messagesGroup.current) {
+      messagesGroup.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }; // по клику на дату скролить в начало сообщений конкретной грууппы
+
   return (
     <div className={cls.messages} ref={messagesContainer}>
       {Object.keys(messages).map((date) => (
-        <div className={cls.messages__group} key={date}>
-          <div className={cls.messages__group_date}>
+        <div className={cls.messages__group} key={date} ref={messagesGroup}>
+          <div className={cls.messages__group_date} onClick={handleScrollToTop}>
             {new Date(date).toLocaleDateString()}
           </div>
           {messages[date].map((message) => (
             <Message
+              dataAttr={message.id}
               key={message.id}
               content={message.content}
               user={message.user}

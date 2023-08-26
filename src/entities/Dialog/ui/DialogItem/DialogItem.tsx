@@ -15,7 +15,6 @@ interface IDialogItem extends IDialog {
 
 export const DialogItem: FC<IDialogItem> = ({
   isActive,
-  created_at,
   latestMessage,
   partner,
   isOnline,
@@ -50,7 +49,7 @@ export const DialogItem: FC<IDialogItem> = ({
       </div>
       <div className={cls.info}>
         <span className={cls.date}>
-          {new Date(created_at).toLocaleDateString()}
+          {new Date(latestMessage.created_at).toLocaleDateString()}
         </span>
       </div>
     </li>

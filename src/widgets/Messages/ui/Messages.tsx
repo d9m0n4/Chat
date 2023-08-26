@@ -2,7 +2,8 @@ import { getActiveDialog } from 'entities/Dialog';
 import { getMessages } from 'entities/Message/model/selectors/getMessages';
 import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
 import { messagesActions } from 'entities/Message/model/slices/messageSlice';
-import React, { useEffect } from 'react';
+import { IMessage } from 'entities/Message/model/types/Message';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -15,6 +16,7 @@ export const Messages = () => {
   const messages = useSelector(getMessages);
   const activeDialogId = useSelector(getActiveDialog);
   const dispatch = useAppDispatch();
+  const messagesWrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (activeDialogId) {
@@ -23,16 +25,36 @@ export const Messages = () => {
   }, [activeDialogId]);
 
   useEffect(() => {
-    socket.on('message_created', (message: any) => {
-      dispatch(messagesActions.addNewMessage(message));
-    });
-    return () => {
-      socket.off('message_created');
+    const observerOptions = {
+      root: messagesWrapper.current,
+      rootMargin: '0px',
+      threshold: 0.5,
     };
+
+    const handleIntersection: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entriy) => {
+        if (entriy.isIntersecting) {
+          console.log(123);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      handleIntersection,
+      observerOptions
+    );
+
+    if (messagesWrapper.current) {
+      const messages =
+        messagesWrapper.current.querySelectorAll('[data-message-id]');
+      messages.forEach((message) => {
+        observer.observe(message);
+      });
+    }
   }, []);
 
   return (
-    <div className={cls.messages__wrapper}>
+    <div ref={messagesWrapper} className={cls.messages__wrapper}>
       {messages && (
         <>
           <MessagesList messages={messages} />

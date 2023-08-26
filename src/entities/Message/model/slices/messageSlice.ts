@@ -14,6 +14,7 @@ export const messagesSlice = createSlice({
   initialState,
   reducers: {
     addNewMessage: (state, action: PayloadAction<IMessage>) => {
+      console.log(action.payload);
       const { created_at } = action.payload;
       const date = created_at.substr(0, 10);
       if (state.messagesData) {

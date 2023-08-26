@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { fetchDialogs } from '../services/fetchDialogs';
 import { IDialogData } from '../types/dialogs';
@@ -12,6 +12,7 @@ export const dialogSlice = createSlice({
       state.activeDialog = action.payload;
     },
     setUserOnline: (state, action) => {
+      console.log(action.payload);
       const { userId, isOnline } = action.payload;
       if (state.dialogData) {
         const dialogToUpdate = state.dialogData.find(
@@ -19,6 +20,17 @@ export const dialogSlice = createSlice({
         );
         if (dialogToUpdate) {
           dialogToUpdate.partner.isOnline = isOnline;
+        }
+      }
+    },
+    updateLastMessage: (state, action) => {
+      const { dialog } = action.payload;
+      if (state.dialogData) {
+        const dialogToUpdate = state.dialogData.find(
+          (dialogData) => dialogData.id === dialog.id
+        );
+        if (dialogToUpdate) {
+          dialogToUpdate.latestMessage = action.payload;
         }
       }
     },

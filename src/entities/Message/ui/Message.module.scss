@@ -13,10 +13,13 @@
       box-shadow: var(--app-message-shadow);
       border-radius: 16px 16px 0 16px;
       transition: color 250ms ease-in;
+
     }
   }
   .user {
     align-self: flex-end;
+    position: sticky;
+    bottom: 0;
   }
   .body {
     background-color: var(--app-accent);
@@ -25,5 +28,6 @@
     box-shadow: var(--app-message-shadow-main);
     color: var(--app-secondary-text);
     font-size: 0.9em;
+    word-break: break-all;
   }
 }
