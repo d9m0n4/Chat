@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg';
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
 import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg';
-import { socket } from 'shared/config/api/ws';
+// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Button } from 'shared/ui/Button';
 
@@ -30,15 +30,15 @@ export const MessageInput = memo(() => {
     }
     if (textContent) {
       setMessage(textContent);
-      socket.emit('on_typing_message', {
-        partner: partner?.id,
-        dialog: dialog?.id,
-      });
+      // socket.emit('on_typing_message', {
+      //   partner: partner?.id,
+      //   dialog: dialog?.id,
+      // });
     } else {
-      socket.emit('on_stop_typing_message', {
-        partner: partner?.id,
-        dialog: dialog?.id,
-      });
+      // socket.emit('on_stop_typing_message', {
+      //   partner: partner?.id,
+      //   dialog: dialog?.id,
+      // });
     }
   };
 
@@ -61,10 +61,10 @@ export const MessageInput = memo(() => {
     if (inputDiv.current) {
       inputDiv.current.textContent = null;
       inputDiv.current.focus();
-      socket.emit('on_stop_typing_message', {
-        partner: partner?.id,
-        dialog: dialog?.id,
-      });
+      // socket.emit('on_stop_typing_message', {
+      //   partner: partner?.id,
+      //   dialog: dialog?.id,
+      // });
     }
   };
 

@@ -1,13 +1,27 @@
 import { DialogList } from 'entities/Dialog';
+import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { CreateDialogModal } from 'features/CreateDialog';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ReactComponent as Add } from 'shared/assets/icons/plus.svg';
+// import { socket } from 'shared/config/api/ws';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Button } from 'shared/ui/Button';
 
 import cls from './Dialogs.module.scss';
 
 export const Dialogs = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const dispatch = useAppDispatch();
+
+  // useEffect(() => {
+  //   socket.on('dialog_created', (payload) => {
+  //     dispatch(dialogActions.addNewDialog(payload));
+  //   });
+  //   return () => {
+  //     socket.off('dialog_created');
+  //   };
+  // }, [socket, dispatch]);
+
   return (
     <div className={cls.dialogs}>
       <div className={cls.dialogs__wrapper}>

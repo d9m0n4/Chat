@@ -1,13 +1,16 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
+import { Socket } from 'socket.io-client';
 import { ChatHeader } from 'widgets/ChatHeader';
 
 import { getDialogs } from '../../entities/Dialog/model/selectors/getDialogs';
 import { dialogActions } from '../../entities/Dialog/model/slices/dialogSlice';
+import { getUserData } from '../../entities/User/model/selectors/getUserData';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
 import { api } from '../../shared/config/api/api';
-import { socket } from '../../shared/config/api/ws';
+import { connectToSocket } from '../../shared/config/api/ws';
+// import { socket } from '../../shared/config/api/ws';
 import { useAppDispatch } from '../../shared/hooks/useAppDispatch/useAppDispatch';
 import { Sidebar } from '../Sidebar';
 
@@ -18,25 +21,45 @@ interface MainLayoutProps {
 export const Layout: FC<MainLayoutProps> = ({ path }) => {
   const dispatch = useAppDispatch();
   const myDialogs = useSelector(getDialogs);
+  const [socket, setSocket] = useState<Socket>();
 
   useEffect(() => {
-    socket.on('refreshToken', async () => {
-      await api.get('/auth/refresh');
-    });
-    return () => {
-      socket.off('refreshToken');
-    };
+    dispatch(fetchUserData());
+    setSocket(connectToSocket());
   }, []);
 
   useEffect(() => {
-    socket.emit(
-      'user_online',
-      myDialogs?.map((dialog) => dialog.partner.id)
-    );
+    if (myDialogs) {
+      socket?.emit(
+        'user_online',
+        myDialogs?.map((dialog) => dialog.partner.id)
+      );
+    }
+
     return () => {
-      socket.off('user_online');
+      socket?.off('user_online');
     };
-  }, [myDialogs]);
+  }, [myDialogs, socket]);
+
+  useEffect(() => {
+    const setUserOnline = (user: number) => {
+      dispatch(dialogActions.setUserOnline({ userId: user, isOnline: true }));
+    };
+    const setUserOffline = (user: number) => {
+      dispatch(dialogActions.setUserOnline({ userId: user, isOnline: false }));
+    };
+    socket?.on('friends_online', (ids: number[]) =>
+      ids.forEach((id) => setUserOnline(id))
+    );
+    socket?.on('online', setUserOnline);
+    socket?.on('offline', setUserOffline);
+
+    return () => {
+      socket?.off('online', setUserOnline);
+      socket?.off('offline', setUserOffline);
+      socket?.off('friends_online');
+    };
+  }, [socket]);
 
   return (
     <div className="main">

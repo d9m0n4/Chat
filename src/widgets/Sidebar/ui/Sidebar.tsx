@@ -5,6 +5,7 @@ import { ReactComponent as Bookmark } from 'shared/assets/icons/bookmark.svg';
 import { ReactComponent as Chat } from 'shared/assets/icons/chat.svg';
 import { ReactComponent as Settings } from 'shared/assets/icons/cog.svg';
 import { ReactComponent as Logout } from 'shared/assets/icons/logout.svg';
+// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
@@ -15,6 +16,7 @@ export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(userActions.logout());
+    // socket.disconnect();
   };
   return (
     <div className={cls.sidebar}>
@@ -25,7 +27,10 @@ export const Sidebar = () => {
       </div>
       <div className={cls.sidebar__nav}>
         <div className={cls.links}>
-          <NavLink to={'/'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
+          <NavLink
+            to={'/'}
+            className={({ isActive }) => (isActive ? `${cls.active}` : '')}
+          >
             <Chat className={`${cls.icon} icon`} />
           </NavLink>
           <NavLink
@@ -34,7 +39,10 @@ export const Sidebar = () => {
           >
             <Bookmark className={`${cls.icon} icon`} />
           </NavLink>
-          <NavLink to={'/settings'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
+          <NavLink
+            to={'/settings'}
+            className={({ isActive }) => (isActive ? `${cls.active}` : '')}
+          >
             <Settings className={`${cls.icon} icon`} />
           </NavLink>
         </div>

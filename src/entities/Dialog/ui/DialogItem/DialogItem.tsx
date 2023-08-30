@@ -31,7 +31,7 @@ export const DialogItem: FC<IDialogItem> = ({
       </div>
       <div className={cls.body}>
         <div className={cls.title}>
-          <span>{partner.name}</span>
+          <span>{partner && partner.name}</span>
         </div>
 
         <div className={cls.subtitle}>
@@ -48,9 +48,11 @@ export const DialogItem: FC<IDialogItem> = ({
         </div>
       </div>
       <div className={cls.info}>
-        <span className={cls.date}>
-          {new Date(latestMessage.created_at).toLocaleDateString()}
-        </span>
+        {latestMessage && (
+          <span className={cls.date}>
+            {new Date(latestMessage.created_at).toLocaleDateString()}
+          </span>
+        )}
       </div>
     </li>
   );

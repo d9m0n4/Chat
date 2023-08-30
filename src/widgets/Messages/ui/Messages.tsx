@@ -5,7 +5,7 @@ import { messagesActions } from 'entities/Message/model/slices/messageSlice';
 import { IMessage } from 'entities/Message/model/types/Message';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { socket } from 'shared/config/api/ws';
+// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { MessageInput } from 'widgets/MessageInput';
 

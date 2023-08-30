@@ -33,7 +33,6 @@ export const AppRouter = () => {
     <Routes>
       <Route element={<RequireAuth />}>
         <Route
-          path={'/'}
           element={
             <Suspense fallback={'loading....'}>
               <Layout />

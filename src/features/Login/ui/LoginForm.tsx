@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Arrow } from 'shared/assets/icons/arrowR.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Button } from 'shared/ui/Button';
@@ -17,6 +17,7 @@ export const LoginForm: FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dispatch(Login({ nickName: login, password }));
+
     navigate('/');
   };
   return (

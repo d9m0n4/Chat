@@ -5,7 +5,7 @@ import { IMessage } from 'entities/Message/model/types/Message';
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import { socket } from 'shared/config/api/ws';
+// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Dialogs } from 'widgets/Dialogs';
 import { Interlocutor } from 'widgets/Interlocutor';
@@ -16,16 +16,16 @@ export const MainPage: FC = () => {
   const partner = useSelector(getDialogPartner);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    socket.on('message_created', (message: IMessage) => {
-      dispatch(messagesActions.addNewMessage(message));
-      dispatch(dialogActions.updateLastMessage(message));
-      console.log(message);
-    });
-    return () => {
-      socket.off('message_created');
-    };
-  }, []);
+  // useEffect(() => {
+  //   socket.on('message_created', (message: IMessage) => {
+  //     dispatch(messagesActions.addNewMessage(message));
+  //     dispatch(dialogActions.updateLastMessage(message));
+  //     console.log(message);
+  //   });
+  //   return () => {
+  //     socket.off('message_created');
+  //   };
+  // }, []);
 
   return (
     <div className="main-section">

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as Close } from 'shared/assets/icons/x.svg';
-import { socket } from 'shared/config/api/ws';
+// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
 import { Avatar } from 'shared/ui/Avatar';
@@ -26,17 +26,12 @@ export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
 
   const handleCreateDialog = (id: number) => {
     dispatch(createDialog(id));
-    socket.emit('create_dialog', { dialogId: id });
+    // connectToSocket().emit('create_dialog', { dialogId: id });
   };
 
   useEffect(() => {
     dispatch(findUsers(debounceValue));
-    socket.emit('create_dialog', { dialogId: '987' });
   }, [debounceValue]);
-
-  socket.on('users', (data) => {
-    console.log(data);
-  });
 
   return (
     <div className={cls.form}>

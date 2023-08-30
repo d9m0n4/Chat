@@ -28,7 +28,7 @@ interface activeDialog {
 }
 
 export interface IDialogData {
-  dialogData?: IDialog[];
+  dialogData: IDialog[];
   activeDialog?: activeDialog;
   error?: string;
   loading?: boolean;

@@ -3,16 +3,18 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { fetchDialogs } from '../services/fetchDialogs';
 import { IDialogData } from '../types/dialogs';
 
-const initialState: IDialogData = {};
+const initialState: IDialogData = { dialogData: [] };
 export const dialogSlice = createSlice({
   name: 'dialog',
   initialState,
   reducers: {
+    addNewDialog: (state, action) => {
+      state.dialogData.unshift(action.payload);
+    },
     setActiveDialog: (state, action) => {
       state.activeDialog = action.payload;
     },
     setUserOnline: (state, action) => {
-      console.log(action.payload);
       const { userId, isOnline } = action.payload;
       if (state.dialogData) {
         const dialogToUpdate = state.dialogData.find(
@@ -43,7 +45,7 @@ export const dialogSlice = createSlice({
       })
       .addCase(fetchDialogs.pending, (state) => {
         state.loading = true;
-        state.dialogData = undefined;
+        state.dialogData = [];
       })
       .addCase(fetchDialogs.rejected, (state) => {
         state.error = 'error';
