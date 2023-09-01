@@ -1,21 +1,17 @@
-import { getUserData } from 'entities/User/model/selectors/getUserData';
 import { AuthPage } from 'pages/AuthPage';
 import { FavoritesPage } from 'pages/FavoritesPage';
 import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { SettingsPage } from 'pages/SettingsPage';
 import React, { Suspense } from 'react';
-import { useSelector } from 'react-redux';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Layout } from 'widgets/Layout/Layout';
 import { Messages } from 'widgets/Messages';
 
+import { SocketProvider } from '../../socketProvider';
 import { RequireAuth } from './RequireAuth';
 
 export const AppRouter = () => {
-  const token = localStorage.getItem('user');
-  const isAuthenticated = !!token;
-
   return (
     // <Routes>
     //   {Object.values(routerConfig).map((route) => {
@@ -35,7 +31,9 @@ export const AppRouter = () => {
         <Route
           element={
             <Suspense fallback={'loading....'}>
-              <Layout />
+              <SocketProvider>
+                <Layout />
+              </SocketProvider>
             </Suspense>
           }
         >

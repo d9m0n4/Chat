@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg';
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
 import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg';
-// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { Button } from 'shared/ui/Button';
 
 import { sendMessage } from '../model/services/sendMessage';
@@ -18,11 +18,12 @@ export const MessageInput = memo(() => {
   const placeholderRef = useRef<HTMLSpanElement>(null);
   const partner = useSelector(getDialogPartner);
   const dialog = useSelector(getActiveDialog);
+  const { socket } = useSocket();
 
   const [message, setMessage] = useState('');
 
   const handleInputChange = (e: React.FormEvent<HTMLDivElement>) => {
-    const { textContent, innerHTML } = e.currentTarget;
+    const { textContent } = e.currentTarget;
     if (placeholderRef.current && textContent) {
       placeholderRef.current.style.display = 'none';
     } else if (placeholderRef.current && !textContent) {
@@ -30,15 +31,15 @@ export const MessageInput = memo(() => {
     }
     if (textContent) {
       setMessage(textContent);
-      // socket.emit('on_typing_message', {
-      //   partner: partner?.id,
-      //   dialog: dialog?.id,
-      // });
+      socket?.emit('on_typing_message', {
+        partner: partner?.id,
+        dialog: dialog?.id,
+      });
     } else {
-      // socket.emit('on_stop_typing_message', {
-      //   partner: partner?.id,
-      //   dialog: dialog?.id,
-      // });
+      socket?.emit('on_stop_typing_message', {
+        partner: partner?.id,
+        dialog: dialog?.id,
+      });
     }
   };
 
@@ -61,10 +62,10 @@ export const MessageInput = memo(() => {
     if (inputDiv.current) {
       inputDiv.current.textContent = null;
       inputDiv.current.focus();
-      // socket.emit('on_stop_typing_message', {
-      //   partner: partner?.id,
-      //   dialog: dialog?.id,
-      // });
+      socket?.emit('on_stop_typing_message', {
+        partner: partner?.id,
+        dialog: dialog?.id,
+      });
     }
   };
 

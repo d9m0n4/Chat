@@ -6,6 +6,7 @@ module.exports = {
   singleQuote: true,
   printWidth: 80,
   importOrder: [
+    '<THIRD_PARTY_MODULES>',
     '^@app/(.*)$',
     '^@pages/(.*)$',
     '^@widgets/(.*)$',

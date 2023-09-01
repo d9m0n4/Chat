@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions } from 'entities/User/model/slices/userSlice';
 import { User } from 'entities/User/model/types/user';
 import { api } from 'shared/config/api/api';
-import { connectToSocket } from 'shared/config/api/ws';
 
 interface LoginData {
   nickName: string;

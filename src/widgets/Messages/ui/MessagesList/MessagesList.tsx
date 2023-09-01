@@ -1,12 +1,10 @@
 import { getActiveDialog } from 'entities/Dialog';
-import {
-  GroupedMessages,
-  IMessage,
-} from 'entities/Message/model/types/Message';
+import { GroupedMessages } from 'entities/Message/model/types/Message';
 import { Message } from 'entities/Message/ui/Message';
 import { getUserData } from 'entities/User/model/selectors/getUserData';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';
 import { TypingMessage } from 'shared/ui/TypingMessage';
 
@@ -19,7 +17,8 @@ import cls from '../Messages.module.scss';
 export const MessagesList = ({ messages }: { messages: GroupedMessages }) => {
   const user = useSelector(getUserData);
   const dialog = useSelector(getActiveDialog);
-  const isTyping = useTypingIndicator(dialog?.id);
+  const { socket } = useSocket();
+  const isTyping = useTypingIndicator(dialog?.id, socket);
   const messagesContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

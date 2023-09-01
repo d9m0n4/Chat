@@ -1,31 +1,28 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import { Socket } from 'socket.io-client';
 import { ChatHeader } from 'widgets/ChatHeader';
 
 import { getDialogs } from '../../entities/Dialog/model/selectors/getDialogs';
 import { dialogActions } from '../../entities/Dialog/model/slices/dialogSlice';
-import { getUserData } from '../../entities/User/model/selectors/getUserData';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
-import { api } from '../../shared/config/api/api';
-import { connectToSocket } from '../../shared/config/api/ws';
 // import { socket } from '../../shared/config/api/ws';
 import { useAppDispatch } from '../../shared/hooks/useAppDispatch/useAppDispatch';
+import { useSocket } from '../../shared/hooks/useSocket/useSocket';
 import { Sidebar } from '../Sidebar';
 
 interface MainLayoutProps {
   path?: string | undefined;
 }
 
-export const Layout: FC<MainLayoutProps> = ({ path }) => {
+export const Layout: FC<MainLayoutProps> = () => {
   const dispatch = useAppDispatch();
   const myDialogs = useSelector(getDialogs);
-  const [socket, setSocket] = useState<Socket>();
+
+  const { socket } = useSocket();
 
   useEffect(() => {
     dispatch(fetchUserData());
-    setSocket(connectToSocket());
   }, []);
 
   useEffect(() => {

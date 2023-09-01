@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';
 import { Avatar } from 'shared/ui/Avatar';
 import { Online } from 'shared/ui/Online';
@@ -21,7 +22,8 @@ export const DialogItem: FC<IDialogItem> = ({
   onClick,
   id,
 }) => {
-  const isTyping = useTypingIndicator(id);
+  const { socket } = useSocket();
+  const isTyping = useTypingIndicator(id, socket);
   return (
     <li className={`${cls.item} ${isActive && cls.active}`} onClick={onClick}>
       <div className={cls.user}>
