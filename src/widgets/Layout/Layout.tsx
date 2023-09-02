@@ -50,11 +50,15 @@ export const Layout: FC<MainLayoutProps> = () => {
     );
     socket?.on('online', setUserOnline);
     socket?.on('offline', setUserOffline);
+    socket?.on('dis', (message) => {
+      console.log(message);
+    });
 
     return () => {
       socket?.off('online', setUserOnline);
       socket?.off('offline', setUserOffline);
       socket?.off('friends_online');
+      socket?.off('dis');
     };
   }, [socket]);
 

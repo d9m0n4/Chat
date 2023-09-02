@@ -32,7 +32,12 @@ export const dialogSlice = createSlice({
           (dialogData) => dialogData.id === dialog.id
         );
         if (dialogToUpdate) {
-          dialogToUpdate.latestMessage = action.payload;
+          dialogToUpdate.latestMessage = {
+            id: action.payload.id,
+            content: action.payload.content,
+            updated_at: action.payload.updated_at,
+            created_at: action.payload.created_at,
+          };
         }
       }
     },

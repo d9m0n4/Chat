@@ -19,13 +19,14 @@ export const MainPage: FC = () => {
 
   useEffect(() => {
     socket?.on('message_created', (message: IMessage) => {
+      console.log(12);
       dispatch(messagesActions.addNewMessage(message));
       dispatch(dialogActions.updateLastMessage(message));
     });
     return () => {
       socket?.off('message_created');
     };
-  }, []);
+  }, [socket]);
 
   return (
     <div className="main-section">
