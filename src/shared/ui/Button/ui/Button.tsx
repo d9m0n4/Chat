@@ -14,6 +14,7 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   variant?: ButtonVariants;
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  disabled?: React.ButtonHTMLAttributes<HTMLButtonElement>['disabled'];
 }
 
 export const Button: FC<PropsWithChildren<ButtonProps>> = ({
@@ -22,6 +23,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
   onClick,
   variant = ButtonVariants.EMPTY,
   type,
+  disabled,
   ...props
 }) => {
   return (
@@ -30,6 +32,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
       onClick={onClick}
       {...props}
       type={type}
+      disabled={disabled}
     >
       {children}
     </button>

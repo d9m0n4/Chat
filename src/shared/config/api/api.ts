@@ -26,6 +26,7 @@ api.interceptors.response.use(
         const refreshResponse = await axios.get(`${BASE_URL}/auth/refresh`, {
           withCredentials: true,
         });
+        localStorage.setItem('jwt', JSON.stringify(refreshResponse.data));
         return api.request(orginalRequest!);
       } catch (e) {
         console.log(e);

@@ -50,6 +50,7 @@ export const MessageInput = memo(() => {
       placeholderRef.current.style.display = 'none';
     } else if (placeholderRef.current && !textContent) {
       placeholderRef.current.style.display = 'block';
+      setMessage('');
     }
     if (textContent) {
       setMessage(textContent);
@@ -73,7 +74,7 @@ export const MessageInput = memo(() => {
   };
 
   const onSendMessage = async () => {
-    if (!dialogId) {
+    if (!dialogId || !message) {
       return;
     }
     await dispatch(sendMessage({ dialogId: dialogId.id, content: message }));
@@ -104,6 +105,7 @@ export const MessageInput = memo(() => {
               ref={inputDiv}
               onClick={handleFocusInput}
               onInput={handleInputChange}
+              onChange={handleInputChange}
               className={cls.input}
               contentEditable
               role="textbox"
@@ -116,7 +118,7 @@ export const MessageInput = memo(() => {
         </div>
 
         <div className={cls.send}>
-          <Button onClick={onSendMessage}>
+          <Button disabled={!message} onClick={onSendMessage}>
             <Send className="icon" />
           </Button>
         </div>

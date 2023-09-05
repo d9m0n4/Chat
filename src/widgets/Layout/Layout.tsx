@@ -12,11 +12,7 @@ import { useAppDispatch } from '../../shared/hooks/useAppDispatch/useAppDispatch
 import { useSocket } from '../../shared/hooks/useSocket/useSocket';
 import { Sidebar } from '../Sidebar';
 
-interface MainLayoutProps {
-  path?: string | undefined;
-}
-
-export const Layout: FC<MainLayoutProps> = () => {
+export const Layout = () => {
   const dispatch = useAppDispatch();
   const myDialogs = useSelector(getDialogs);
 
@@ -51,7 +47,7 @@ export const Layout: FC<MainLayoutProps> = () => {
     );
     socket?.on('refreshToken', async () => {
       console.log('refreshToken');
-      await api.get('/auth/refresh').then(() => socket?.emit('connect'));
+      await api.get('/auth/refresh');
     });
     socket?.on('online', setUserOnline);
     socket?.on('offline', setUserOffline);
