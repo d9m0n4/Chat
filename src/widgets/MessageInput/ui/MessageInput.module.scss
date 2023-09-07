@@ -1,6 +1,9 @@
 .messages__input {
   padding: 1em 2em;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   .input__block {
     padding-top: 1em;
     border-top: 1px solid var(--app-border);

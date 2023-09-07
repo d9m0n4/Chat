@@ -1,14 +1,15 @@
 import { getActiveDialog } from 'entities/Dialog';
 import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
-import React, { lazy, memo, useRef, useState } from 'react';
+import React, { lazy, memo, useCallback, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
-import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { Button } from 'shared/ui/Button';
 
 import { sendMessage } from '../model/services/sendMessage';
+import { FilePreviewer } from './FilePreviewer/FilePreviewer';
+import { FileUpload } from './FileUpload/FileUpload';
 import cls from './MessageInput.module.scss';
 
 const EmojiPicker = lazy(() => import('./EmojiPicker/EmojiPicker'));
@@ -25,8 +26,9 @@ export const MessageInput = memo(() => {
   const { socket } = useSocket();
 
   const [message, setMessage] = useState('');
+  const [files, setFiles] = useState<File[] | null>(null);
 
-  const handleChangeEmoji = (emoji: string) => {
+  const handleChangeEmoji = useCallback((emoji: string) => {
     if (inputDiv.current) {
       if (placeholderRef.current && emoji) {
         placeholderRef.current.style.display = 'none';
@@ -42,7 +44,7 @@ export const MessageInput = memo(() => {
         dialog: dialog?.id,
       });
     }
-  };
+  }, []);
 
   const handleInputChange = (e: React.FormEvent<HTMLDivElement>) => {
     const { textContent } = e.currentTarget;
@@ -79,6 +81,7 @@ export const MessageInput = memo(() => {
     }
     await dispatch(sendMessage({ dialogId: dialogId.id, content: message }));
     setMessage('');
+    setFiles(null);
     if (inputDiv.current) {
       inputDiv.current.textContent = null;
       inputDiv.current.focus();
@@ -90,40 +93,41 @@ export const MessageInput = memo(() => {
   };
 
   return (
-    <div className={cls.messages__input}>
-      <div className={cls.input__block}>
-        <div className={cls.attach}>
-          <Button>
-            <Attach className="icon" />
-          </Button>
-          <EmojiPicker onSelect={handleChangeEmoji} />
-        </div>
+    <>
+      <div className={cls.messages__input}>
+        <div className={cls.input__block}>
+          <div className={cls.attach}>
+            <FileUpload onSetPreview={setFiles} />
+            <EmojiPicker onSelect={handleChangeEmoji} />
+          </div>
 
-        <div className={cls.input__body}>
-          <div className={cls.input__scroller}>
-            <div
-              ref={inputDiv}
-              onClick={handleFocusInput}
-              onInput={handleInputChange}
-              onChange={handleInputChange}
-              className={cls.input}
-              contentEditable
-              role="textbox"
-              aria-label={'type'}
-            />
-            <span ref={placeholderRef} className={cls.placeholder}>
-              {placeholder}
-            </span>
+          <div className={cls.input__body}>
+            <div className={cls.input__scroller}>
+              <div
+                ref={inputDiv}
+                onClick={handleFocusInput}
+                onInput={handleInputChange}
+                onChange={handleInputChange}
+                className={cls.input}
+                contentEditable
+                role="textbox"
+                aria-label={'type'}
+              />
+              <span ref={placeholderRef} className={cls.placeholder}>
+                {placeholder}
+              </span>
+            </div>
+          </div>
+
+          <div className={cls.send}>
+            <Button disabled={!message} onClick={onSendMessage}>
+              <Send className="icon" />
+            </Button>
           </div>
         </div>
-
-        <div className={cls.send}>
-          <Button disabled={!message} onClick={onSendMessage}>
-            <Send className="icon" />
-          </Button>
-        </div>
+        {files && <FilePreviewer files={files} />}
       </div>
-    </div>
+    </>
   );
 });
 

@@ -1,0 +1,18 @@
+.filePreviewer {
+  display: flex;
+  gap: .5rem;
+  &__file {
+    width: 3rem;
+    height: 3rem;
+    border-radius: .25rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--app-gray);
+    color: var(--app-primary-text);
+    &.image {
+      object-fit: cover;
+    }
+  }
+}
