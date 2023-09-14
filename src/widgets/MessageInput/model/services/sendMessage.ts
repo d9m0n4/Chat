@@ -5,7 +5,7 @@ import { Message } from '../types/Message';
 
 export const sendMessage = createAsyncThunk(
   'sendMessage',
-  async (message: Message, thunkAPI) => {
+  async (message: any, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await api.post('messages', message);

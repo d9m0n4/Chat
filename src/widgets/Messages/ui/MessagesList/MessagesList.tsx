@@ -48,6 +48,7 @@ export const MessagesList = ({ messages }: { messages: GroupedMessages }) => {
               content={message.content}
               user={message.user}
               isSelf={message.user.id === user?.id}
+              files={message.files}
             />
           ))}
         </div>
