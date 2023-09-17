@@ -12,6 +12,7 @@ export interface IMessage {
   updated_at: Date;
   dialog: INewMessageDialog;
   user: User;
+  files?: string[];
 }
 
 export interface GroupedMessages {

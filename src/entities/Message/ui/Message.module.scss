@@ -31,5 +31,23 @@
     font-size: 0.9em;
     word-break: break-all;
     text-align: initial;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    &__content {
+
+    }
+    &__attachments {
+      display: flex;
+      gap: .5rem  ;
+      .item {
+        cursor: pointer;
+        img {
+          width: 80px;
+          object-fit: contain;
+        }
+      }
+
+    }
   }
 }

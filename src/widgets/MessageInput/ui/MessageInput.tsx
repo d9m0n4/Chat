@@ -79,7 +79,22 @@ export const MessageInput = memo(() => {
     if (!dialogId || !message) {
       return;
     }
-    await dispatch(sendMessage({ dialogId: dialogId.id, content: message }));
+
+    try {
+      const formData = new FormData();
+      formData.append('dialogId', String(dialogId.id));
+      formData.append('content', message);
+
+      if (files) {
+        files.forEach((file, index) => {
+          formData.append(`file`, file);
+        });
+      }
+      await dispatch(sendMessage(formData));
+    } catch (e) {
+      console.log(e);
+    }
+
     setMessage('');
     setFiles(null);
     if (inputDiv.current) {
