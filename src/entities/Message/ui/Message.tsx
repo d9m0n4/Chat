@@ -2,6 +2,7 @@ import clsx from 'classnames';
 import React, { FC } from 'react';
 import { Avatar } from 'shared/ui/Avatar';
 
+import { MessageFile } from '../model/types/Message';
 import cls from './Message.module.scss';
 
 interface IMessage {
@@ -9,7 +10,7 @@ interface IMessage {
   className?: string;
   isSelf?: boolean;
   content: string;
-  files?: string[];
+  files?: MessageFile[];
   user?: {
     id: number;
     name: string;
@@ -39,8 +40,8 @@ export const Message: FC<IMessage> = ({
         {files && (
           <div className={cls.body__attachments}>
             {files.map((file) => (
-              <div key={file} className={cls.item}>
-                <img src={`http://localhost:5000${file}`} alt="" />
+              <div key={file.id} className={cls.item}>
+                <img src={`http://localhost:5000${file.url}`} alt="" />
               </div>
             ))}
           </div>

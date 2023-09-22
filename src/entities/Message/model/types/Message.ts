@@ -5,6 +5,15 @@ type User = {
   avatarUrl: null | string;
 };
 
+export interface MessageFile {
+  created_at: Date;
+  ext: string;
+  id: number;
+  name: string;
+  updated_at: Date;
+  url: string;
+}
+
 export interface IMessage {
   id: number;
   content: string;
@@ -12,7 +21,7 @@ export interface IMessage {
   updated_at: Date;
   dialog: INewMessageDialog;
   user: User;
-  files?: string[];
+  files?: MessageFile[];
 }
 
 export interface GroupedMessages {
