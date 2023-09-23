@@ -5,7 +5,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 export const RequireAuth = () => {
   const auth = useSelector(getUserData);
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem('jwt');
   const location = useLocation();
 
   return auth || user ? (

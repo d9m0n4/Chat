@@ -14,7 +14,7 @@ export const userSlice = createSlice({
       state.authData = action.payload;
     },
     logout: (state) => {
-      localStorage.removeItem('user');
+      localStorage.removeItem('jwt');
       document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       state.authData = undefined;
     },

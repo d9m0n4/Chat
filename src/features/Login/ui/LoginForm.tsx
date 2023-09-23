@@ -17,7 +17,6 @@ export const LoginForm: FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dispatch(Login({ nickName: login, password }));
-
     navigate('/');
   };
   return (

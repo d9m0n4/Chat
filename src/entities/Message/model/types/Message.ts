@@ -12,6 +12,7 @@ export interface MessageFile {
   name: string;
   updated_at: Date;
   url: string;
+  fileType: string;
 }
 
 export interface IMessage {

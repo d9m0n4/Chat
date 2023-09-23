@@ -37,11 +37,28 @@ export const Message: FC<IMessage> = ({
       </div>
       <div className={cls.body}>
         <div className={cls.body__content}>{content}</div>
-        {files && (
+        {files && files.length > 0 && (
           <div className={cls.body__attachments}>
             {files.map((file) => (
               <div key={file.id} className={cls.item}>
-                <img src={`http://localhost:5000${file.url}`} alt="" />
+                {file.ext === 'webp' ? (
+                  <a
+                    href={`http://localhost:5000${file.url}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={`http://localhost:5000${file.url}`} alt="" />
+                  </a>
+                ) : (
+                  <a
+                    href={`http://localhost:5000${file.url}`}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img alt="File" />
+                    {file.name}
+                  </a>
+                )}
               </div>
             ))}
           </div>

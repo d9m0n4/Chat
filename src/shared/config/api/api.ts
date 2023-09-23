@@ -27,8 +27,10 @@ api.interceptors.response.use(
           withCredentials: true,
         });
         localStorage.setItem('jwt', JSON.stringify(refreshResponse.data));
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return api.request(orginalRequest!);
       } catch (e) {
+        localStorage.removeItem('jwt');
         console.log(e);
       }
     }
