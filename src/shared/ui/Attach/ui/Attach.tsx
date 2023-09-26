@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ReactComponent as Download } from 'shared/assets/icons/download.svg';
-import { ReactComponent as PDF } from 'shared/assets/icons/pdf.svg';
 
 import { Button } from '../../Button';
+import { FileThumb } from '../../FileIcon';
 import cls from './Attach.module.scss';
 
-export const Attach = () => {
+interface IAttachProps {
+  ext: string;
+  name: string;
+  url: string;
+}
+
+export const Attach: FC<IAttachProps> = ({ ext, name, url }) => {
   return (
     <li className={cls.attach}>
       <div className={cls.icon}>
-        <PDF />
+        <FileThumb ext={ext} name={name} url={url} />
       </div>
       <div className={cls.body}>
         <div className={cls.title}>

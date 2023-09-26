@@ -1,6 +1,7 @@
 import clsx from 'classnames';
 import React, { FC } from 'react';
 import { Avatar } from 'shared/ui/Avatar';
+import { FileThumb } from 'shared/ui/FileIcon';
 
 import { MessageFile } from '../model/types/Message';
 import cls from './Message.module.scss';
@@ -41,24 +42,13 @@ export const Message: FC<IMessage> = ({
           <div className={cls.body__attachments}>
             {files.map((file) => (
               <div key={file.id} className={cls.item}>
-                {file.ext === 'webp' ? (
-                  <a
-                    href={`http://localhost:5000${file.url}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src={`http://localhost:5000${file.url}`} alt="" />
-                  </a>
-                ) : (
-                  <a
-                    href={`http://localhost:5000${file.url}`}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <img alt="File" />
-                    {file.name}
-                  </a>
-                )}
+                <a
+                  href={`http://localhost:5000${file.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FileThumb name={file.name} ext={file.ext} url={file.url} />
+                </a>
               </div>
             ))}
           </div>

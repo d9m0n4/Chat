@@ -16,33 +16,6 @@ type InterlocutorProps = {
 
 export const Interlocutor: FC<InterlocutorProps> = memo(
   ({ id, avatar, nickName, name, isOnline }) => {
-    const attachItems = useMemo(
-      () => (
-        <>
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-          <Attach />
-        </>
-      ),
-      []
-    );
     return (
       <div className={cls.interlocutor}>
         <div className={cls.info}>
@@ -56,11 +29,11 @@ export const Interlocutor: FC<InterlocutorProps> = memo(
           <div className={cls.attaches__heading}>
             <p>Вложения</p>
             <Button>
-              <Chevron className={'icon'} />
+              <Chevron className="icon" />
             </Button>
           </div>
           <div className={cls.attaches__body}>
-            <ul className={cls.attaches__list}>{attachItems}</ul>
+            <ul className={cls.attaches__list}>{}</ul>
           </div>
         </div>
       </div>

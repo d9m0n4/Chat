@@ -1,1 +1,1 @@
-export { FileIcon } from './ui/FileIcon';
+export { FileThumb } from './ui/FileThumb';
