@@ -1,6 +1,11 @@
-import React, { FC, memo, useMemo } from 'react';
+import { Attach } from 'entities/ChatAttachment';
+import { getAttachments } from 'entities/ChatAttachment/model/selectors/getAttachments';
+import { getAttachmentByDialogId } from 'entities/ChatAttachment/model/services/getAttachmentByDialogId';
+import { getActiveDialog } from 'entities/Dialog';
+import React, { FC, memo, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { ReactComponent as Chevron } from 'shared/assets/icons/cheveron-down.svg';
-import { Attach } from 'shared/ui/Attach';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
 
@@ -16,6 +21,30 @@ type InterlocutorProps = {
 
 export const Interlocutor: FC<InterlocutorProps> = memo(
   ({ id, avatar, nickName, name, isOnline }) => {
+    const dispatch = useAppDispatch();
+    const activeDialog = useSelector(getActiveDialog);
+    const dialogAttachments = useSelector(getAttachments);
+
+    useEffect(() => {
+      if (activeDialog) {
+        dispatch(getAttachmentByDialogId(activeDialog?.id));
+      }
+    }, [activeDialog]);
+
+    const attachmentsList = useMemo(() => {
+      return dialogAttachments?.map((attachment) => (
+        <Attach
+          key={attachment.id}
+          ext={attachment.ext}
+          name={attachment.name}
+          url={attachment.url}
+          originalName={attachment.originalName}
+          size={attachment.size}
+          created_at={attachment.created_at}
+        />
+      ));
+    }, [dialogAttachments]);
+
     return (
       <div className={cls.interlocutor}>
         <div className={cls.info}>
@@ -33,7 +62,7 @@ export const Interlocutor: FC<InterlocutorProps> = memo(
             </Button>
           </div>
           <div className={cls.attaches__body}>
-            <ul className={cls.attaches__list}>{}</ul>
+            <ul className={cls.attaches__list}>{attachmentsList}</ul>
           </div>
         </div>
       </div>

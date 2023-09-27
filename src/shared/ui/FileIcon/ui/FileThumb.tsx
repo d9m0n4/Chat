@@ -23,7 +23,12 @@ export const FileThumb: FC<FileIconProps> = ({
   return (
     <>
       {isImage(ext) ? (
-        <img className={cls.file__image} src={`${BASE_URL}${url}`} alt={name} />
+        <img
+          width={`${width}px`}
+          className={cls.file__image}
+          src={`${BASE_URL}${url}`}
+          alt={name}
+        />
       ) : (
         <div className={cls.file}>
           <FileIcon width={width} height={width} className={cls.file__icon} />

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from 'shared/config/api/api';
 
-import { GroupedMessages, IMessage } from '../types/Message';
+import { GroupedMessages } from '../types/Message';
 
 export const fetchMessages = createAsyncThunk(
   'messages',

@@ -14,15 +14,15 @@ import { MessagesList } from './MessagesList/MessagesList';
 
 export const Messages = () => {
   const messages = useSelector(getMessages);
-  const activeDialogId = useSelector(getActiveDialog);
+  const activeDialog = useSelector(getActiveDialog);
   const dispatch = useAppDispatch();
   const messagesWrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (activeDialogId) {
-      dispatch(fetchMessages(activeDialogId.id));
+    if (activeDialog) {
+      dispatch(fetchMessages(activeDialog.id));
     }
-  }, [activeDialogId]);
+  }, [activeDialog]);
 
   useEffect(() => {
     const observerOptions = {

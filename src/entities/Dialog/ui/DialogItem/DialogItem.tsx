@@ -4,6 +4,7 @@ import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingInd
 import { Avatar } from 'shared/ui/Avatar';
 import { Online } from 'shared/ui/Online';
 import { TypingDots } from 'shared/ui/TypingMessage';
+import { formatDate } from 'shared/utils/formatDate/formatDate';
 
 import { IDialog } from '../../model/types/dialogs';
 import cls from './DialogItem.module.scss';
@@ -52,7 +53,7 @@ export const DialogItem: FC<IDialogItem> = ({
       <div className={cls.info}>
         {latestMessage && (
           <span className={cls.date}>
-            {new Date(latestMessage.created_at).toLocaleDateString()}
+            {formatDate(latestMessage.created_at)}
           </span>
         )}
       </div>

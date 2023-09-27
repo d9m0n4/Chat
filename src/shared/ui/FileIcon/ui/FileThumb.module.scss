@@ -4,7 +4,7 @@
   align-items: center;
   gap: .4rem;
   &__image {
-    width: 64px;
+
     object-fit: contain;
     border-radius: .25rem;
   }
@@ -15,6 +15,7 @@
   }
   span {
     font-weight: 500;
+    color: var(--app-gray);
   }
 
 }
