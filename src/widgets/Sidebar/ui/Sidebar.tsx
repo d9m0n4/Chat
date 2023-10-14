@@ -5,8 +5,8 @@ import { ReactComponent as Bookmark } from 'shared/assets/icons/bookmark.svg';
 import { ReactComponent as Chat } from 'shared/assets/icons/chat.svg';
 import { ReactComponent as Settings } from 'shared/assets/icons/cog.svg';
 import { ReactComponent as Logout } from 'shared/assets/icons/logout.svg';
-// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
 
@@ -14,10 +14,12 @@ import cls from './Sidebar.module.scss';
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
+  const { socket } = useSocket();
   const handleLogout = () => {
     dispatch(userActions.logout());
-    // socket.disconnect();
+    socket?.disconnect();
   };
+
   return (
     <div className={cls.sidebar}>
       <div className={cls.user}>
@@ -28,19 +30,19 @@ export const Sidebar = () => {
       <div className={cls.sidebar__nav}>
         <div className={cls.links}>
           <NavLink
-            to={'/'}
+            to={'/dialogs'}
             className={({ isActive }) => (isActive ? `${cls.active}` : '')}
           >
             <Chat className={`${cls.icon} icon`} />
           </NavLink>
           <NavLink
-            to={'/favorites'}
+            to={'favorites'}
             className={({ isActive }) => (isActive ? `${cls.active}` : '')}
           >
             <Bookmark className={`${cls.icon} icon`} />
           </NavLink>
           <NavLink
-            to={'/settings'}
+            to={'settings'}
             className={({ isActive }) => (isActive ? `${cls.active}` : '')}
           >
             <Settings className={`${cls.icon} icon`} />

@@ -1,9 +1,9 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchDialogs } from '../services/fetchDialogs';
 import { IDialogData } from '../types/dialogs';
 
-const initialState: IDialogData = { dialogData: [] };
+const initialState: IDialogData = { dialogData: [], searchValue: '' };
 export const dialogSlice = createSlice({
   name: 'dialog',
   initialState,
@@ -40,6 +40,14 @@ export const dialogSlice = createSlice({
           };
         }
       }
+    },
+    setSearchValue: (state, action) => {
+      state.searchValue = action.payload;
+    },
+    filterDialogs: (state, action) => {
+      state.dialogData = state.dialogData.filter((dialog) =>
+        dialog.partner.name.includes(action.payload)
+      );
     },
   },
   extraReducers: (builder) => {

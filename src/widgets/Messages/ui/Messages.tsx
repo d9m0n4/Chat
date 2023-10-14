@@ -1,9 +1,7 @@
 import { getActiveDialog } from 'entities/Dialog';
 import { getMessages } from 'entities/Message/model/selectors/getMessages';
 import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
-import { messagesActions } from 'entities/Message/model/slices/messageSlice';
-import { IMessage } from 'entities/Message/model/types/Message';
-import React, { useEffect, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 // import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -56,10 +54,10 @@ export const Messages = () => {
   return (
     <div ref={messagesWrapper} className={cls.messages__wrapper}>
       {messages && (
-        <>
+        <Suspense fallback={'loading....'}>
           <MessagesList messages={messages} />
           <MessageInput />
-        </>
+        </Suspense>
       )}
     </div>
   );

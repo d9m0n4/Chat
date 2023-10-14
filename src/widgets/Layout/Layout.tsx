@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { ChatHeader } from 'widgets/ChatHeader';
@@ -7,7 +7,6 @@ import { getDialogs } from '../../entities/Dialog/model/selectors/getDialogs';
 import { dialogActions } from '../../entities/Dialog/model/slices/dialogSlice';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
 import { api } from '../../shared/config/api/api';
-// import { socket } from '../../shared/config/api/ws';
 import { useAppDispatch } from '../../shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from '../../shared/hooks/useSocket/useSocket';
 import { Sidebar } from '../Sidebar';

@@ -36,7 +36,7 @@ export const Attach: FC<IAttachProps> = ({
           <span>{fileSize(size)}</span>
         </div>
       </div>
-      <Button>
+      <Button className={cls.download}>
         <a
           href={`http://localhost:5000${url}`}
           target="_blank"

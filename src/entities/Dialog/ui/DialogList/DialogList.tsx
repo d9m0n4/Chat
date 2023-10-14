@@ -5,13 +5,14 @@ import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 
 import { getActiveDialog } from '../../model/selectors/getActiveDialog';
 import { getDialogs } from '../../model/selectors/getDialogs';
+import { getFilteredDialogs } from '../../model/selectors/getFilteredDialogs';
 import { fetchDialogs } from '../../model/services/fetchDialogs';
 import { dialogActions } from '../../model/slices/dialogSlice';
 import { DialogItem } from '../DialogItem/DialogItem';
 import cls from './DialogList.module.scss';
 
 export const DialogList = () => {
-  const dialogs = useSelector(getDialogs);
+  const dialogs = useSelector(getFilteredDialogs);
   const dialogId = useSelector(getActiveDialog);
 
   const dispatch = useAppDispatch();
@@ -27,7 +28,7 @@ export const DialogList = () => {
     <ul className={cls.list}>
       {dialogs &&
         dialogs.map((dialog) => (
-          <Link key={dialog.id} to={`/${dialog.id}`}>
+          <Link key={dialog.id} to={`${dialog.id}`}>
             <DialogItem
               isActive={dialog.id === dialogId?.id}
               {...dialog}
