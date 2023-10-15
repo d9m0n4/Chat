@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -24,10 +24,20 @@ export const DialogList = () => {
     dispatch(dialogActions.setActiveDialog({ id, partner }));
   };
 
+  const dialogsData = useMemo(() => {
+    return dialogs
+      .map((dialog) => dialog)
+      .sort((a, b) => {
+        const aDate = new Date(a.latestMessage.created_at).getTime();
+        const bDate = new Date(b.latestMessage.created_at).getTime();
+        return bDate - aDate;
+      });
+  }, [dialogs]);
+
   return (
     <ul className={cls.list}>
-      {dialogs &&
-        dialogs.map((dialog) => (
+      {dialogsData &&
+        dialogsData.map((dialog) => (
           <Link key={dialog.id} to={`${dialog.id}`}>
             <DialogItem
               isActive={dialog.id === dialogId?.id}
