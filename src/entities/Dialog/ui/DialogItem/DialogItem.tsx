@@ -18,6 +18,7 @@ interface IDialogItem extends IDialog {
 export const DialogItem: FC<IDialogItem> = ({
   isActive,
   latestMessage,
+  unreadMessagesCount,
   partner,
   isOnline,
   onClick,
@@ -30,7 +31,9 @@ export const DialogItem: FC<IDialogItem> = ({
       <div className={cls.user}>
         {isOnline && <Online className={cls.isOnline} />}
         <Avatar width={40} height={40} className={cls.avatar} />
-        <span className={cls.count}>99</span>
+        {unreadMessagesCount > 0 && (
+          <span className={cls.count}>{unreadMessagesCount}</span>
+        )}
       </div>
       <div className={cls.body}>
         <div className={cls.title}>

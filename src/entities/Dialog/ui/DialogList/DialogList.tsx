@@ -46,6 +46,7 @@ export const DialogList = () => {
               onClick={() =>
                 setActiveDialog({ id: dialog.id, partner: dialog.partner })
               }
+              unreadMessagesCount={dialog.unreadMessagesCount}
             />
           </Link>
         ))}

@@ -20,6 +20,7 @@ export interface IDialog {
   latestMessage: IDialogLastMessage;
   partner: Partner;
   updated_at: Date;
+  unreadMessagesCount: number;
 }
 
 interface activeDialog {
