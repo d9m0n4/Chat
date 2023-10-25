@@ -1,6 +1,7 @@
 import { getActiveDialog } from 'entities/Dialog';
 import { getMessages } from 'entities/Message/model/selectors/getMessages';
 import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
+import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
 import React, { Suspense, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 // import { socket } from 'shared/config/api/ws';
@@ -21,6 +22,12 @@ export const Messages = () => {
       dispatch(fetchMessages(activeDialog.id));
     }
   }, [activeDialog]);
+
+  useEffect(() => {
+    if (activeDialog && messages) {
+      dispatch(updateMessagesStatus(activeDialog?.id));
+    }
+  }, [messages]);
 
   useEffect(() => {
     const observerOptions = {
