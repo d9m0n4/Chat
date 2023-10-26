@@ -41,6 +41,32 @@ export const dialogSlice = createSlice({
         }
       }
     },
+
+    updateUnreadMessagesCount(state, action) {
+      const { message, userId } = action.payload;
+      const { dialog } = message;
+      if (message.user.id !== userId) {
+        const dialogToUpdate = state.dialogData.find(
+          (dialogData) => dialogData.id === dialog.id
+        );
+        if (dialogToUpdate) {
+          dialogToUpdate.unreadMessagesCount += 1;
+        }
+      }
+    },
+
+    updateMessagesCount(state, action) {
+      const { dialogId, activeDialogId } = action.payload;
+      if (dialogId === activeDialogId) {
+        const dialog = state.dialogData.find(
+          (dialog) => dialog.id === activeDialogId
+        );
+        if (dialog) {
+          dialog.unreadMessagesCount = 0;
+        }
+      }
+    },
+
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
     },

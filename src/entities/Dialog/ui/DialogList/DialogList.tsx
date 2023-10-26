@@ -28,8 +28,12 @@ export const DialogList = () => {
     return dialogs
       .map((dialog) => dialog)
       .sort((a, b) => {
-        const aDate = new Date(a.latestMessage.created_at).getTime();
-        const bDate = new Date(b.latestMessage.created_at).getTime();
+        const aDate = a.latestMessage
+          ? new Date(a.latestMessage.created_at).getTime()
+          : 0;
+        const bDate = b.latestMessage
+          ? new Date(b.latestMessage.created_at).getTime()
+          : 0;
         return bDate - aDate;
       });
   }, [dialogs]);

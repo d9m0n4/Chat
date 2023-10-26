@@ -1,7 +1,9 @@
+import { getActiveDialog } from 'entities/Dialog';
 import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { messagesActions } from 'entities/Message/model/slices/messageSlice';
 import { IMessage } from 'entities/Message/model/types/Message';
+import { getUserData } from 'entities/User/model/selectors/getUserData';
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
@@ -16,17 +18,38 @@ export const MainPage: FC = () => {
   const partner = useSelector(getDialogPartner);
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
+  const activeDialog = useSelector(getActiveDialog);
+  const user = useSelector(getUserData);
 
   useEffect(() => {
     socket?.on('message_created', (message: IMessage) => {
-      console.log(12);
-      dispatch(messagesActions.addNewMessage(message));
+      dispatch(
+        messagesActions.addNewMessage({ message, dialogId: activeDialog?.id })
+      );
       dispatch(dialogActions.updateLastMessage(message));
+      dispatch(
+        dialogActions.updateUnreadMessagesCount({ message, userId: user?.id })
+      );
     });
+
     return () => {
       socket?.off('message_created');
     };
-  }, [socket]);
+  }, [socket, activeDialog, user]);
+
+  useEffect(() => {
+    socket?.on('update_messages_status', ({ userId, dialogId }) => {
+      dispatch(
+        dialogActions.updateMessagesCount({
+          dialogId,
+          activeDialogId: activeDialog?.id,
+        })
+      );
+    });
+    return () => {
+      socket?.off('update_messages_status');
+    };
+  }, [socket, activeDialog]);
 
   return (
     <div className="main-section">

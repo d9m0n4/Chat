@@ -3,6 +3,11 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { fetchMessages } from '../services/fetchMessages';
 import { IMessage, IMessagesData } from '../types/Message';
 
+interface INewMessagePayload {
+  message: IMessage;
+  dialogId: number | undefined;
+}
+
 const initialState: IMessagesData = {
   messagesData: undefined,
   error: null,
@@ -13,14 +18,18 @@ export const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addNewMessage: (state, action: PayloadAction<IMessage>) => {
-      const { created_at } = action.payload;
-      const date = created_at.substr(0, 10);
-      if (state.messagesData) {
-        if (!state.messagesData[date]) {
-          state.messagesData[date] = [];
+    addNewMessage: (state, action: PayloadAction<INewMessagePayload>) => {
+      const { message, dialogId } = action.payload;
+      const { created_at } = message;
+
+      if (dialogId === message.dialog.id) {
+        const date = created_at.substr(0, 10);
+        if (state.messagesData) {
+          if (!state.messagesData[date]) {
+            state.messagesData[date] = [];
+          }
+          state.messagesData[date].push(message);
         }
-        state.messagesData[date].push(action.payload);
       }
     },
   },
