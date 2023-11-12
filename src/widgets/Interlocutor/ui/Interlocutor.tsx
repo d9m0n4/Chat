@@ -29,7 +29,7 @@ export const Interlocutor: FC<InterlocutorProps> = memo(
       if (activeDialog) {
         dispatch(getAttachmentByDialogId(activeDialog?.id));
       }
-    }, [activeDialog]);
+    }, [activeDialog, dispatch]);
 
     const attachmentsList = useMemo(() => {
       return dialogAttachments?.map((attachment) => (

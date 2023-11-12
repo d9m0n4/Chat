@@ -1,5 +1,6 @@
 import { getActiveDialog } from 'entities/Dialog';
 import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
+import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
 import React, { lazy, memo, useCallback, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
@@ -91,6 +92,9 @@ export const MessageInput = memo(() => {
         });
       }
       await dispatch(sendMessage(formData));
+      if (dialog) {
+        dispatch(updateMessagesStatus(dialog?.id));
+      }
     } catch (e) {
       console.log(e);
     }

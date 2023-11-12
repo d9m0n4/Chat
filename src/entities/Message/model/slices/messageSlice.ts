@@ -32,12 +32,12 @@ export const messagesSlice = createSlice({
         }
       }
     },
-    updateMyMessageReadStatus: (state) => {
+    updateMyMessageReadStatus: (state, action) => {
+      const { date } = action.payload;
       if (state.messagesData) {
-        Object.keys(state.messagesData).forEach((date) =>
-          state.messagesData![date].forEach((message) =>
-            console.log(message.isRead)
-          )
+        console.log(1);
+        state.messagesData[date] = state.messagesData[date].map((message) =>
+          message.isRead === false ? { ...message, isRead: true } : message
         );
       }
     },

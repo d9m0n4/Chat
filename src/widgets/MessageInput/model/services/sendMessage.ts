@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from 'shared/config/api/api';
 
-import { Message } from '../types/Message';
-
 export const sendMessage = createAsyncThunk(
   'sendMessage',
   async (message: any, thunkAPI) => {

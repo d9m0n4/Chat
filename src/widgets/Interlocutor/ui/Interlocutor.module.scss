@@ -1,11 +1,10 @@
 .interlocutor {
-  display: none;
   padding: 2em 0 2em 1em;
   background-color: var(--app-primary-bg);
   width: 290px;
   height: 100%;
-  //display: flex;
-  //flex-direction: column;
+  display: flex;
+  flex-direction: column;
   .info {
     display: flex;
     flex-direction: column;

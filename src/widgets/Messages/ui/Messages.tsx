@@ -24,10 +24,10 @@ export const Messages = () => {
   }, [activeDialog]);
 
   useEffect(() => {
-    if (activeDialog && messages) {
+    if (activeDialog) {
       dispatch(updateMessagesStatus(activeDialog?.id));
     }
-  }, [messages]);
+  }, [activeDialog, dispatch]);
 
   useEffect(() => {
     const observerOptions = {

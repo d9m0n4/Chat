@@ -4,6 +4,7 @@ import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { messagesActions } from 'entities/Message/model/slices/messageSlice';
 import { IMessage } from 'entities/Message/model/types/Message';
 import { getUserData } from 'entities/User/model/selectors/getUserData';
+import { getRightBarState } from 'features/ToggleRightBar/model/selectors/getRightBarState';
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
@@ -20,6 +21,7 @@ export const MainPage: FC = () => {
   const { socket } = useSocket();
   const activeDialog = useSelector(getActiveDialog);
   const user = useSelector(getUserData);
+  const isRightBarOpened = useSelector(getRightBarState);
   // const dialog = useSelector(getActiveDialog)
 
   useEffect(() => {
@@ -52,7 +54,9 @@ export const MainPage: FC = () => {
         );
       }
       if (userId === partner?.id) {
-        dispatch(messagesActions.updateMyMessageReadStatus());
+        dispatch(
+          messagesActions.updateMyMessageReadStatus({ date: '2023-11-12' })
+        );
       }
     });
     return () => {
@@ -65,13 +69,17 @@ export const MainPage: FC = () => {
       <Dialogs />
       <Outlet />
       {partner && (
-        <Interlocutor
-          id={partner?.id}
-          name={partner?.name}
-          avatar={partner?.avatar}
-          nickName={partner?.nickName}
-          isOnline={partner.isOnline}
-        />
+        <>
+          {isRightBarOpened && (
+            <Interlocutor
+              id={partner?.id}
+              name={partner?.name}
+              avatar={partner?.avatar}
+              nickName={partner?.nickName}
+              isOnline={partner.isOnline}
+            />
+          )}
+        </>
       )}
     </div>
   );
