@@ -89,9 +89,22 @@
   .info {
     align-self: flex-start;
     margin-left: auto;
-    .date {
-      color: var(--app-gray);
-      font-size: 0.75em;
+    .wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      align-items: flex-end;
+      .date {
+        color: var(--app-gray);
+        font-size: 0.75em;
+      }
+      .status {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--app-gray);
+      }
     }
   }
 }

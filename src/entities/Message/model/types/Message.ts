@@ -23,6 +23,7 @@ export interface IMessage {
   dialog: INewMessageDialog;
   user: User;
   files?: MessageFile[];
+  isRead: boolean;
 }
 
 export interface GroupedMessages {

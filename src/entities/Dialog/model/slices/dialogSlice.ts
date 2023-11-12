@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { fetchDialogs } from '../services/fetchDialogs';
 import { IDialogData } from '../types/dialogs';
@@ -37,8 +37,19 @@ export const dialogSlice = createSlice({
             content: action.payload.content,
             updated_at: action.payload.updated_at,
             created_at: action.payload.created_at,
+            isRead: action.payload.isRead,
+            user: action.payload.user,
           };
         }
+      }
+    },
+
+    updateReadStatus: (state, action) => {
+      const dialogToUpdate = state.dialogData.find(
+        (dialog) => dialog.id === action.payload
+      );
+      if (dialogToUpdate) {
+        dialogToUpdate.latestMessage.isRead = true;
       }
     },
 

@@ -12,6 +12,7 @@ interface IMessage {
   isSelf?: boolean;
   content: string;
   files?: MessageFile[];
+  isRead?: boolean;
   user?: {
     id: number;
     name: string;
@@ -27,6 +28,7 @@ export const Message: FC<IMessage> = ({
   user,
   dataAttr,
   files,
+  isRead,
 }) => {
   return (
     <div
@@ -37,6 +39,7 @@ export const Message: FC<IMessage> = ({
         <Avatar name={user?.name} />
       </div>
       <div className={cls.body}>
+        {!isRead && <span className={cls.status}></span>}
         <div className={cls.body__content}>{content}</div>
         {files && files.length > 0 && (
           <div className={cls.body__attachments}>

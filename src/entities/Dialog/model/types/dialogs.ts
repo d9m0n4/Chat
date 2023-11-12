@@ -8,11 +8,13 @@ interface User {
 type Partner = User & {
   isOnline?: boolean;
 };
-interface IDialogLastMessage {
+export interface IDialogLastMessage {
   content: string;
-  created_at: Date;
+  created_at: string;
   id: number;
   updated_at: Date;
+  isRead: boolean;
+  user: { id: number };
 }
 export interface IDialog {
   created_at: Date;

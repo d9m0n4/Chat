@@ -13,6 +13,7 @@ interface IDialogItem extends IDialog {
   isActive?: boolean;
   isOnline: boolean | undefined;
   onClick: () => void;
+  myId: number | undefined;
 }
 
 export const DialogItem: FC<IDialogItem> = ({
@@ -23,9 +24,11 @@ export const DialogItem: FC<IDialogItem> = ({
   isOnline,
   onClick,
   id,
+  myId,
 }) => {
   const { socket } = useSocket();
   const isTyping = useTypingIndicator(id, socket);
+
   return (
     <li className={`${cls.item} ${isActive && cls.active}`} onClick={onClick}>
       <div className={cls.user}>
@@ -55,9 +58,14 @@ export const DialogItem: FC<IDialogItem> = ({
       </div>
       <div className={cls.info}>
         {latestMessage && (
-          <span className={cls.date}>
-            {formatDate(latestMessage.created_at)}
-          </span>
+          <div className={cls.wrapper}>
+            <span className={cls.date}>
+              {formatDate(latestMessage.created_at)}
+            </span>
+            {!latestMessage.isRead && latestMessage.user.id === myId && (
+              <span className={cls.status}></span>
+            )}
+          </div>
         )}
       </div>
     </li>

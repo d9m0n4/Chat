@@ -6,7 +6,7 @@ export interface Attachment {
   originalName: string;
   size: number;
   fileType: string;
-  created_at: Date;
+  created_at: string;
   updated_at: Date;
 }
 

@@ -20,6 +20,7 @@ export const MainPage: FC = () => {
   const { socket } = useSocket();
   const activeDialog = useSelector(getActiveDialog);
   const user = useSelector(getUserData);
+  // const dialog = useSelector(getActiveDialog)
 
   useEffect(() => {
     socket?.on('message_created', (message: IMessage) => {
@@ -39,17 +40,25 @@ export const MainPage: FC = () => {
 
   useEffect(() => {
     socket?.on('update_messages_status', ({ userId, dialogId }) => {
-      dispatch(
-        dialogActions.updateMessagesCount({
-          dialogId,
-          activeDialogId: activeDialog?.id,
-        })
-      );
+      if (userId !== user?.id) {
+        dispatch(dialogActions.updateReadStatus(dialogId));
+      }
+      if (userId === user?.id) {
+        dispatch(
+          dialogActions.updateMessagesCount({
+            dialogId,
+            activeDialogId: activeDialog?.id,
+          })
+        );
+      }
+      if (userId === partner?.id) {
+        dispatch(messagesActions.updateMyMessageReadStatus());
+      }
     });
     return () => {
       socket?.off('update_messages_status');
     };
-  }, [socket, activeDialog]);
+  }, [socket, activeDialog, partner, user]);
 
   return (
     <div className="main-section">

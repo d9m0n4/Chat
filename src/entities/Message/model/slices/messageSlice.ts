@@ -32,6 +32,15 @@ export const messagesSlice = createSlice({
         }
       }
     },
+    updateMyMessageReadStatus: (state) => {
+      if (state.messagesData) {
+        Object.keys(state.messagesData).forEach((date) =>
+          state.messagesData![date].forEach((message) =>
+            console.log(message.isRead)
+          )
+        );
+      }
+    },
   },
   extraReducers: (builder) => {
     builder

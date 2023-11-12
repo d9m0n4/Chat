@@ -14,7 +14,16 @@
       border-radius: 16px 16px 0 16px;
       transition: color 250ms ease-in;
       color: var(--app-primary-text);
-
+      position: relative;
+      .status {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--app-gray);
+      }
     }
   }
   .user {

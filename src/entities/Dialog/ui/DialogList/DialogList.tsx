@@ -1,10 +1,10 @@
+import { RootState } from 'app/providers/storeProvider/config/store';
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 
 import { getActiveDialog } from '../../model/selectors/getActiveDialog';
-import { getDialogs } from '../../model/selectors/getDialogs';
 import { getFilteredDialogs } from '../../model/selectors/getFilteredDialogs';
 import { fetchDialogs } from '../../model/services/fetchDialogs';
 import { dialogActions } from '../../model/slices/dialogSlice';
@@ -14,6 +14,7 @@ import cls from './DialogList.module.scss';
 export const DialogList = () => {
   const dialogs = useSelector(getFilteredDialogs);
   const dialogId = useSelector(getActiveDialog);
+  const user = useSelector((state: RootState) => state.user.authData); // убрать!!!!!!!
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -44,6 +45,7 @@ export const DialogList = () => {
         dialogsData.map((dialog) => (
           <Link key={dialog.id} to={`${dialog.id}`}>
             <DialogItem
+              myId={user?.id}
               isActive={dialog.id === dialogId?.id}
               {...dialog}
               isOnline={dialog.partner.isOnline}

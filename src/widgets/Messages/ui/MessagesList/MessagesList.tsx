@@ -1,4 +1,3 @@
-import { logDOM } from '@testing-library/react';
 import { getActiveDialog } from 'entities/Dialog';
 import { GroupedMessages } from 'entities/Message/model/types/Message';
 import { Message } from 'entities/Message/ui/Message';
@@ -49,6 +48,7 @@ export const MessagesList = ({ messages }: { messages: GroupedMessages }) => {
               user={message.user}
               isSelf={message.user.id === user?.id}
               files={message.files}
+              isRead={message.isRead}
             />
           ))}
         </div>
