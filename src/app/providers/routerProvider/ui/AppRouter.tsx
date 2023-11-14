@@ -3,7 +3,7 @@ import { FavoritesPage } from 'pages/FavoritesPage';
 import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { SettingsPage } from 'pages/SettingsPage';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from 'widgets/Layout/Layout';
 import { Messages } from 'widgets/Messages';
@@ -12,6 +12,7 @@ import { SocketProvider } from '../../socketProvider';
 import { RequireAuth } from './RequireAuth';
 
 export const AppRouter = () => {
+  //Redux-Persist для получения данных о пользователе из стора перед отрисовкойы
   return (
     <Routes>
       <Route element={<RequireAuth />}>

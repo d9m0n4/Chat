@@ -23,12 +23,14 @@ export const userSlice = createSlice({
     builder
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.authData = action.payload;
+        state.isLoading = false;
       })
       .addCase(fetchUserData.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(fetchUserData.rejected, (state) => {
         state.authData = undefined;
+        state.isLoading = false;
       });
   },
 });

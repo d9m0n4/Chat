@@ -1,20 +1,19 @@
+import { getDialogs } from 'entities/Dialog/model/selectors/getDialogs';
+import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
+import { api } from 'shared/config/api/api';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { ChatHeader } from 'widgets/ChatHeader';
 
-import { getDialogs } from '../../entities/Dialog/model/selectors/getDialogs';
-import { dialogActions } from '../../entities/Dialog/model/slices/dialogSlice';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
-import { api } from '../../shared/config/api/api';
-import { useAppDispatch } from '../../shared/hooks/useAppDispatch/useAppDispatch';
-import { useSocket } from '../../shared/hooks/useSocket/useSocket';
 import { Sidebar } from '../Sidebar';
 
 export const Layout = () => {
   const dispatch = useAppDispatch();
   const myDialogs = useSelector(getDialogs);
-
   const { socket } = useSocket();
 
   useEffect(() => {
