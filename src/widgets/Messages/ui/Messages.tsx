@@ -4,8 +4,8 @@ import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
 import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
 import React, { Suspense, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { Loader } from 'shared/ui/Loader';
 import { MessageInput } from 'widgets/MessageInput';
 
 import cls from './Messages.module.scss';
@@ -61,7 +61,7 @@ export const Messages = () => {
   return (
     <div ref={messagesWrapper} className={cls.messages__wrapper}>
       {messages && (
-        <Suspense fallback={'loading....'}>
+        <Suspense fallback={<Loader />}>
           <MessagesList messages={messages} />
           <MessageInput />
         </Suspense>

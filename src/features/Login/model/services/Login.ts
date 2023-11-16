@@ -16,7 +16,7 @@ export const Login = createAsyncThunk(
       const { data: UserData } = await api.post<User>('auth/signIn', data);
       localStorage.setItem(
         'jwt',
-        JSON.stringify({ jwt: UserData.refreshToken })
+        JSON.stringify({ jwt: UserData.accessToken })
       );
       await dispatch(userActions.setAuthData(UserData));
 

@@ -1,14 +1,15 @@
-import React, {FC} from 'react';
-import cls from './Loader.module.scss'
+import React from 'react';
 
-interface LoaderProps {
- 
-};
+import { Portal } from '../../Portal';
+import { TypingDots } from '../../TypingMessage';
+import cls from './Loader.module.scss';
 
-export const Loader:FC<LoaderProps> = ({}) => {
- return (
-  <div>
-   
-  </div>
- );
+export const Loader = () => {
+  return (
+    <Portal>
+      <div className={cls.loader}>
+        <TypingDots />
+      </div>
+    </Portal>
+  );
 };

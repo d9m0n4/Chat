@@ -12,9 +12,9 @@ import { SocketProvider } from '../../socketProvider';
 import { RequireAuth } from './RequireAuth';
 
 export const AppRouter = () => {
-  //Redux-Persist для получения данных о пользователе из стора перед отрисовкойы
   return (
     <Routes>
+      <Route path="auth" element={<AuthPage />} />
       <Route element={<RequireAuth />}>
         <Route
           element={
@@ -35,7 +35,6 @@ export const AppRouter = () => {
           <Route path="profile" element={<ProfilePage />} />
         </Route>
       </Route>
-      <Route path="auth" element={<AuthPage />} />
     </Routes>
   );
 };

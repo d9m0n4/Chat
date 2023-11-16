@@ -20,7 +20,7 @@ api.interceptors.response.use(
     return response;
   },
   async (error: AxiosError) => {
-    const orginalRequest = error.config;
+    const originalRequest = error.config;
     if (error.response?.status === 401 && error.config) {
       try {
         const refreshResponse = await axios.get(`${BASE_URL}/auth/refresh`, {
@@ -28,9 +28,10 @@ api.interceptors.response.use(
         });
         localStorage.setItem('jwt', JSON.stringify(refreshResponse.data));
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return api.request(orginalRequest!);
+        return api.request(originalRequest!);
       } catch (e) {
         localStorage.removeItem('jwt');
+        window.location.href = '/';
         console.log(e);
       }
     }

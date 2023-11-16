@@ -5,6 +5,7 @@ import { AuthData } from '../types/user';
 
 const initialState: AuthData = {
   authData: undefined,
+  isAuth: !!localStorage.getItem('jwt'),
 };
 export const userSlice = createSlice({
   name: 'user',
@@ -12,11 +13,16 @@ export const userSlice = createSlice({
   reducers: {
     setAuthData: (state, action) => {
       state.authData = action.payload;
+      state.isAuth = true;
     },
     logout: (state) => {
       localStorage.removeItem('jwt');
-      document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = '';
       state.authData = undefined;
+      state.isAuth = false;
+    },
+    setIsAuth: (state, action) => {
+      state.isAuth = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -24,6 +30,7 @@ export const userSlice = createSlice({
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.authData = action.payload;
         state.isLoading = false;
+        state.isAuth = true;
       })
       .addCase(fetchUserData.pending, (state) => {
         state.isLoading = true;
@@ -31,6 +38,7 @@ export const userSlice = createSlice({
       .addCase(fetchUserData.rejected, (state) => {
         state.authData = undefined;
         state.isLoading = false;
+        state.isAuth = false;
       });
   },
 });
