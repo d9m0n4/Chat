@@ -25,8 +25,7 @@ export const ProfilePage: FC = () => {
         />
         <form className={cls.profile__form}>
           <Input value={userData?.name} />
-          <Input value={userData?.name} />
-          <Input />
+          <Input value={userData?.nickName} />
           <Button variant={ButtonVariants.PRIMARY}>Сохранить</Button>
         </form>
       </div>

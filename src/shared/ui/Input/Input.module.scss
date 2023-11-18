@@ -1,12 +1,27 @@
-.input {
-  border: none;
-  outline: none;
-  background-color: var(--app-message);
-  box-shadow: var(--app-message-shadow);
-  border-radius: 8px;
-  padding: 0.6em 1em;
-  color: var(--app-primary-text);
-  font-family: Gilroy, serif;
-  font-size: 0.9em;
-  width: 240px;
+.field {
+  position: relative;
+  &__input {
+    border: none;
+    outline: none;
+    background-color: var(--app-message);
+    box-shadow: var(--app-message-shadow);
+    border-radius: 8px;
+    padding: 0.6em 2em 0.6em 1em;
+    color: var(--app-primary-text);
+    font-family: Gilroy, serif;
+    font-size: 0.9em;
+    width: 240px;
+  }
+  &__before, &__after {
+    position: absolute;
+    display: flex;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &__before {
+    left: .5em;
+  }
+  &__after {
+    right: .5em;
+  }
 }

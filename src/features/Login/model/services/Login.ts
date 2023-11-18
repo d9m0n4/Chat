@@ -19,8 +19,6 @@ export const Login = createAsyncThunk(
         JSON.stringify({ jwt: UserData.accessToken })
       );
       await dispatch(userActions.setAuthData(UserData));
-
-      return UserData;
     } catch (e) {
       return rejectWithValue(e);
     }
