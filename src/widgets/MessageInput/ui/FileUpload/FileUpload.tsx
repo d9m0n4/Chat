@@ -1,8 +1,6 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useRef } from 'react';
 import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg';
 import { Button } from 'shared/ui/Button';
-
-import cls from './FileUpload.module.scss';
 
 interface FileUploadProps {
   onSetPreview?: React.Dispatch<React.SetStateAction<File[] | null>>;

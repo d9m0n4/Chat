@@ -47,7 +47,7 @@ export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
           placeholder={'Введите имя собеседника'}
           className={cls.search__field}
           value={value}
-          onChange={setValue}
+          onChange={(e) => setValue(e.target.value)}
         />
       </div>
       {users && (

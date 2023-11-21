@@ -13,6 +13,14 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
+    &__input-control {
+      .input {
+
+      }
+      .input--error {
+        border: 1px solid #ff5071;
+      }
+    }
     .button {
       display: flex;
       justify-content: center;

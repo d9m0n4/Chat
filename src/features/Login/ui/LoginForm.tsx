@@ -1,6 +1,9 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
+import clsx from 'classnames';
 import { User } from 'entities/User/model/types/user';
 import React, { FC, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { ReactComponent as Arrow } from 'shared/assets/icons/arrowR.svg';
 import { ReactComponent as EyeOff } from 'shared/assets/icons/eye-off.svg';
 import { ReactComponent as Eye } from 'shared/assets/icons/eye.svg';
@@ -10,6 +13,7 @@ import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
 import { Input } from 'shared/ui/Input/Input';
 
+import { schema } from '../model/validators/formValidator';
 import cls from './LoginForm.module.scss';
 
 interface LoginData {
@@ -17,14 +21,10 @@ interface LoginData {
   password: string;
 }
 export const LoginForm: FC = () => {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   const dispatch = useAppDispatch();
-
-  const handleLogin = async (data: LoginData) => {
+  const onSubmitForm = async (data: LoginData) => {
     try {
       const { data: UserData } = await api.post<User>('auth/signIn', data);
       console.log(UserData);
@@ -34,38 +34,65 @@ export const LoginForm: FC = () => {
       }
     }
   };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleLogin({ nickName: login, password });
-  };
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isValid, isSubmitting },
+  } = useForm<LoginData>({ mode: 'onChange', resolver: yupResolver(schema) });
+
   return (
     <div className={cls.wrapper}>
       <div className={cls.title}>Войти</div>
-      <form onSubmit={handleSubmit} className={cls.form}>
-        <Input
-          placeholder="Имя пользователя"
-          value={login}
-          onChange={setLogin}
-          aria-invalid={'true'}
-        />
-        <Input
-          placeholder="Пароль"
-          value={password}
-          onChange={setPassword}
-          type={isPasswordShown ? 'text' : 'password'}
-          after={
-            isPasswordShown ? (
-              <EyeOff className="icon" />
-            ) : (
-              <Eye className="icon" />
-            )
-          }
-          onAfterIconClick={() => setIsPasswordShown(!isPasswordShown)}
-        />
+      <form
+        onSubmit={handleSubmit((data, event) => onSubmitForm(data))}
+        className={cls.form}
+      >
+        <div className={cls['form__input-control']}>
+          <Controller
+            control={control}
+            render={({ field: { value, onChange, ref } }) => (
+              <Input
+                placeholder="Имя пользователя"
+                value={value}
+                onChange={onChange}
+                ref={ref}
+              />
+            )}
+            name={'nickName'}
+          />
+          <span>{errors['nickName']?.message}</span>
+        </div>
+        <div className={cls['form__input-control']}>
+          <Controller
+            control={control}
+            render={({ field }) => (
+              <Input
+                className={clsx(
+                  cls.input,
+                  !!errors.password && cls['input--error']
+                )}
+                {...field}
+                placeholder="Пароль"
+                type={isPasswordShown ? 'text' : 'password'}
+                after={
+                  isPasswordShown ? (
+                    <EyeOff className="icon" />
+                  ) : (
+                    <Eye className="icon" />
+                  )
+                }
+                onAfterIconClick={() => setIsPasswordShown(!isPasswordShown)}
+              />
+            )}
+            name={'password'}
+          />
+        </div>
         <Button
           type="submit"
           variant={ButtonVariants.PRIMARY}
           className={cls.button}
+          disabled={!isValid || isSubmitting}
         >
           <Arrow />
         </Button>
