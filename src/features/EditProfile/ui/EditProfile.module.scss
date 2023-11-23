@@ -1,0 +1,10 @@
+.profile {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  &__avatar {
+    cursor: pointer;
+  }
+}

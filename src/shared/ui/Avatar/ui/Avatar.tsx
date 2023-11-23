@@ -30,7 +30,13 @@ export const Avatar: FC<AvatarProps> = ({
       }}
     >
       {src ? (
-        <img src={src} width={width} height={width} alt="avatar" />
+        <img
+          className={cls.avatar__image}
+          src={src}
+          width={width}
+          height={width}
+          alt="avatar"
+        />
       ) : (
         <span>{name.slice(0, 1)}</span>
       )}
