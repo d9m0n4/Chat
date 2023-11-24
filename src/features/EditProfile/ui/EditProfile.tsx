@@ -1,6 +1,7 @@
 import { getUserData } from 'entities/User';
-import React, { FC, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { api } from 'shared/config/api/api';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
@@ -15,7 +16,7 @@ export const EditProfile = () => {
   const [nickName, setNickName] = useState(userData?.nickName || '');
 
   const [avatar, setAvatar] = useState<File | string>('');
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
 
   const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files;
@@ -27,15 +28,26 @@ export const EditProfile = () => {
       return;
     }
   };
-
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('nickName', nickName);
-    formData.append('img', avatar);
+    formData.append('name', name || '');
+    formData.append('nickName', nickName || '');
+    formData.append('avatar', avatar);
+
+    api.patch('/user/update', formData).then((d) => console.log(d));
+
     console.log(formData);
   };
+
+  useEffect(() => {
+    if (userData) {
+      setName(userData.name || '');
+      setNickName(userData.nickName || '');
+      setAvatarUrl(userData?.avatar);
+    }
+  }, [userData]);
+
   return (
     <>
       <input
@@ -48,7 +60,7 @@ export const EditProfile = () => {
       />
       <Avatar
         width={100}
-        src={userData?.avatar || avatarUrl}
+        src={avatarUrl}
         onClick={() => inputRef.current?.click()}
         className={cls.profile__avatar}
       />
