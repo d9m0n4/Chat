@@ -1,5 +1,7 @@
+import { getUserData } from 'entities/User';
 import { userActions } from 'entities/User/model/slices/userSlice';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as Bookmark } from 'shared/assets/icons/bookmark.svg';
 import { ReactComponent as Chat } from 'shared/assets/icons/chat.svg';
@@ -15,6 +17,7 @@ import cls from './Sidebar.module.scss';
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
+  const userData = useSelector(getUserData);
   const handleLogout = () => {
     dispatch(userActions.logout());
     socket?.disconnect();
@@ -24,7 +27,7 @@ export const Sidebar = () => {
     <div className={cls.sidebar}>
       <div className={cls.user}>
         <NavLink to={'/profile'}>
-          <Avatar />
+          <Avatar src={userData?.avatar} />
         </NavLink>
       </div>
       <div className={cls.sidebar__nav}>

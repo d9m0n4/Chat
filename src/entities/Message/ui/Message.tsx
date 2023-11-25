@@ -17,7 +17,7 @@ interface IMessage {
     id: number;
     name: string;
     nickName: string;
-    avatarUrl: string | null;
+    avatar?: string | null;
   };
 }
 
@@ -36,7 +36,7 @@ export const Message: FC<IMessage> = ({
       className={clsx(cls.message, { [cls.isSelf]: isSelf }, className)}
     >
       <div className={cls.user}>
-        <Avatar name={user?.name} />
+        <Avatar name={user?.name} src={user?.avatar} />
       </div>
       <div className={cls.body}>
         {!isRead && <span className={cls.status}></span>}

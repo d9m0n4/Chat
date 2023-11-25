@@ -16,12 +16,17 @@ export const EditProfile = () => {
   const [nickName, setNickName] = useState(userData?.nickName || '');
 
   const [avatar, setAvatar] = useState<File | string>('');
-  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
+    userData?.avatar
+  );
+
+  console.log(avatarUrl);
 
   const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files;
-    if (file) {
-      const objectUrl = URL.createObjectURL(file[0]);
+    if (file && file[0] instanceof Blob) {
+      const objectUrl = URL.createObjectURL(file[0] as Blob);
+      console.log(objectUrl);
       setAvatar(file[0]);
       setAvatarUrl(objectUrl);
     } else {
@@ -36,8 +41,6 @@ export const EditProfile = () => {
     formData.append('avatar', avatar);
 
     api.patch('/user/update', formData).then((d) => console.log(d));
-
-    console.log(formData);
   };
 
   useEffect(() => {

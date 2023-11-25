@@ -1,5 +1,6 @@
 import clsx from 'classnames';
 import React, { FC, HTMLAttributes } from 'react';
+import { BASE_URL } from 'shared/config/api/api';
 
 import cls from './Avatar.module.scss';
 
@@ -32,7 +33,7 @@ export const Avatar: FC<AvatarProps> = ({
       {src ? (
         <img
           className={cls.avatar__image}
-          src={src}
+          src={`${BASE_URL}${src}`}
           width={width}
           height={width}
           alt="avatar"
