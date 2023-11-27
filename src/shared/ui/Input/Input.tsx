@@ -12,6 +12,8 @@ interface InputProps
   className?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  disable?: boolean;
   type?: HTMLInputTypeAttribute;
   name?: string;
   before?: React.ReactNode;
@@ -27,6 +29,8 @@ export const Input = forwardRef(
       onChange,
       value,
       type,
+      required,
+      disable,
       after,
       before,
       name,
@@ -43,6 +47,8 @@ export const Input = forwardRef(
           name={name}
           value={value}
           onChange={onChange}
+          required={required}
+          disabled={disable}
           className={clsx(cls.field__input, className)}
           type={type}
           {...props}

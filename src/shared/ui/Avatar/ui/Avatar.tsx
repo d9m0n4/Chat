@@ -20,6 +20,7 @@ export const Avatar: FC<AvatarProps> = ({
   onClick,
   className,
 }) => {
+  console.log(src);
   return (
     <div
       onClick={onClick}
@@ -33,7 +34,7 @@ export const Avatar: FC<AvatarProps> = ({
       {src ? (
         <img
           className={cls.avatar__image}
-          src={`${BASE_URL}${src}`}
+          src={src}
           width={width}
           height={width}
           alt="avatar"

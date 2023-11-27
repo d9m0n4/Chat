@@ -1,6 +1,7 @@
 import { getUserData } from 'entities/User';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { ReactComponent as EditIcon } from 'shared/assets/icons/pencil.svg';
 import { api } from 'shared/config/api/api';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
@@ -15,18 +16,15 @@ export const EditProfile = () => {
   const [name, setName] = useState(userData?.name || '');
   const [nickName, setNickName] = useState(userData?.nickName || '');
 
-  const [avatar, setAvatar] = useState<File | string>('');
-  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
-    userData?.avatar
-  );
+  const [isEditing, setIsEditing] = useState(false);
 
-  console.log(avatarUrl);
+  const [avatar, setAvatar] = useState<File | string>('');
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>();
 
   const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files;
     if (file && file[0] instanceof Blob) {
       const objectUrl = URL.createObjectURL(file[0] as Blob);
-      console.log(objectUrl);
       setAvatar(file[0]);
       setAvatarUrl(objectUrl);
     } else {
@@ -40,20 +38,29 @@ export const EditProfile = () => {
     formData.append('nickName', nickName || '');
     formData.append('avatar', avatar);
 
-    api.patch('/user/update', formData).then((d) => console.log(d));
+    api
+      .patch('/user/update', formData)
+      .then((d) => console.log(d))
+      .catch((e) => console.log(e));
   };
 
   useEffect(() => {
     if (userData) {
       setName(userData.name || '');
       setNickName(userData.nickName || '');
-      setAvatarUrl(userData?.avatar);
     }
   }, [userData]);
 
   return (
     <>
+      <Button
+        onClick={() => setIsEditing(!isEditing)}
+        className={cls.edit__btn}
+      >
+        <EditIcon className={'icon'} />
+      </Button>
       <input
+        disabled={!isEditing}
         max={1}
         accept="image/png, image/gif, image/jpeg"
         type="file"
@@ -63,16 +70,30 @@ export const EditProfile = () => {
       />
       <Avatar
         width={100}
-        src={avatarUrl}
+        src={userData?.avatar || avatarUrl}
         onClick={() => inputRef.current?.click()}
         className={cls.profile__avatar}
       />
       <form onSubmit={submitHandler} className={cls.profile__form}>
-        <Input value={name} onChange={(e) => setName(e.target.value)} />
-        <Input value={nickName} onChange={(e) => setNickName(e.target.value)} />
-        <Button type={'submit'} variant={ButtonVariants.PRIMARY}>
-          Сохранить
-        </Button>
+        <Input
+          placeholder={'Имя'}
+          required={true}
+          disable={!isEditing}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          placeholder={'Никнейм'}
+          required={true}
+          disable={!isEditing}
+          value={nickName}
+          onChange={(e) => setNickName(e.target.value)}
+        />
+        {isEditing && (
+          <Button type={'submit'} variant={ButtonVariants.PRIMARY}>
+            Сохранить
+          </Button>
+        )}
       </form>
     </>
   );
