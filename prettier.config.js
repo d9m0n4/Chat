@@ -4,7 +4,7 @@ module.exports = {
   tabWidth: 2,
   semi: true,
   singleQuote: true,
-  printWidth: 80,
+  printWidth: 120,
   importOrder: [
     '<THIRD_PARTY_MODULES>',
     '^@app/(.*)$',

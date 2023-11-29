@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { BASE_URL } from 'shared/config/api/api';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';
 import { Avatar } from 'shared/ui/Avatar';
@@ -33,10 +34,14 @@ export const DialogItem: FC<IDialogItem> = ({
     <li className={`${cls.item} ${isActive && cls.active}`} onClick={onClick}>
       <div className={cls.user}>
         {isOnline && <Online className={cls.isOnline} />}
-        <Avatar width={40} height={40} className={cls.avatar} />
-        {unreadMessagesCount > 0 && (
-          <span className={cls.count}>{unreadMessagesCount}</span>
-        )}
+        <Avatar
+          src={partner.avatar && `${BASE_URL}${partner.avatar}`}
+          width={40}
+          height={40}
+          className={cls.avatar}
+          name={partner.name}
+        />
+        {unreadMessagesCount > 0 && <span className={cls.count}>{unreadMessagesCount}</span>}
       </div>
       <div className={cls.body}>
         <div className={cls.title}>
@@ -59,12 +64,8 @@ export const DialogItem: FC<IDialogItem> = ({
       <div className={cls.info}>
         {latestMessage && (
           <div className={cls.wrapper}>
-            <span className={cls.date}>
-              {formatDate(latestMessage.created_at)}
-            </span>
-            {!latestMessage.isRead && latestMessage.user.id === myId && (
-              <span className={cls.status}></span>
-            )}
+            <span className={cls.date}>{formatDate(latestMessage.created_at)}</span>
+            {!latestMessage.isRead && latestMessage.user.id === myId && <span className={cls.status}></span>}
           </div>
         )}
       </div>

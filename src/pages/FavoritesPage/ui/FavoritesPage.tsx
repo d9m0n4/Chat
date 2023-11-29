@@ -9,10 +9,7 @@ import cls from './Favorites.module.scss';
 export const FavoritesPage: FC = () => {
   return (
     <div className={cls.favorites}>
-      <div>
-        <DialogList />
-      </div>
-      <div>{/*<MessagesList messages={[1]} />*/}</div>
+      <div className={cls.body}>123</div>
     </div>
   );
 };

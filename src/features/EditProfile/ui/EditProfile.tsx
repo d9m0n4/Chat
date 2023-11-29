@@ -2,7 +2,7 @@ import { getUserData } from 'entities/User';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as EditIcon } from 'shared/assets/icons/pencil.svg';
-import { api } from 'shared/config/api/api';
+import { BASE_URL, api } from 'shared/config/api/api';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
@@ -19,7 +19,7 @@ export const EditProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [avatar, setAvatar] = useState<File | string>('');
-  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>();
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
 
   const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files;
@@ -53,10 +53,7 @@ export const EditProfile = () => {
 
   return (
     <>
-      <Button
-        onClick={() => setIsEditing(!isEditing)}
-        className={cls.edit__btn}
-      >
+      <Button onClick={() => setIsEditing(!isEditing)} className={cls.edit__btn}>
         <EditIcon className={'icon'} />
       </Button>
       <input
@@ -70,7 +67,7 @@ export const EditProfile = () => {
       />
       <Avatar
         width={100}
-        src={userData?.avatar || avatarUrl}
+        src={avatarUrl ? avatarUrl : userData?.avatar ? `${BASE_URL}${userData.avatar}` : null}
         onClick={() => inputRef.current?.click()}
         className={cls.profile__avatar}
       />

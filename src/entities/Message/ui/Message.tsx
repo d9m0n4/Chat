@@ -1,5 +1,6 @@
 import clsx from 'classnames';
 import React, { FC } from 'react';
+import { BASE_URL } from 'shared/config/api/api';
 import { Avatar } from 'shared/ui/Avatar';
 import { FileThumb } from 'shared/ui/FileIcon';
 
@@ -21,22 +22,11 @@ interface IMessage {
   };
 }
 
-export const Message: FC<IMessage> = ({
-  isSelf,
-  className,
-  content,
-  user,
-  dataAttr,
-  files,
-  isRead,
-}) => {
+export const Message: FC<IMessage> = ({ isSelf, className, content, user, dataAttr, files, isRead }) => {
   return (
-    <div
-      data-message-id={dataAttr}
-      className={clsx(cls.message, { [cls.isSelf]: isSelf }, className)}
-    >
+    <div data-message-id={dataAttr} className={clsx(cls.message, { [cls.isSelf]: isSelf }, className)}>
       <div className={cls.user}>
-        <Avatar name={user?.name} src={user?.avatar} />
+        <Avatar name={user?.name} src={user?.avatar && `${BASE_URL}${user.avatar}`} />
       </div>
       <div className={cls.body}>
         {!isRead && <span className={cls.status}></span>}
@@ -45,11 +35,7 @@ export const Message: FC<IMessage> = ({
           <div className={cls.body__attachments}>
             {files.map((file) => (
               <div key={file.id} className={cls.item}>
-                <a
-                  href={`http://localhost:5000${file.url}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={`http://localhost:5000${file.url}`} target="_blank" rel="noopener noreferrer">
                   <FileThumb name={file.name} ext={file.ext} url={file.url} />
                 </a>
               </div>

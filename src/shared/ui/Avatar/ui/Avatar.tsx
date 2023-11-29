@@ -1,7 +1,8 @@
 import clsx from 'classnames';
 import React, { FC, HTMLAttributes } from 'react';
-import { BASE_URL } from 'shared/config/api/api';
 
+// eslint-disable-next-line no-restricted-imports
+import { getInitials } from '../../../utils/getInitials/getInitials';
 import cls from './Avatar.module.scss';
 
 interface AvatarProps extends HTMLAttributes<HTMLImageElement> {
@@ -13,14 +14,7 @@ interface AvatarProps extends HTMLAttributes<HTMLImageElement> {
   className?: string;
 }
 
-export const Avatar: FC<AvatarProps> = ({
-  src,
-  width = 48,
-  name = 'Grach',
-  onClick,
-  className,
-}) => {
-  console.log(src);
+export const Avatar: FC<AvatarProps> = ({ src, width = 48, name, onClick, className }) => {
   return (
     <div
       onClick={onClick}
@@ -32,15 +26,9 @@ export const Avatar: FC<AvatarProps> = ({
       }}
     >
       {src ? (
-        <img
-          className={cls.avatar__image}
-          src={src}
-          width={width}
-          height={width}
-          alt="avatar"
-        />
+        <img className={cls.avatar__image} src={src} width={width} height={width} alt="avatar" />
       ) : (
-        <span>{name.slice(0, 1)}</span>
+        <span>{name && getInitials(name)}</span>
       )}
     </div>
   );

@@ -13,8 +13,6 @@ import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { Dialogs } from 'widgets/Dialogs';
 import { Interlocutor } from 'widgets/Interlocutor';
 
-// interface MainPageProps {}
-
 export const MainPage: FC = () => {
   const partner = useSelector(getDialogPartner);
   const dispatch = useAppDispatch();
@@ -22,17 +20,12 @@ export const MainPage: FC = () => {
   const activeDialog = useSelector(getActiveDialog);
   const user = useSelector(getUserData);
   const isRightBarOpened = useSelector(getRightBarState);
-  // const dialog = useSelector(getActiveDialog)
 
   useEffect(() => {
     socket?.on('message_created', (message: IMessage) => {
-      dispatch(
-        messagesActions.addNewMessage({ message, dialogId: activeDialog?.id })
-      );
+      dispatch(messagesActions.addNewMessage({ message, dialogId: activeDialog?.id }));
       dispatch(dialogActions.updateLastMessage(message));
-      dispatch(
-        dialogActions.updateUnreadMessagesCount({ message, userId: user?.id })
-      );
+      dispatch(dialogActions.updateUnreadMessagesCount({ message, userId: user?.id }));
     });
 
     return () => {
@@ -54,9 +47,7 @@ export const MainPage: FC = () => {
         );
       }
       if (userId === partner?.id) {
-        dispatch(
-          messagesActions.updateMyMessageReadStatus({ date: '2023-11-12' })
-        );
+        dispatch(messagesActions.updateMyMessageReadStatus({ date: '2023-11-12' }));
       }
     });
     return () => {
