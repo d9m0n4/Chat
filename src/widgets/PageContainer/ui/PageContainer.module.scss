@@ -1,0 +1,13 @@
+.page__content {
+  padding: 1.5em 2em;
+}
+.page__container {
+
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    border-radius: 0.5em;
+    background-color: var(--app-primary-bg);
+    padding: 3em;
+
+}

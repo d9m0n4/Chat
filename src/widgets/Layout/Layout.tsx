@@ -3,7 +3,6 @@ import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import { api } from 'shared/config/api/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { ChatHeader } from 'widgets/ChatHeader';
@@ -40,17 +39,12 @@ export const Layout = () => {
     const setUserOffline = (user: number) => {
       dispatch(dialogActions.setUserOnline({ userId: user, isOnline: false }));
     };
-    socket?.on('friends_online', (ids: number[]) =>
-      ids.forEach((id) => setUserOnline(id))
-    );
-    socket?.on('refreshToken', async () => {
-      console.log('refreshToken');
-      await api.get('/auth/refresh');
-    });
+    socket?.on('friends_online', (ids: number[]) => ids.forEach((id) => setUserOnline(id)));
     socket?.on('online', setUserOnline);
     socket?.on('offline', setUserOffline);
-    socket?.on('dis', (message) => {
-      console.log(message);
+    socket?.on('dis', (m) => {
+      socket?.disconnect();
+      console.log(m);
     });
 
     return () => {

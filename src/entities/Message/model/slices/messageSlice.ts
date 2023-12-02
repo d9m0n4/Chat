@@ -34,9 +34,10 @@ export const messagesSlice = createSlice({
     },
     updateMyMessageReadStatus: (state, action) => {
       const { date } = action.payload;
+      const groupDate = date.created_at.substr(0, 10);
       if (state.messagesData) {
         console.log(1);
-        state.messagesData[date] = state.messagesData[date].map((message) =>
+        state.messagesData[groupDate] = state.messagesData[groupDate].map((message) =>
           message.isRead === false ? { ...message, isRead: true } : message
         );
       }

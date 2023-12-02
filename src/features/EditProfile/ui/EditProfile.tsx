@@ -1,8 +1,10 @@
 import { getUserData } from 'entities/User';
+import { updateUserInfo } from 'entities/User/model/services/updateUserInfo';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as EditIcon } from 'shared/assets/icons/pencil.svg';
-import { BASE_URL, api } from 'shared/config/api/api';
+import { BASE_URL } from 'shared/config/api/api';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
@@ -21,6 +23,8 @@ export const EditProfile = () => {
   const [avatar, setAvatar] = useState<File | string>('');
   const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
 
+  const dispatch = useAppDispatch();
+
   const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files;
     if (file && file[0] instanceof Blob) {
@@ -34,14 +38,11 @@ export const EditProfile = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('name', name || '');
-    formData.append('nickName', nickName || '');
+    formData.append('name', name);
+    formData.append('nickName', nickName);
     formData.append('avatar', avatar);
 
-    api
-      .patch('/user/update', formData)
-      .then((d) => console.log(d))
-      .catch((e) => console.log(e));
+    dispatch(updateUserInfo(formData));
   };
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export const EditProfile = () => {
   }, [userData]);
 
   return (
-    <>
+    <div className={cls.profile__info}>
       <Button onClick={() => setIsEditing(!isEditing)} className={cls.edit__btn}>
         <EditIcon className={'icon'} />
       </Button>
@@ -92,6 +93,6 @@ export const EditProfile = () => {
           </Button>
         )}
       </form>
-    </>
+    </div>
   );
 };

@@ -1,15 +1,5 @@
 .profile {
-  border-radius: 0.5em;
-  margin: 1.5em 2em;
-  background-color: var(--app-primary-bg);
-  padding: 1.5em;
+  width: 100%;
   display: flex;
   justify-content: center;
-  .info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-    position: relative;
-  }
 }

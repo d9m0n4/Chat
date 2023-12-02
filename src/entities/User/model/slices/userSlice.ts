@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchUserData } from '../services/fetchUserData';
+import { updateUserInfo } from '../services/updateUserInfo';
 import { AuthData } from '../types/user';
 
 const initialState: AuthData = {
@@ -39,6 +40,17 @@ export const userSlice = createSlice({
         state.authData = undefined;
         state.isLoading = false;
         state.isAuth = false;
+      })
+      .addCase(updateUserInfo.fulfilled, (state, action) => {
+        state.authData = action.payload;
+        state.isAuth = true;
+        state.isLoading = false;
+      })
+      .addCase(updateUserInfo.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserInfo.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });

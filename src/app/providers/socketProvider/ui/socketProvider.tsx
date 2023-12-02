@@ -9,6 +9,9 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const socketInstance = io('http://localhost:5000', {
       withCredentials: true,
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionAttempts: 10,
     });
 
     socketInstance.on('connect', () => {
@@ -24,9 +27,9 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
-  return (
-    <SocketContext.Provider value={{ socket, isConnected }}>
-      {children}
-    </SocketContext.Provider>
-  );
+  useEffect(() => {
+    console.log(isConnected);
+  }, [isConnected]);
+
+  return <SocketContext.Provider value={{ socket, isConnected }}>{children}</SocketContext.Provider>;
 };

@@ -34,20 +34,20 @@ export const MainPage: FC = () => {
   }, [socket, activeDialog, user]);
 
   useEffect(() => {
-    socket?.on('update_messages_status', ({ userId, dialogId }) => {
+    socket?.on('update_messages_status', ({ userId, dialog }) => {
       if (userId !== user?.id) {
-        dispatch(dialogActions.updateReadStatus(dialogId));
+        dispatch(dialogActions.updateReadStatus(dialog.id));
       }
       if (userId === user?.id) {
         dispatch(
           dialogActions.updateMessagesCount({
-            dialogId,
+            dialogId: dialog.id,
             activeDialogId: activeDialog?.id,
           })
         );
       }
       if (userId === partner?.id) {
-        dispatch(messagesActions.updateMyMessageReadStatus({ date: '2023-11-12' }));
+        dispatch(messagesActions.updateMyMessageReadStatus({ date: dialog.updated_at }));
       }
     });
     return () => {
