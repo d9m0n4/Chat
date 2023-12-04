@@ -8,6 +8,7 @@ import { MessageFile } from '../model/types/Message';
 import cls from './Message.module.scss';
 
 interface IMessage {
+  onClick?: () => void;
   dataAttr?: string | number;
   className?: string;
   isSelf?: boolean;
@@ -22,7 +23,7 @@ interface IMessage {
   };
 }
 
-export const Message: FC<IMessage> = ({ isSelf, className, content, user, dataAttr, files, isRead }) => {
+export const Message: FC<IMessage> = ({ onClick, isSelf, className, content, user, dataAttr, files, isRead }) => {
   return (
     <div data-message-id={dataAttr} className={clsx(cls.message, { [cls.isSelf]: isSelf }, className)}>
       <div className={cls.user}>
@@ -30,7 +31,9 @@ export const Message: FC<IMessage> = ({ isSelf, className, content, user, dataAt
       </div>
       <div className={cls.body}>
         {!isRead && <span className={cls.status}></span>}
-        <div className={cls.body__content}>{content}</div>
+        <div className={cls.body__content} onClick={onClick}>
+          {content}
+        </div>
         {files && files.length > 0 && (
           <div className={cls.body__attachments}>
             {files.map((file) => (
