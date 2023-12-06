@@ -28,7 +28,7 @@ export const Sidebar = () => {
     <div className={cls.sidebar}>
       <div className={cls.user}>
         <NavLink to={'/profile'}>
-          <Avatar src={userData?.avatar && `${BASE_URL}${userData.avatar}`} />
+          <Avatar src={userData?.avatar && `${BASE_URL}${userData.avatar}`} name={userData?.name} />
         </NavLink>
       </div>
       <div className={cls.sidebar__nav}>

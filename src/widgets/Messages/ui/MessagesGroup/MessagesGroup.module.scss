@@ -1,0 +1,19 @@
+.messages {
+  &__group {
+    text-align: center;
+    padding: 8px 0;
+
+    &_date {
+      position: sticky;
+      font-size: 0.8em;
+      color: var(--app-primary-text);
+      top: 0;
+      background: var(--app-border);
+      backdrop-filter: blur(5px);
+      display: inline-block;
+      padding: 0.2em 1em;
+      border-radius: 1em;
+      cursor: pointer;
+    }
+  }
+}

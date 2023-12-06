@@ -21,15 +21,26 @@ interface IMessage {
     nickName: string;
     avatar?: string | null;
   };
+  onContextMenu?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export const Message: FC<IMessage> = ({ onClick, isSelf, className, content, user, dataAttr, files, isRead }) => {
+export const Message: FC<IMessage> = ({
+  onContextMenu,
+  onClick,
+  isSelf,
+  className,
+  content,
+  user,
+  dataAttr,
+  files,
+  isRead,
+}) => {
   return (
     <div data-message-id={dataAttr} className={clsx(cls.message, { [cls.isSelf]: isSelf }, className)}>
       <div className={cls.user}>
         <Avatar name={user?.name} src={user?.avatar && `${BASE_URL}${user.avatar}`} />
       </div>
-      <div className={cls.body}>
+      <div className={cls.body} onContextMenu={onContextMenu}>
         {!isRead && <span className={cls.status}></span>}
         <div className={cls.body__content} onClick={onClick}>
           {content}

@@ -71,6 +71,7 @@ export const EditProfile = () => {
         src={avatarUrl ? avatarUrl : userData?.avatar ? `${BASE_URL}${userData.avatar}` : null}
         onClick={() => inputRef.current?.click()}
         className={cls.profile__avatar}
+        name={userData?.name}
       />
       <form onSubmit={submitHandler} className={cls.profile__form}>
         <Input

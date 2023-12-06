@@ -2,9 +2,12 @@ import { getActiveDialog } from 'entities/Dialog';
 import { getMessages } from 'entities/Message/model/selectors/getMessages';
 import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
 import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
+import { getUserData } from 'entities/User';
 import React, { Suspense, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { useSocket } from 'shared/hooks/useSocket/useSocket';
+import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';
 import { Loader } from 'shared/ui/Loader';
 import { MessageInput } from 'widgets/MessageInput';
 
@@ -12,10 +15,13 @@ import cls from './Messages.module.scss';
 import { MessagesList } from './MessagesList/MessagesList';
 
 export const Messages = () => {
+  const { socket } = useSocket();
   const messages = useSelector(getMessages);
   const activeDialog = useSelector(getActiveDialog);
   const dispatch = useAppDispatch();
   const messagesWrapper = useRef<HTMLDivElement>(null);
+  const user = useSelector(getUserData);
+  const isTyping = useTypingIndicator(activeDialog?.id, socket);
 
   useEffect(() => {
     if (activeDialog) {
@@ -44,25 +50,28 @@ export const Messages = () => {
       });
     };
 
-    const observer = new IntersectionObserver(
-      handleIntersection,
-      observerOptions
-    );
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
 
     if (messagesWrapper.current) {
-      const messages =
-        messagesWrapper.current.querySelectorAll('[data-message-id]');
+      const messages = messagesWrapper.current.querySelectorAll('[data-message-id]');
       messages.forEach((message) => {
         observer.observe(message);
       });
     }
   }, []);
 
+  console.log(isTyping);
+
   return (
     <div ref={messagesWrapper} className={cls.messages__wrapper}>
       {messages && (
         <Suspense fallback={<Loader />}>
-          <MessagesList messages={messages} />
+          <MessagesList
+            messages={messages}
+            userId={user?.id}
+            isTyping={isTyping}
+            dialogPartner={activeDialog?.partner}
+          />
           <MessageInput />
         </Suspense>
       )}
