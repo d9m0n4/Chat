@@ -1,5 +1,6 @@
 import React, { FC, ReactNode, useCallback, useEffect } from 'react';
 
+import { Portal } from '../../Portal';
 import cls from './Modal.module.scss';
 
 interface ModalProps {
@@ -32,11 +33,13 @@ export const Modal: FC<ModalProps> = ({ children, onClose, isOpened }) => {
   }, [onKeyDown]);
 
   return (
-    <div className={`${cls.modal} ${isOpened ? cls.opened : ''}`}>
-      <div className={cls.backdrop} onClick={onClose} />
-      <div className={cls.modal__container} onClick={noClick}>
-        {children}
+    <Portal>
+      <div className={`${cls.modal} ${isOpened ? cls.opened : ''}`}>
+        <div className={cls.backdrop} onClick={onClose} />
+        <div className={cls.modal__container} onClick={noClick}>
+          {children}
+        </div>
       </div>
-    </div>
+    </Portal>
   );
 };

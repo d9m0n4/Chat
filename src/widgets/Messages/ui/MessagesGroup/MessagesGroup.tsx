@@ -1,5 +1,5 @@
 import { Message } from 'entities/Message';
-import { GroupedMessages } from 'entities/Message/model/types/Message';
+import { IMessage } from 'entities/Message/model/types/Message';
 import { MessageContextMenu } from 'features/MessageContextMenu';
 import React, { FC, useState } from 'react';
 
@@ -7,47 +7,20 @@ import cls from './MessagesGroup.module.scss';
 
 interface MessagesGroupProps {
   date: string;
-  messages: GroupedMessages;
+  messages: IMessage[];
   userId?: number | undefined;
+  context: any;
+  style?: React.CSSProperties;
 }
 
-export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId }) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isContextOpened, setIsContextOpened] = useState(false);
-  const handleClickContext = (event: React.MouseEvent<HTMLDivElement>) => {
-    console.log(event);
-    event.preventDefault();
-    setIsContextOpened(false);
-    setIsContextOpened(true);
-    setPosition({ x: event.pageX, y: event.pageY });
-  };
-
-  const handleCloseContextMenu = () => {
-    setPosition({ x: 0, y: 0 });
-    setIsContextOpened(false);
-  };
-
-  const handleDelete = () => {
-    console.log('Удалить');
-    handleCloseContextMenu();
-  };
-
-  const handleAddToFavorites = () => {
-    console.log('Добавить в избранное');
-    handleCloseContextMenu();
-  };
-
-  const contextMenuOptions = {
-    Удалить: handleDelete,
-    'Добавить в избранное': handleAddToFavorites,
-  };
+export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId, context, style }) => {
   return (
     <>
-      <div className={cls.messages__group} key={date}>
+      <div className={cls.messages__group} key={date} style={style}>
         <div className={cls.messages__group_date}>{new Date(date).toLocaleDateString()}</div>
-        {messages[date].map((message) => (
+        {messages.map((message) => (
           <Message
-            onContextMenu={handleClickContext}
+            onContextMenu={context}
             dataAttr={message.id}
             key={message.id}
             content={message.content}
@@ -58,9 +31,6 @@ export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId }
           />
         ))}
       </div>
-      {isContextOpened && (
-        <MessageContextMenu position={position} options={contextMenuOptions} onClose={handleCloseContextMenu} />
-      )}
     </>
   );
 };

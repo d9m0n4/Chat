@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Portal } from 'shared/ui/Portal';
 
 import cls from './MessageContextMenu.module.scss';
 
@@ -21,20 +22,22 @@ export const MessageContextMenu: FC<MessageContextMenuProps> = ({ position, opti
   };
 
   return (
-    <div
-      className={cls.context__menu}
-      style={{
-        position: 'absolute',
-        top: position.y,
-        left: position.x,
-        zIndex: 9999,
-      }}
-    >
-      {Object.keys(options).map((option) => (
-        <div className={cls['context__menu-item']} key={option} onClick={() => handleClick(option)}>
-          {option}
-        </div>
-      ))}
-    </div>
+    <Portal>
+      <div
+        className={cls.context__menu}
+        style={{
+          position: 'absolute',
+          top: position.y,
+          left: position.x,
+          zIndex: 9999,
+        }}
+      >
+        {Object.keys(options).map((option) => (
+          <div className={cls['context__menu-item']} key={option} onClick={() => handleClick(option)}>
+            {option}
+          </div>
+        ))}
+      </div>
+    </Portal>
   );
 };
