@@ -13,7 +13,6 @@ interface IMessagesList {
   isTyping?: boolean;
   userId?: number;
   dialogPartner?: IUser;
-  context?: any;
 }
 
 interface RowProps {
@@ -22,7 +21,7 @@ interface RowProps {
 }
 
 export const MessagesList = forwardRef(
-  ({ messages, isTyping, userId, dialogPartner, context }: IMessagesList, ref: React.LegacyRef<HTMLDivElement>) => {
+  ({ messages, isTyping, userId, dialogPartner }: IMessagesList, ref: React.LegacyRef<HTMLDivElement>) => {
     if (!messages) {
       return null;
     }
@@ -50,7 +49,7 @@ export const MessagesList = forwardRef(
       return (
         <div style={style}>
           <div ref={rowRef} style={{ padding: '1em 2em' }}>
-            <MessagesGroup date={date} messages={group} userId={userId} context={context} />
+            <MessagesGroup date={date} messages={group} userId={userId} />
             {isTyping && dialogPartner && <TypingMessage user={dialogPartner} />}
           </div>
         </div>

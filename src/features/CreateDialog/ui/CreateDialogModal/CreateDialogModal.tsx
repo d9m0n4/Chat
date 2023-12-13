@@ -9,15 +9,10 @@ interface AddDialogModalProps {
   isOpened: boolean;
 }
 
-export const CreateDialogModal: FC<AddDialogModalProps> = ({
-  onClose,
-  isOpened,
-}) => {
+export const CreateDialogModal: FC<AddDialogModalProps> = ({ onClose, isOpened }) => {
   return (
-    <Portal>
-      <Modal onClose={onClose} isOpened={isOpened}>
-        <CreateDialogForm onClose={onClose} />
-      </Modal>
-    </Portal>
+    <Modal onClose={onClose} isOpened={isOpened}>
+      <CreateDialogForm onClose={onClose} />
+    </Modal>
   );
 };

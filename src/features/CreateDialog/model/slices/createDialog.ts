@@ -31,4 +31,4 @@ export const CreateDialogSlice = createSlice({
   },
 });
 
-export const { reducer: AddDialogReducer } = CreateDialogSlice;
+export const { reducer: addDialogReducer } = CreateDialogSlice;

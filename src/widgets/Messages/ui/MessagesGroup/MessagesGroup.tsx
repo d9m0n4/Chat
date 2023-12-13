@@ -1,7 +1,8 @@
 import { Message } from 'entities/Message';
+import { messageContextMenuActions } from 'entities/Message/model/slices/messageContextMenuSlice';
 import { IMessage } from 'entities/Message/model/types/Message';
-import { MessageContextMenu } from 'features/MessageContextMenu';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './MessagesGroup.module.scss';
 
@@ -9,18 +10,34 @@ interface MessagesGroupProps {
   date: string;
   messages: IMessage[];
   userId?: number | undefined;
-  context: any;
   style?: React.CSSProperties;
 }
 
-export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId, context, style }) => {
+export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId, style }) => {
+  const dispatch = useAppDispatch();
+  const handleOpenContextMenu = ({
+    event,
+    messageId,
+  }: {
+    event: React.MouseEvent<HTMLDivElement>;
+    messageId: number;
+  }) => {
+    event.preventDefault();
+    dispatch(
+      messageContextMenuActions.toggleOpenMenu({
+        messageId,
+        isOpen: true,
+        position: { x: event.pageX, y: event.pageY },
+      })
+    );
+  };
   return (
     <>
       <div className={cls.messages__group} key={date} style={style}>
         <div className={cls.messages__group_date}>{new Date(date).toLocaleDateString()}</div>
         {messages.map((message) => (
           <Message
-            onContextMenu={context}
+            onContextMenu={(event) => handleOpenContextMenu({ event, messageId: message.id })}
             dataAttr={message.id}
             key={message.id}
             content={message.content}
