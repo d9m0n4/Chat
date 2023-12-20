@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
 import { Button } from 'shared/ui/Button';
-import { ButtonVariants } from 'shared/ui/Button/ui/Button';
 import { Modal } from 'shared/ui/Modal/ui/Modal';
 
 import cls from './DeleteMessageModal.module.scss';
 
-export const DeleteMessageModal = ({ isOpened, onClose }: { isOpened: boolean; onClose: () => void }) => {
+export const DeleteMessageModal = ({
+  isOpened,
+  onClose,
+  onConfirm,
+  onCancel,
+}: {
+  isOpened: boolean;
+  onClose: () => void;
+  onConfirm: (isChecked: boolean) => void;
+  onCancel: () => void;
+}) => {
+  if (!isOpened) {
+    return null;
+  }
   const [isChecked, setChecked] = useState(false);
   const handleCheckboxChange = () => {
     setChecked(!isChecked);
   };
+
   return (
     <Modal isOpened={isOpened} onClose={onClose}>
       <div className={cls.confirm__modal}>
@@ -23,7 +36,7 @@ export const DeleteMessageModal = ({ isOpened, onClose }: { isOpened: boolean; o
           <Button className={cls.button} onClick={onClose}>
             Отмена
           </Button>
-          <Button className={cls.button} onClick={onClose}>
+          <Button className={cls.button} onClick={() => onConfirm(isChecked)}>
             Удалить
           </Button>
         </div>

@@ -32,7 +32,7 @@ export interface GroupedMessages {
 
 export interface IMessagesData {
   messagesData: GroupedMessages | undefined;
-  error: string | null;
+  apiMessage?: NonNullable<unknown>;
   loading: boolean;
 }
 
@@ -42,4 +42,13 @@ interface INewMessageDialog {
   latestMessage: number;
   updated_at: string;
   users: User[];
+}
+
+export interface INewMessagePayload {
+  message: IMessage;
+  dialogId: number | undefined;
+}
+
+export interface IDeleteMessagePayload {
+  messageId: number;
 }

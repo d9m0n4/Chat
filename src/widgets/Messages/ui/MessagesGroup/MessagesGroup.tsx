@@ -35,18 +35,19 @@ export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId, 
     <>
       <div className={cls.messages__group} key={date} style={style}>
         <div className={cls.messages__group_date}>{new Date(date).toLocaleDateString()}</div>
-        {messages.map((message) => (
-          <Message
-            onContextMenu={(event) => handleOpenContextMenu({ event, messageId: message.id })}
-            dataAttr={message.id}
-            key={message.id}
-            content={message.content}
-            user={message.user}
-            isSelf={message.user.id === userId}
-            files={message.files}
-            isRead={message.isRead}
-          />
-        ))}
+        {messages &&
+          messages.map((message) => (
+            <Message
+              onContextMenu={(event) => handleOpenContextMenu({ event, messageId: message.id })}
+              dataAttr={message.id}
+              key={message.id}
+              content={message.content}
+              user={message.user}
+              isSelf={message.user.id === userId}
+              files={message.files}
+              isRead={message.isRead}
+            />
+          ))}
       </div>
     </>
   );

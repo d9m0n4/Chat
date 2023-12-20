@@ -3,14 +3,10 @@ import { getMessages } from 'entities/Message/model/selectors/getMessages';
 import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
 import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
 import { getUserData } from 'entities/User';
-import { getModalState } from 'features/DeleteMessage/model/selectors/getModalState';
-import { deleteMessageActions } from 'features/DeleteMessage/model/slices/deleteMessageSlice';
-import { DeleteMessageModal } from 'features/DeleteMessage/ui/DeleteMessageModal';
-import { MessageContextMenu } from 'features/MessageContextMenu';
+import { MessageManagement } from 'features/MessageManagement';
 import React, { Suspense, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
-import { useMessageContextMenu } from 'shared/hooks/useMessageContextMenu/useMessageContextMenu';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';
 import { Loader } from 'shared/ui/Loader';
@@ -28,8 +24,6 @@ export const Messages = () => {
   const isTyping = useTypingIndicator(activeDialog?.id, socket);
   const messagesWrapper = useRef<HTMLDivElement>(null);
   const messagesContainer = useRef<HTMLDivElement>(null);
-  const { isContextMenuOpened, contextMenuOptions, handleCloseContextMenu, position } = useMessageContextMenu();
-  const { isModalOpened } = useSelector(getModalState);
 
   const scrollToBottom = () => {
     if (messagesContainer.current) {
@@ -53,7 +47,7 @@ export const Messages = () => {
 
   return (
     <>
-      <div ref={messagesWrapper} className={cls.messages__wrapper}>
+      <div id={'messages'} ref={messagesWrapper} className={cls.messages__wrapper}>
         {messages && (
           <Suspense fallback={<Loader />}>
             <MessagesList
@@ -67,15 +61,7 @@ export const Messages = () => {
           </Suspense>
         )}
       </div>
-      {isContextMenuOpened && (
-        <MessageContextMenu options={contextMenuOptions} onClose={handleCloseContextMenu} position={position} />
-      )}
-      {isModalOpened && (
-        <DeleteMessageModal
-          isOpened={isModalOpened}
-          onClose={() => dispatch(deleteMessageActions.toggleOpenModal(false))}
-        />
-      )}
+      <MessageManagement />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { attachmentsReducer } from 'entities/ChatAttachment/model/slices/attachm
 import { dialogReducer } from 'entities/Dialog/model/slices/dialogSlice';
 import { messageContextMenuReducer } from 'entities/Message/model/slices/messageContextMenuSlice';
 import { messagesReducer } from 'entities/Message/model/slices/messageSlice';
+import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
 import { userReducer } from 'entities/User/model/slices/userSlice';
 import { addDialogReducer } from 'features/CreateDialog/model/slices/createDialog';
 import { deleteMessageReducer } from 'features/DeleteMessage/model/slices/deleteMessageSlice';
@@ -18,6 +19,7 @@ export const store = configureStore({
     rightBar: rightBarReducer,
     messageContextMenu: messageContextMenuReducer,
     modal: deleteMessageReducer,
+    notifications: notificationReducer,
   },
 });
 

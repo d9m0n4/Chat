@@ -9,12 +9,13 @@ type Position = {
   y: number;
 };
 interface MessageContextMenuProps {
+  isOpen: boolean;
   position?: Position;
-  options: Record<string, () => void>;
+  options: Record<string, (b?: boolean) => void>;
   onClose: () => void;
 }
 
-export const MessageContextMenu: FC<MessageContextMenuProps> = ({ position, options, onClose }) => {
+export const MessageContextMenu: FC<MessageContextMenuProps> = ({ position, options, onClose, isOpen }) => {
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref, callback: onClose });
   const handleClick = (action: string) => {
@@ -23,6 +24,10 @@ export const MessageContextMenu: FC<MessageContextMenuProps> = ({ position, opti
       options[action]();
     }
   };
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <Portal>

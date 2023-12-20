@@ -7,6 +7,8 @@ import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { ChatHeader } from 'widgets/ChatHeader';
 
+import { Notifications } from '../../entities/Notifications';
+import { getNotifications } from '../../entities/Notifications/model/selectors/getNotifications';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
 import { Sidebar } from '../Sidebar';
 
@@ -14,6 +16,7 @@ export const Layout = () => {
   const dispatch = useAppDispatch();
   const myDialogs = useSelector(getDialogs);
   const { socket } = useSocket();
+  const { notifications } = useSelector(getNotifications);
 
   useEffect(() => {
     dispatch(fetchUserData());
@@ -63,6 +66,7 @@ export const Layout = () => {
         <ChatHeader />
         <Outlet />
       </div>
+      <Notifications notifications={notifications} />
     </div>
   );
 };

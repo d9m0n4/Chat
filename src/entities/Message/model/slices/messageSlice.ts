@@ -1,16 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { RejectedAction } from '@reduxjs/toolkit/dist/query/core/buildThunks';
 
+import { deleteMessage } from '../services/deleteMessage';
 import { fetchMessages } from '../services/fetchMessages';
-import { IMessage, IMessagesData } from '../types/Message';
-
-interface INewMessagePayload {
-  message: IMessage;
-  dialogId: number | undefined;
-}
+import { IDeleteMessagePayload, IMessage, IMessagesData, INewMessagePayload } from '../types/Message';
 
 const initialState: IMessagesData = {
   messagesData: undefined,
-  error: null,
+  apiMessage: undefined,
   loading: false,
 };
 
@@ -29,6 +26,14 @@ export const messagesSlice = createSlice({
             state.messagesData[date] = [];
           }
           state.messagesData[date].push(message);
+        }
+      }
+    },
+    deleteMessage: (state, action: PayloadAction<IDeleteMessagePayload>) => {
+      const { messageId } = action.payload;
+      if (state.messagesData) {
+        for (const date in state.messagesData) {
+          state.messagesData[date] = state.messagesData[date].filter((message) => message.id !== messageId);
         }
       }
     },
@@ -55,8 +60,18 @@ export const messagesSlice = createSlice({
         state.messagesData = undefined;
       })
       .addCase(fetchMessages.rejected, (state) => {
-        state.error = 'error';
+        state.apiMessage = 'error';
         state.loading = false;
+      })
+      .addCase(deleteMessage.fulfilled, (state, action: PayloadAction<IDeleteMessagePayload>) => {
+        messagesSlice.caseReducers.deleteMessage(state, action);
+      })
+      .addCase(deleteMessage.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteMessage.rejected, (state, action) => {
+        state.loading = false;
+        state.apiMessage = action.error;
       });
   },
 });

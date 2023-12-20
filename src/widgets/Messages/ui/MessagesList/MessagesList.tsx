@@ -56,21 +56,15 @@ export const MessagesList = forwardRef(
       );
     };
     return (
-      <InfiniteLoader
-        itemCount={Object.keys(messages).length}
-        isItemLoaded={(index) => false}
-        loadMoreItems={(startIndex, stopIndex) => console.log(startIndex, stopIndex)}
-      >
-        {({ ref, onItemsRendered }) => (
+      <>
+        {messages && (
           <List
-            onItemsRendered={onItemsRendered}
             className={cls.messages}
             width={1}
             height={1}
             itemSize={getRowHeight}
-            itemCount={Object.keys(messages).length}
+            itemCount={Object.values(messages).length}
             ref={listRef}
-            outerRef={ref}
             style={{
               width: '100%',
               height: '100%',
@@ -79,7 +73,7 @@ export const MessagesList = forwardRef(
             {Row}
           </List>
         )}
-      </InfiniteLoader>
+      </>
     );
   }
 );

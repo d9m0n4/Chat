@@ -17,9 +17,7 @@ export const dialogSlice = createSlice({
     setUserOnline: (state, action) => {
       const { userId, isOnline } = action.payload;
       if (state.dialogData) {
-        const dialogToUpdate = state.dialogData.find(
-          (dialog) => dialog.partner.id === userId
-        );
+        const dialogToUpdate = state.dialogData.find((dialog) => dialog.partner.id === userId);
         if (dialogToUpdate) {
           dialogToUpdate.partner.isOnline = isOnline;
         }
@@ -28,9 +26,7 @@ export const dialogSlice = createSlice({
     updateLastMessage: (state, action) => {
       const { dialog } = action.payload;
       if (state.dialogData) {
-        const dialogToUpdate = state.dialogData.find(
-          (dialogData) => dialogData.id === dialog.id
-        );
+        const dialogToUpdate = state.dialogData.find((dialogData) => dialogData.id === dialog.id);
         if (dialogToUpdate) {
           dialogToUpdate.latestMessage = {
             id: action.payload.id,
@@ -45,10 +41,8 @@ export const dialogSlice = createSlice({
     },
 
     updateReadStatus: (state, action) => {
-      const dialogToUpdate = state.dialogData.find(
-        (dialog) => dialog.id === action.payload
-      );
-      if (dialogToUpdate) {
+      const dialogToUpdate = state.dialogData.find((dialog) => dialog.id === action.payload);
+      if (dialogToUpdate && dialogToUpdate.latestMessage) {
         dialogToUpdate.latestMessage.isRead = true;
       }
     },
@@ -57,9 +51,7 @@ export const dialogSlice = createSlice({
       const { message, userId } = action.payload;
       const { dialog } = message;
       if (message.user.id !== userId) {
-        const dialogToUpdate = state.dialogData.find(
-          (dialogData) => dialogData.id === dialog.id
-        );
+        const dialogToUpdate = state.dialogData.find((dialogData) => dialogData.id === dialog.id);
         if (dialogToUpdate) {
           dialogToUpdate.unreadMessagesCount += 1;
         }
@@ -69,9 +61,7 @@ export const dialogSlice = createSlice({
     updateMessagesCount(state, action) {
       const { dialogId, activeDialogId } = action.payload;
       if (dialogId === activeDialogId) {
-        const dialog = state.dialogData.find(
-          (dialog) => dialog.id === activeDialogId
-        );
+        const dialog = state.dialogData.find((dialog) => dialog.id === activeDialogId);
         if (dialog) {
           dialog.unreadMessagesCount = 0;
         }
@@ -82,9 +72,7 @@ export const dialogSlice = createSlice({
       state.searchValue = action.payload;
     },
     filterDialogs: (state, action) => {
-      state.dialogData = state.dialogData.filter((dialog) =>
-        dialog.partner.name.includes(action.payload)
-      );
+      state.dialogData = state.dialogData.filter((dialog) => dialog.partner.name.includes(action.payload));
     },
   },
   extraReducers: (builder) => {

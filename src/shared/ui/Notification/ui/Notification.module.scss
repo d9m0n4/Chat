@@ -1,4 +1,4 @@
-.context__menu {
+.notification {
   background-color: var(--app-modal-overlay);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
@@ -9,18 +9,14 @@
   display: flex;
   flex-direction: column;
   gap: .5em;
-  position: fixed;
   animation: modal 350ms ease;
-  &-item {
-    padding: .5rem .75rem;
-    cursor: pointer;
-    color: var(--app-primary-text);
-    border-radius: .5rem;
-    &:hover {
-      background: var(--app-tooltip);
-    }
+  color: var(--app-primary-text);
+  max-width: 20rem;
+  &-message {
+    padding: 1rem;
   }
 }
+
 
 @keyframes modal {
   0% {
