@@ -2,6 +2,8 @@ import clsx from 'classnames';
 import React, { FC, HTMLAttributes } from 'react';
 
 // eslint-disable-next-line no-restricted-imports
+import { generateAvatarColor } from '../../../utils/generateAvatarColor/generateAvatarColor';
+// eslint-disable-next-line no-restricted-imports
 import { getInitials } from '../../../utils/getInitials/getInitials';
 import cls from './Avatar.module.scss';
 
@@ -15,6 +17,7 @@ interface AvatarProps extends HTMLAttributes<HTMLImageElement> {
 }
 
 export const Avatar: FC<AvatarProps> = ({ src, width = 48, name, onClick, className }) => {
+  const color = name ? generateAvatarColor(getInitials(`${name} ${name.length}`)) : 'red';
   return (
     <div
       onClick={onClick}
@@ -23,6 +26,7 @@ export const Avatar: FC<AvatarProps> = ({ src, width = 48, name, onClick, classN
         maxWidth: `${width}px`,
         width: `${width}px`,
         height: `${width}px`,
+        background: `linear-gradient(#fff -95%, ${color})`,
       }}
     >
       {src ? (

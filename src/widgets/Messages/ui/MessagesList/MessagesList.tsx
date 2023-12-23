@@ -2,7 +2,6 @@ import { GroupedMessages } from 'entities/Message/model/types/Message';
 import { IUser } from 'entities/User/model/types/user';
 import React, { forwardRef, useEffect, useRef } from 'react';
 import { VariableSizeList as List } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
 import { TypingMessage } from 'shared/ui/TypingMessage';
 
 import cls from '../Messages.module.scss';
@@ -21,11 +20,14 @@ interface RowProps {
 }
 
 export const MessagesList = forwardRef(
-  ({ messages, isTyping, userId, dialogPartner }: IMessagesList, ref: React.LegacyRef<HTMLDivElement>) => {
+  (
+    { messages, isTyping, userId, dialogPartner }: IMessagesList,
+    ref: React.LegacyRef<HTMLDivElement>
+  ) => {
     if (!messages) {
       return null;
     }
-    const listRef = useRef<any>({});
+    const listRef = useRef<any>(ref);
     const rowHeights = useRef<any>({});
 
     function getRowHeight(index: number) {
@@ -50,8 +52,8 @@ export const MessagesList = forwardRef(
         <div style={style}>
           <div ref={rowRef} style={{ padding: '1em 2em' }}>
             <MessagesGroup date={date} messages={group} userId={userId} />
-            {isTyping && dialogPartner && <TypingMessage user={dialogPartner} />}
           </div>
+          {isTyping && dialogPartner && <TypingMessage user={dialogPartner} />}
         </div>
       );
     };

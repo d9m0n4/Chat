@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import ReactDOM from 'react-dom/client';
 import { useSelector } from 'react-redux';
@@ -20,18 +20,12 @@ export const Notifications: FC<INotificationsProps> = ({ notifications }) => {
   if (notifications.length < 1) {
     return null;
   }
-  const root = ReactDOM.createRoot(document.getElementById('messages') as Element);
 
   return (
-    <>
-      {createPortal(
-        <div id="notifications" className={cls.notifications}>
-          {n.map(({ message, id }) => (
-            <Notification key={id} message={message} id={id} />
-          ))}
-        </div>,
-        root as unknown as Element
-      )}
-    </>
+    <div id="notifications" className={cls.notifications}>
+      {n.map(({ message, id }) => (
+        <Notification key={id} message={message} id={id} />
+      ))}
+    </div>
   );
 };

@@ -1,0 +1,25 @@
+.rippleContainer {
+  position: absolute;
+  overflow: hidden;
+  inset: 0;
+
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animation 800ms linear;
+  background-color: rgba(255, 255, 255, 0.1); //сделать цвет для разных тем
+}
+
+@keyframes ripple-animation {
+  from  {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

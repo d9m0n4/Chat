@@ -27,7 +27,6 @@ export const MessageManagement = () => {
     if (id) {
       try {
         const response = await dispatch(deleteMessage({ messageId: id, forAll: isChecked })).unwrap();
-        console.log(response);
         dispatch(notificationActions.setNotification({ message: response.message }));
       } catch (e: any) {
         dispatch(notificationActions.setNotification({ message: e.message }));

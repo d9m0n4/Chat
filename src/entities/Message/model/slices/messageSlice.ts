@@ -39,13 +39,17 @@ export const messagesSlice = createSlice({
     },
     updateMyMessageReadStatus: (state, action) => {
       const { date } = action.payload;
-      console.log(date);
       const groupDate = date.substr(0, 10);
+      console.log(groupDate);
+
       if (state.messagesData) {
-        console.log(1);
-        state.messagesData[groupDate] = state.messagesData[groupDate].map((message) =>
-          message.isRead === false ? { ...message, isRead: true } : message
-        );
+        for (const date in state.messagesData) {
+          if (date === groupDate) {
+            state.messagesData[groupDate] = state.messagesData[groupDate].map((message) =>
+              !message.isRead ? { ...message, isRead: true } : message
+            );
+          }
+        }
       }
     },
   },

@@ -1,3 +1,4 @@
+import { notificationActions } from 'entities/Notifications';
 import { getUserData } from 'entities/User';
 import { updateUserInfo } from 'entities/User/model/services/updateUserInfo';
 import React, { useEffect, useRef, useState } from 'react';
@@ -35,14 +36,20 @@ export const EditProfile = () => {
       return;
     }
   };
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
     formData.append('nickName', nickName);
     formData.append('avatar', avatar);
 
-    dispatch(updateUserInfo(formData));
+    try {
+      await dispatch(updateUserInfo(formData)).unwrap();
+      setIsEditing(false);
+      dispatch(notificationActions.setNotification({ message: 'Профиль успешно обновлен' }));
+    } catch (e: any) {
+      dispatch(notificationActions.setNotification(e.message));
+    }
   };
 
   useEffect(() => {

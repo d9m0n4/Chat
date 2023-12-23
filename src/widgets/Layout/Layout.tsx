@@ -10,6 +10,7 @@ import { ChatHeader } from 'widgets/ChatHeader';
 import { Notifications } from '../../entities/Notifications';
 import { getNotifications } from '../../entities/Notifications/model/selectors/getNotifications';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
+import { Portal } from '../../shared/ui/Portal';
 import { Sidebar } from '../Sidebar';
 
 export const Layout = () => {
@@ -66,7 +67,9 @@ export const Layout = () => {
         <ChatHeader />
         <Outlet />
       </div>
-      <Notifications notifications={notifications} />
+      <Portal>
+        <Notifications notifications={notifications} />
+      </Portal>
     </div>
   );
 };

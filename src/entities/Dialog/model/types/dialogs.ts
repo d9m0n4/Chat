@@ -19,7 +19,7 @@ export interface IDialogLastMessage {
 export interface IDialog {
   created_at: Date;
   id: number;
-  latestMessage: IDialogLastMessage;
+  latestMessage: IDialogLastMessage | null;
   partner: Partner;
   updated_at: Date;
   unreadMessagesCount: number;

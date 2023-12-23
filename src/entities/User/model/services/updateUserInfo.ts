@@ -8,13 +8,16 @@ import { IUser } from '../types/user';
 //   nickName: string;
 //   avatar: File;
 // }
-export const updateUserInfo = createAsyncThunk('updateUserInfo', async (userInfo: FormData, thunkAPI) => {
-  const { rejectWithValue } = thunkAPI;
+export const updateUserInfo = createAsyncThunk(
+  'updateUserInfo',
+  async (userInfo: FormData, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
 
-  try {
-    const { data } = await api.patch<IUser>('/user/update', userInfo);
-    return data;
-  } catch (e) {
-    return rejectWithValue('error');
+    try {
+      const { data } = await api.patch<IUser>('/user/update', userInfo);
+      return data;
+    } catch (e) {
+      return rejectWithValue('error');
+    }
   }
-});
+);

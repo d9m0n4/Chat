@@ -7,6 +7,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   overrides: [],
   parser: '@typescript-eslint/parser',
@@ -16,7 +17,6 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
-    indent: [2, 2],
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 'off',
     'no-restricted-imports': [

@@ -23,6 +23,7 @@ export const MainPage: FC = () => {
 
   useEffect(() => {
     socket?.on('message_created', (message: IMessage) => {
+      console.log(message);
       dispatch(messagesActions.addNewMessage({ message, dialogId: activeDialog?.id }));
       dispatch(dialogActions.updateLastMessage(message));
       dispatch(dialogActions.updateUnreadMessagesCount({ message, userId: user?.id }));
@@ -32,6 +33,15 @@ export const MainPage: FC = () => {
       socket?.off('message_created');
     };
   }, [socket, activeDialog, user]);
+
+  useEffect(() => {
+    socket?.on('update_last_message', (message: IMessage) => {
+      dispatch(dialogActions.updateLastMessage(message));
+    });
+    return () => {
+      socket?.off('update_last_message');
+    };
+  }, [socket]);
 
   useEffect(() => {
     socket?.on('update_messages_status', ({ userId, dialog }) => {
