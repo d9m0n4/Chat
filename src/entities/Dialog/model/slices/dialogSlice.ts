@@ -21,6 +21,7 @@ export const dialogSlice = createSlice({
     },
     setActiveDialog: (state, action) => {
       state.activeDialog = action.payload;
+      state.prevActiveDialogId = state.activeDialog?.id;
     },
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;

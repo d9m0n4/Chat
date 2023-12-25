@@ -23,10 +23,13 @@ export const MainPage: FC = () => {
 
   useEffect(() => {
     socket?.on('message_created', (message: IMessage) => {
-      console.log(message);
-      dispatch(messagesActions.addNewMessage({ message, dialogId: activeDialog?.id }));
+      dispatch(
+        messagesActions.addNewMessage({ message, dialogId: activeDialog?.id })
+      );
       dispatch(dialogActions.updateLastMessage(message));
-      dispatch(dialogActions.updateUnreadMessagesCount({ message, userId: user?.id }));
+      dispatch(
+        dialogActions.updateUnreadMessagesCount({ message, userId: user?.id })
+      );
     });
 
     return () => {
@@ -57,7 +60,9 @@ export const MainPage: FC = () => {
         );
       }
       if (userId === partner?.id) {
-        dispatch(messagesActions.updateMyMessageReadStatus({ date: dialog.updated_at }));
+        dispatch(
+          messagesActions.updateMyMessageReadStatus({ date: dialog.updated_at })
+        );
       }
     });
     return () => {

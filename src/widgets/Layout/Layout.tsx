@@ -7,6 +7,7 @@ import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { ChatHeader } from 'widgets/ChatHeader';
 
+import { messagesActions } from '../../entities/Message/model/slices/messageSlice';
 import { Notifications } from '../../entities/Notifications';
 import { getNotifications } from '../../entities/Notifications/model/selectors/getNotifications';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
@@ -43,20 +44,25 @@ export const Layout = () => {
     const setUserOffline = (user: number) => {
       dispatch(dialogActions.setUserOnline({ userId: user, isOnline: false }));
     };
-    socket?.on('friends_online', (ids: number[]) => ids.forEach((id) => setUserOnline(id)));
+    socket?.on('friends_online', (ids: number[]) =>
+      ids.forEach((id) => setUserOnline(id))
+    );
     socket?.on('online', setUserOnline);
     socket?.on('offline', setUserOffline);
-    socket?.on('dis', (m) => {
-      socket?.disconnect();
-      console.log(m);
-    });
 
     return () => {
       socket?.off('online', setUserOnline);
       socket?.off('offline', setUserOffline);
       socket?.off('friends_online');
-      socket?.off('dis');
-      socket?.off('refreshToken');
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    socket?.on('message_deleted', (m) => {
+      dispatch(messagesActions.deleteMessage({ messageId: m.messageId }));
+    });
+    return () => {
+      socket?.off('message_deleted');
     };
   }, [socket]);
 

@@ -9,18 +9,21 @@ interface LoginData {
   password: string;
 }
 
-export const Login = createAsyncThunk('login', async (data: LoginData, thunkAPI) => {
-  const { rejectWithValue, dispatch } = thunkAPI;
-  try {
-    const { data: UserData } = await api.post<IUserData>('auth/signIn', data);
-    localStorage.setItem('jwt', JSON.stringify({ jwt: UserData.accessToken }));
-    await dispatch(userActions.setAuthData(UserData));
-    return UserData;
-  } catch (e) {
-    if (axios.isAxiosError(e)) {
-      const axiosError = e as AxiosError;
-      return axiosError.response?.data;
+export const Login = createAsyncThunk(
+  'login',
+  async (data: LoginData, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI;
+    try {
+      const { data: userData } = await api.post<IUserData>('auth/signIn', data);
+      localStorage.setItem('jwt', userData.accessToken);
+      dispatch(userActions.setAuthData(userData));
+      return userData;
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        const axiosError = e as AxiosError;
+        return axiosError.response?.data;
+      }
+      return rejectWithValue(e);
     }
-    return rejectWithValue(e);
   }
-});
+);

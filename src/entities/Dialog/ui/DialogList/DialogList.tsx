@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 
-import { getActiveDialog } from '../../model/selectors/getActiveDialog';
+import {
+  getActiveDialog,
+  getPrevActiveDialog,
+} from '../../model/selectors/getActiveDialog';
 import { getFilteredDialogs } from '../../model/selectors/getFilteredDialogs';
 import { fetchDialogs } from '../../model/services/fetchDialogs';
 import { dialogActions } from '../../model/slices/dialogSlice';
@@ -15,6 +18,7 @@ import cls from './DialogList.module.scss';
 export const DialogList = () => {
   const dialogs = useSelector(getFilteredDialogs);
   const currentDialog = useSelector(getActiveDialog);
+  const prevActiveDialogId = useSelector(getPrevActiveDialog);
   const user = useSelector((state: RootState) => state.user.authData); // убрать!!!!!!!
   const { socket } = useSocket();
   const dispatch = useAppDispatch();
@@ -25,15 +29,23 @@ export const DialogList = () => {
 
   const setActiveDialog = ({ id, partner }: { id: number; partner: any }) => {
     dispatch(dialogActions.setActiveDialog({ id, partner }));
-    // socket?.emit('on_dialog_join', { dialogId: id });
+    console.log(prevActiveDialogId);
+    if (prevActiveDialogId) {
+      socket?.emit('on_dialog_leave', { dialogId: prevActiveDialogId });
+    }
+    socket?.emit('on_dialog_join', { dialogId: id });
   };
 
   const dialogsData = useMemo(() => {
     return dialogs
       .map((dialog) => dialog)
       .sort((a, b) => {
-        const aDate = a.latestMessage ? new Date(a.latestMessage.created_at).getTime() : 0;
-        const bDate = b.latestMessage ? new Date(b.latestMessage.created_at).getTime() : 0;
+        const aDate = a.latestMessage
+          ? new Date(a.latestMessage.created_at).getTime()
+          : 0;
+        const bDate = b.latestMessage
+          ? new Date(b.latestMessage.created_at).getTime()
+          : 0;
         return bDate - aDate;
       });
   }, [dialogs]);
@@ -48,7 +60,9 @@ export const DialogList = () => {
               isActive={dialog.id === currentDialog?.id}
               {...dialog}
               isOnline={dialog.partner.isOnline}
-              onClick={() => setActiveDialog({ id: dialog.id, partner: dialog.partner })}
+              onClick={() =>
+                setActiveDialog({ id: dialog.id, partner: dialog.partner })
+              }
               unreadMessagesCount={dialog.unreadMessagesCount}
             />
           </Link>

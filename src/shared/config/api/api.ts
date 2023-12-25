@@ -26,7 +26,7 @@ api.interceptors.response.use(
         const refreshResponse = await axios.get(`${BASE_URL}/auth/refresh`, {
           withCredentials: true,
         });
-        localStorage.setItem('jwt', JSON.stringify(refreshResponse.data));
+        localStorage.setItem('jwt', refreshResponse.data.accessToken);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return api.request(originalRequest!);
       } catch (e) {

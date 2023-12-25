@@ -22,7 +22,7 @@ export const Dialogs = () => {
     return () => {
       socket?.off('dialog_created');
     };
-  }, [socket, dispatch]);
+  }, [socket]);
 
   return (
     <div className={cls.dialogs}>

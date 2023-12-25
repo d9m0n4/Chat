@@ -3,15 +3,16 @@ import { SocketContext } from 'shared/config/context/SocketContext';
 import { Socket, io } from 'socket.io-client';
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
+  const jwtToken = localStorage.getItem('jwt');
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-
   useEffect(() => {
     const socketInstance = io('http://localhost:5000', {
       withCredentials: true,
+      extraHeaders: {
+        authorization: `Bearer ${jwtToken}`,
+      },
       reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionAttempts: 10,
     });
 
     socketInstance.on('connect', () => {
@@ -25,11 +26,15 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     return () => {
       socketInstance.disconnect();
     };
-  }, []);
+  }, [jwtToken]);
 
   useEffect(() => {
     console.log(isConnected);
   }, [isConnected]);
 
-  return <SocketContext.Provider value={{ socket, isConnected }}>{children}</SocketContext.Provider>;
+  return (
+    <SocketContext.Provider value={{ socket, isConnected }}>
+      {children}
+    </SocketContext.Provider>
+  );
 };

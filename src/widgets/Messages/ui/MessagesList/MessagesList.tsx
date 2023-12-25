@@ -49,12 +49,13 @@ export const MessagesList = forwardRef(
       }, [rowRef]);
 
       return (
-        <div style={style}>
-          <div ref={rowRef} style={{ padding: '1em 2em' }}>
-            <MessagesGroup date={date} messages={group} userId={userId} />
+        <>
+          <div style={style}>
+            <div ref={rowRef} style={{ padding: '1em 2em' }}>
+              <MessagesGroup date={date} messages={group} userId={userId} />
+            </div>
           </div>
-          {isTyping && dialogPartner && <TypingMessage user={dialogPartner} />}
-        </div>
+        </>
       );
     };
     return (

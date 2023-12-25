@@ -3,7 +3,12 @@ import { RejectedAction } from '@reduxjs/toolkit/dist/query/core/buildThunks';
 
 import { deleteMessage } from '../services/deleteMessage';
 import { fetchMessages } from '../services/fetchMessages';
-import { IDeleteMessagePayload, IMessage, IMessagesData, INewMessagePayload } from '../types/Message';
+import {
+  IDeleteMessagePayload,
+  IMessage,
+  IMessagesData,
+  INewMessagePayload,
+} from '../types/Message';
 
 const initialState: IMessagesData = {
   messagesData: undefined,
@@ -33,7 +38,9 @@ export const messagesSlice = createSlice({
       const { messageId } = action.payload;
       if (state.messagesData) {
         for (const date in state.messagesData) {
-          state.messagesData[date] = state.messagesData[date].filter((message) => message.id !== messageId);
+          state.messagesData[date] = state.messagesData[date].filter(
+            (message) => message.id !== messageId
+          );
         }
       }
     },
@@ -45,8 +52,9 @@ export const messagesSlice = createSlice({
       if (state.messagesData) {
         for (const date in state.messagesData) {
           if (date === groupDate) {
-            state.messagesData[groupDate] = state.messagesData[groupDate].map((message) =>
-              !message.isRead ? { ...message, isRead: true } : message
+            state.messagesData[groupDate] = state.messagesData[groupDate].map(
+              (message) =>
+                !message.isRead ? { ...message, isRead: true } : message
             );
           }
         }
@@ -67,9 +75,12 @@ export const messagesSlice = createSlice({
         state.apiMessage = 'error';
         state.loading = false;
       })
-      .addCase(deleteMessage.fulfilled, (state, action: PayloadAction<IDeleteMessagePayload>) => {
-        messagesSlice.caseReducers.deleteMessage(state, action);
-      })
+      .addCase(
+        deleteMessage.fulfilled,
+        (state, action: PayloadAction<IDeleteMessagePayload>) => {
+          // messagesSlice.caseReducers.deleteMessage(state, action);
+        }
+      )
       .addCase(deleteMessage.pending, (state) => {
         state.loading = true;
       })

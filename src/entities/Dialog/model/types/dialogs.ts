@@ -33,6 +33,7 @@ interface activeDialog {
 export interface IDialogData {
   dialogData: IDialog[];
   activeDialog?: activeDialog;
+  prevActiveDialogId?: number;
   searchValue: string;
   error?: string;
   loading?: boolean;

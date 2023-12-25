@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, memo, useState } from 'react';
+import React, { FC, MouseEvent, memo, useEffect, useState } from 'react';
 import { BASE_URL } from 'shared/config/api/api';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';
@@ -20,7 +20,16 @@ interface IDialogItem extends IDialog {
 
 // eslint-disable-next-line react/display-name
 export const DialogItem: FC<IDialogItem> = memo(
-  ({ isActive, latestMessage, unreadMessagesCount, partner, isOnline, onClick, id, myId }) => {
+  ({
+    isActive,
+    latestMessage,
+    unreadMessagesCount,
+    partner,
+    isOnline,
+    onClick,
+    id,
+    myId,
+  }) => {
     const { socket } = useSocket();
     const isTyping = useTypingIndicator(id, socket);
 
@@ -36,7 +45,9 @@ export const DialogItem: FC<IDialogItem> = memo(
             className={cls.avatar}
             name={partner.name}
           />
-          {unreadMessagesCount > 0 && <span className={cls.count}>{unreadMessagesCount}</span>}
+          {unreadMessagesCount > 0 && (
+            <span className={cls.count}>{unreadMessagesCount}</span>
+          )}
         </div>
         <div className={cls.body}>
           <div className={cls.title}>
@@ -59,8 +70,12 @@ export const DialogItem: FC<IDialogItem> = memo(
         <div className={cls.info}>
           {latestMessage && (
             <div className={cls.wrapper}>
-              <span className={cls.date}>{formatDate(latestMessage.created_at)}</span>
-              {!latestMessage.isRead && latestMessage.user.id === myId && <span className={cls.status}></span>}
+              <span className={cls.date}>
+                {formatDate(latestMessage.created_at)}
+              </span>
+              {!latestMessage.isRead && latestMessage.user.id === myId && (
+                <span className={cls.status}></span>
+              )}
             </div>
           )}
         </div>

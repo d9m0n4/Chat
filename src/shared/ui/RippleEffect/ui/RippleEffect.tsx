@@ -15,7 +15,6 @@ export const RippleEffect = () => {
     const container = e.currentTarget;
     const rect = container.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
-    console.log(e);
     setRipples([
       ...ripples,
       {

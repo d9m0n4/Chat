@@ -36,7 +36,7 @@ export const LoginForm: FC = () => {
   const onSubmitForm = async (data: LoginData) => {
     try {
       const { data: UserData } = await api.post<IUserData>('auth/signIn', data);
-      localStorage.setItem('jwt', JSON.stringify({ jwt: UserData.accessToken }));
+      localStorage.setItem('jwt', UserData.accessToken);
       await dispatch(userActions.setAuthData(UserData));
       reset();
     } catch (e) {
@@ -52,13 +52,19 @@ export const LoginForm: FC = () => {
     <>
       <div className={cls.wrapper}>
         <div className={cls.title}>Войти</div>
-        <form onSubmit={handleSubmit((data) => onSubmitForm(data))} className={cls.form}>
+        <form
+          onSubmit={handleSubmit((data) => onSubmitForm(data))}
+          className={cls.form}
+        >
           <div className={cls['form__input-control']}>
             <Controller
               control={control}
               render={({ field }) => (
                 <Input
-                  className={clsx(cls.input, !!errors.nickName && cls['input--error'])}
+                  className={clsx(
+                    cls.input,
+                    !!errors.nickName && cls['input--error']
+                  )}
                   {...field}
                   placeholder="Имя пользователя"
                 />
@@ -66,25 +72,38 @@ export const LoginForm: FC = () => {
               name={'nickName'}
               defaultValue={''}
             />
-            {errors.nickName && <span className={cls.error}>{errors['nickName']?.message}</span>}
+            {errors.nickName && (
+              <span className={cls.error}>{errors['nickName']?.message}</span>
+            )}
           </div>
           <div className={cls['form__input-control']}>
             <Controller
               control={control}
               render={({ field }) => (
                 <Input
-                  className={clsx(cls.input, !!errors.password && cls['input--error'])}
+                  className={clsx(
+                    cls.input,
+                    !!errors.password && cls['input--error']
+                  )}
                   {...field}
                   placeholder="Пароль"
                   type={isPasswordShown ? 'text' : 'password'}
-                  after={isPasswordShown ? <EyeOff className="icon" /> : <Eye className="icon" />}
+                  after={
+                    isPasswordShown ? (
+                      <EyeOff className="icon" />
+                    ) : (
+                      <Eye className="icon" />
+                    )
+                  }
                   onAfterIconClick={() => setIsPasswordShown(!isPasswordShown)}
                 />
               )}
               name={'password'}
               defaultValue={''}
             />
-            {errors.password && <span className={cls.error}>{errors['password']?.message}</span>}
+            {errors.password && (
+              <span className={cls.error}>{errors['password']?.message}</span>
+            )}
           </div>
           <Button
             type="submit"
