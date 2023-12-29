@@ -1,4 +1,4 @@
-import { getDialogs } from 'entities/Dialog/model/selectors/getDialogs';
+import { getDialogsState } from 'entities/Dialog/model/selectors/getDialogs';
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -9,14 +9,14 @@ import { ChatHeader } from 'widgets/ChatHeader';
 
 import { messagesActions } from '../../entities/Message/model/slices/messageSlice';
 import { Notifications } from '../../entities/Notifications';
-import { getNotifications } from '../../entities/Notifications/model/selectors/getNotifications';
+import { getNotifications } from '../../entities/Notifications';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
 import { Portal } from '../../shared/ui/Portal';
 import { Sidebar } from '../Sidebar';
 
 export const Layout = () => {
   const dispatch = useAppDispatch();
-  const myDialogs = useSelector(getDialogs);
+  const { dialogData } = useSelector(getDialogsState);
   const { socket } = useSocket();
   const { notifications } = useSelector(getNotifications);
 
@@ -25,17 +25,17 @@ export const Layout = () => {
   }, []);
 
   useEffect(() => {
-    if (myDialogs) {
+    if (dialogData) {
       socket?.emit(
         'user_online',
-        myDialogs?.map((dialog) => dialog.partner.id)
+        dialogData?.map((dialog) => dialog.partner.id)
       );
     }
 
     return () => {
       socket?.off('user_online');
     };
-  }, [myDialogs, socket]);
+  }, [dialogData, socket]);
 
   useEffect(() => {
     const setUserOnline = (user: number) => {

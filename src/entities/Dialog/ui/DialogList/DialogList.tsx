@@ -4,11 +4,13 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
+import { Skeleton } from 'shared/ui/Skeleton';
 
 import {
   getActiveDialog,
   getPrevActiveDialog,
 } from '../../model/selectors/getActiveDialog';
+import { getDialogsState } from '../../model/selectors/getDialogs';
 import { getFilteredDialogs } from '../../model/selectors/getFilteredDialogs';
 import { fetchDialogs } from '../../model/services/fetchDialogs';
 import { dialogActions } from '../../model/slices/dialogSlice';
@@ -17,6 +19,7 @@ import cls from './DialogList.module.scss';
 
 export const DialogList = () => {
   const dialogs = useSelector(getFilteredDialogs);
+  const { loading } = useSelector(getDialogsState);
   const currentDialog = useSelector(getActiveDialog);
   const prevActiveDialogId = useSelector(getPrevActiveDialog);
   const user = useSelector((state: RootState) => state.user.authData); // убрать!!!!!!!
@@ -49,6 +52,10 @@ export const DialogList = () => {
         return bDate - aDate;
       });
   }, [dialogs]);
+
+  if (loading) {
+    return <Skeleton className="c" width={268} height={56} borderRadius={16} />;
+  }
 
   return (
     <ul className={cls.list}>

@@ -1,3 +1,3 @@
 import { RootState } from 'app/providers/storeProvider/config/store';
 
-export const getDialogs = (state: RootState) => state.dialogs.dialogData;
+export const getDialogsState = (state: RootState) => state.dialogs;

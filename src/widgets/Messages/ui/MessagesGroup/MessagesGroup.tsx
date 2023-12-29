@@ -13,7 +13,12 @@ interface MessagesGroupProps {
   style?: React.CSSProperties;
 }
 
-export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId, style }) => {
+export const MessagesGroup: FC<MessagesGroupProps> = ({
+  date,
+  messages,
+  userId,
+  style,
+}) => {
   const dispatch = useAppDispatch();
   const handleOpenContextMenu = ({
     event,
@@ -33,12 +38,16 @@ export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId, 
   };
   return (
     <>
-      <div className={cls.messages__group} key={date} style={style}>
-        <div className={cls.messages__group_date}>{new Date(date).toLocaleDateString()}</div>
-        {messages &&
-          messages.map((message) => (
+      {messages && messages.length > 0 && (
+        <div className={cls.messages__group} key={date} style={style}>
+          <div className={cls.messages__group_date}>
+            {new Date(date).toLocaleDateString()}
+          </div>
+          {messages.map((message) => (
             <Message
-              onContextMenu={(event) => handleOpenContextMenu({ event, messageId: message.id })}
+              onContextMenu={(event) =>
+                handleOpenContextMenu({ event, messageId: message.id })
+              }
               dataAttr={message.id}
               key={message.id}
               content={message.content}
@@ -48,7 +57,8 @@ export const MessagesGroup: FC<MessagesGroupProps> = ({ date, messages, userId, 
               isRead={message.isRead}
             />
           ))}
-      </div>
+        </div>
+      )}
     </>
   );
 };

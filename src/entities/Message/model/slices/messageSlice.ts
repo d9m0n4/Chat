@@ -79,6 +79,7 @@ export const messagesSlice = createSlice({
         deleteMessage.fulfilled,
         (state, action: PayloadAction<IDeleteMessagePayload>) => {
           // messagesSlice.caseReducers.deleteMessage(state, action);
+          state.loading = false;
         }
       )
       .addCase(deleteMessage.pending, (state) => {

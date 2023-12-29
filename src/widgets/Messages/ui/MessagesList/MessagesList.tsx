@@ -1,82 +1,59 @@
 import { GroupedMessages } from 'entities/Message/model/types/Message';
-import { IUser } from 'entities/User/model/types/user';
-import React, { forwardRef, useEffect, useRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
-import { TypingMessage } from 'shared/ui/TypingMessage';
 
 import cls from '../Messages.module.scss';
-import { MessagesGroup } from '../MessagesGroup/MessagesGroup';
+import { MessagesListRow } from '../MessagesListRow/MessagesListRow';
 
 interface IMessagesList {
   messages: GroupedMessages | undefined;
-  isTyping?: boolean;
   userId?: number;
-  dialogPartner?: IUser;
-}
-
-interface RowProps {
-  index: number;
-  style: React.CSSProperties;
 }
 
 export const MessagesList = forwardRef(
-  (
-    { messages, isTyping, userId, dialogPartner }: IMessagesList,
-    ref: React.LegacyRef<HTMLDivElement>
-  ) => {
+  ({ messages, userId }: IMessagesList, ref: React.Ref<HTMLDivElement>) => {
     if (!messages) {
       return null;
     }
-    const listRef = useRef<any>(ref);
+
+    const listRef = useRef<any>();
     const rowHeights = useRef<any>({});
 
     function getRowHeight(index: number) {
       return rowHeights.current[index] + 8 || 82;
     }
     function setRowHeight(index: number, size: number) {
-      listRef.current.resetAfterIndex(0);
+      listRef?.current?.resetAfterIndex(0);
       rowHeights.current = { ...rowHeights.current, [index]: size };
     }
-    const Row: React.FC<RowProps> = ({ index, style }) => {
-      const date = Object.keys(messages)[index];
-      const group = messages[date];
-      const rowRef = useRef<HTMLDivElement>(null);
 
-      useEffect(() => {
-        if (rowRef.current) {
-          setRowHeight(index, rowRef.current.clientHeight);
-        }
-      }, [rowRef]);
-
-      return (
-        <>
-          <div style={style}>
-            <div ref={rowRef} style={{ padding: '1em 2em' }}>
-              <MessagesGroup date={date} messages={group} userId={userId} />
-            </div>
-          </div>
-        </>
-      );
-    };
     return (
-      <>
-        {messages && (
-          <List
-            className={cls.messages}
-            width={1}
-            height={1}
-            itemSize={getRowHeight}
-            itemCount={Object.values(messages).length}
-            ref={listRef}
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            {Row}
-          </List>
-        )}
-      </>
+      <div className={cls.messages}>
+        <AutoSizer>
+          {({ width, height }: { width: number; height: number }) => (
+            <List
+              outerRef={ref}
+              className={cls.messages__list}
+              ref={listRef}
+              itemSize={getRowHeight}
+              height={height}
+              itemCount={Object.keys(messages).length}
+              width={width}
+            >
+              {(props) => (
+                <MessagesListRow
+                  messages={messages}
+                  index={props.index}
+                  style={props.style}
+                  userId={userId}
+                  setRowHeight={setRowHeight}
+                />
+              )}
+            </List>
+          )}
+        </AutoSizer>
+      </div>
     );
   }
 );
