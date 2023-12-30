@@ -2,12 +2,15 @@ import { getActiveDialog } from 'entities/Dialog';
 import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
 import { GroupedMessages } from 'entities/Message/model/types/Message';
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSelector } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List, ListOnScrollProps } from 'react-window';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { Loader } from 'shared/ui/Loader';
 
 import cls from '../Messages.module.scss';
+import { MessagesGroup } from '../MessagesGroup/MessagesGroup';
 import { MessagesListRow } from '../MessagesListRow/MessagesListRow';
 
 interface IMessagesList {
@@ -17,79 +20,39 @@ interface IMessagesList {
 
 export const MessagesList = forwardRef(
   ({ messages, userId }: IMessagesList, ref: React.Ref<HTMLDivElement>) => {
-    if (!messages) {
+    if (!messages || Object.keys(messages).length < 0) {
       return null;
     }
-    const outerRef = useRef<HTMLDivElement>();
-
-    const listRef = useRef<any>();
-    const rowHeights = useRef<any>({});
-
-    function getRowHeight(index: number) {
-      return rowHeights.current[index] + 8 || 82;
-    }
-    function setRowHeight(index: number, size: number) {
-      listRef?.current?.resetAfterIndex(0);
-      rowHeights.current = { ...rowHeights.current, [index]: size };
-    }
-    const activeDialog = useSelector(getActiveDialog);
 
     const dispatch = useAppDispatch();
+    const activeDialog = useSelector(getActiveDialog);
 
-    const [count, setCount] = useState(15);
-    const [page, setPage] = useState(1);
-
-    useEffect(() => {
-      if (listRef.current) {
-        listRef.current.scrollToItem(999);
-      }
-    }, [messages]);
-
-    const loadMore = ({
-      scrollDirection,
-      scrollUpdateWasRequested,
-      scrollOffset,
-    }: ListOnScrollProps) => {
-      if (scrollOffset < 1) {
-        if (page < 10) {
-          setCount((prev) => prev + 15);
-          setPage((prevPage) => prevPage++);
-          dispatch(fetchMessages({ id: activeDialog?.id, offset: 0, count }));
-
-          console.log(page, count);
-        }
-        listRef.current.scrollTo(400);
-        console.log(scrollUpdateWasRequested);
-      }
+    const next = () => {
+      dispatch(fetchMessages({ id: activeDialog?.id, count: 30, offset: 0 }));
     };
 
     return (
-      <div className={cls.messages}>
-        <AutoSizer>
-          {({ width, height }: { width: number; height: number }) => (
-            <List
-              onScroll={loadMore}
-              initialScrollOffset={500}
-              outerRef={outerRef}
-              className={cls.messages__list}
-              ref={listRef}
-              itemSize={getRowHeight}
-              height={height}
-              itemCount={Object.keys(messages).length}
-              width={width}
-            >
-              {(props) => (
-                <MessagesListRow
-                  messages={messages}
-                  index={props.index}
-                  style={props.style}
-                  userId={userId}
-                  setRowHeight={setRowHeight}
-                />
-              )}
-            </List>
-          )}
-        </AutoSizer>
+      <div className={cls.messages} id="scrollableDiv">
+        <InfiniteScroll
+          pullDownToRefresh={true}
+          refreshFunction={() => console.log('ref')}
+          className={cls.messages__scroller}
+          loader={<Loader />}
+          dataLength={Object.values(messages).length}
+          hasMore={true}
+          inverse={true}
+          scrollableTarget="scrollableDiv"
+          next={next}
+        >
+          {Object.keys(messages).map((date) => (
+            <MessagesGroup
+              key={date}
+              date={date}
+              messages={messages[date]}
+              userId={userId}
+            />
+          ))}
+        </InfiniteScroll>
       </div>
     );
   }

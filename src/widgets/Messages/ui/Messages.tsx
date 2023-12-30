@@ -24,14 +24,14 @@ export const Messages = () => {
   const messagesWrapper = useRef<HTMLDivElement>(null);
   const messagesContainer = useRef<HTMLDivElement>(null);
 
-  // const scrollToBottom = () => {
-  //   if (messagesContainer.current) {
-  //     messagesContainer.current.scrollTo({
-  //       top: messagesContainer.current.scrollHeight,
-  //       behavior: 'smooth',
-  //     });
-  //   }
-  // };
+  const scrollToBottom = () => {
+    if (messagesContainer.current) {
+      messagesContainer.current.scrollTo({
+        top: messagesContainer.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   useEffect(() => {
     if (activeDialog) {
@@ -40,9 +40,9 @@ export const Messages = () => {
     }
   }, [activeDialog, dispatch]);
 
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [messages]);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <>

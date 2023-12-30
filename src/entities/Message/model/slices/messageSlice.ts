@@ -36,6 +36,7 @@ export const messagesSlice = createSlice({
     },
     deleteMessage: (state, action: PayloadAction<IDeleteMessagePayload>) => {
       const { messageId } = action.payload;
+      console.log(action.payload);
       if (state.messagesData) {
         for (const date in state.messagesData) {
           state.messagesData[date] = state.messagesData[date].filter(
