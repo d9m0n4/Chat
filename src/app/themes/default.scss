@@ -1,19 +1,22 @@
 html[data-theme='default'] {
   --app-accent: #2f64ed;
-  --app-message: #f8f9ff;
+  --app-message: #FCFCFC;
   --app-hover-el: #f6f7fc;
   --app-primary-text: #070928;
   --app-secondary-text: #fcfcfc;
   --app-gray: #8a97a7;
-  --app-primary-bg: #fcfcfc;
-  --app-secondary-bg: #fafafa;
+  --app-primary-bg: #fff;
+  --app-secondary-bg: #F8F9FF;
   --app-controls: #4ca5ff;
   --app-online: #2fed7b;
   --app-tooltip: rgb(246, 247, 252, 80%);
   --app-modal-overlay: rgba(35, 31, 32, 0.5);
   --app-border: rgba(138, 151, 167, 20%);
+  --app-ripple: rgba(252, 252, 252, .2);
 
   --app-shadow: 0 0 6px rgba(35, 31, 32, 25%);
   --app-message-shadow-main: 1px 2px 6px rgba(69, 104, 232, 35%);
   --app-message-shadow: -1px 2px 6px rgba(138, 151, 167, 35%);
+  --app-input-shadow: -1px 1px 4px rgba(138, 151, 167, 30%);
+  --app-input-shadow-active: -1px 2px 6px rgba(138, 151, 167, 35%);
 }

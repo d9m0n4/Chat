@@ -4,13 +4,17 @@
     border: none;
     outline: none;
     background-color: var(--app-message);
-    box-shadow: var(--app-message-shadow);
     border-radius: 8px;
     padding: 0.6em 2em 0.6em 1em;
     color: var(--app-primary-text);
     font-family: Gilroy, serif;
     font-size: 0.9em;
     width: 240px;
+    box-shadow: var(--app-input-shadow);
+    transition: all 250ms ease;
+    &:focus {
+      box-shadow: var(--app-input-shadow-active);
+    }
   }
   &__before, &__after {
     position: absolute;

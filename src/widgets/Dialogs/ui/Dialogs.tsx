@@ -3,7 +3,6 @@ import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { CreateDialogModal } from 'features/CreateDialog';
 import React, { useEffect } from 'react';
 import { ReactComponent as Add } from 'shared/assets/icons/plus.svg';
-// import { socket } from 'shared/config/api/ws';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { Button } from 'shared/ui/Button';

@@ -1,5 +1,5 @@
 import { RootState } from 'app/providers/storeProvider/config/store';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useTransition } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -32,7 +32,6 @@ export const DialogList = () => {
 
   const setActiveDialog = ({ id, partner }: { id: number; partner: any }) => {
     dispatch(dialogActions.setActiveDialog({ id, partner }));
-    console.log(prevActiveDialogId);
     if (prevActiveDialogId) {
       socket?.emit('on_dialog_leave', { dialogId: prevActiveDialogId });
     }

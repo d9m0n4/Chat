@@ -3,7 +3,7 @@ import { FavoritesPage } from 'pages/FavoritesPage';
 import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { SettingsPage } from 'pages/SettingsPage';
-import React from 'react';
+import React, { Suspense, useTransition } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from 'widgets/Layout/Layout';
 import { Messages } from 'widgets/Messages';

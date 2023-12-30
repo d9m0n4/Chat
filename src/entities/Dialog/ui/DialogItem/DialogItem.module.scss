@@ -31,8 +31,10 @@
       }
     }
     .info {
-      .date {
-        color: var(--app-secondary-text);
+      .wrapper {
+        .date {
+          color: var(--app-secondary-text);
+        }
       }
     }
   }

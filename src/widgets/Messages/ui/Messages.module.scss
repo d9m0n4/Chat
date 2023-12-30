@@ -35,11 +35,14 @@
     &__row {
       padding: 0 2em;
     }
-
   }
+}
 
-
-
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 2rem;
 }
 
 .typing__message_wrapper {
