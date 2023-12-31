@@ -35,7 +35,7 @@ export const Messages = () => {
 
   useEffect(() => {
     if (activeDialog) {
-      dispatch(fetchMessages({ id: activeDialog?.id, offset: 0, count: 15 }));
+      dispatch(fetchMessages(activeDialog?.id));
       dispatch(updateMessagesStatus(activeDialog?.id));
     }
   }, [activeDialog, dispatch]);

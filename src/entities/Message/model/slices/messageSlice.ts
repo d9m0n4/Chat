@@ -3,6 +3,7 @@ import { RejectedAction } from '@reduxjs/toolkit/dist/query/core/buildThunks';
 
 import { deleteMessage } from '../services/deleteMessage';
 import { fetchMessages } from '../services/fetchMessages';
+import { getMessagesHistory } from '../services/getMessagesHistory';
 import {
   IDeleteMessagePayload,
   IMessage,
@@ -65,7 +66,8 @@ export const messagesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchMessages.fulfilled, (state, action) => {
-        state.messagesData = action.payload;
+        state.messagesData = action.payload.messages;
+        state.totalPages = action.payload.totalPages;
         state.loading = false;
       })
       .addCase(fetchMessages.pending, (state) => {
@@ -87,6 +89,41 @@ export const messagesSlice = createSlice({
         state.loading = true;
       })
       .addCase(deleteMessage.rejected, (state, action) => {
+        state.loading = false;
+        state.apiMessage = action.error;
+      })
+      .addCase(getMessagesHistory.fulfilled, (state, action) => {
+        const { messages, totalPages } = action.payload;
+
+        if (!state.messagesData) {
+          state.messagesData = {};
+        }
+
+        if (state.messagesData) {
+          Object.keys(messages).forEach((date) => {
+            if (state.messagesData && state.messagesData[date]) {
+              state.messagesData[date] = [
+                ...messages[date],
+                ...state.messagesData[date],
+              ];
+            } else {
+              state.messagesData = {
+                [date]: messages[date],
+                ...state.messagesData,
+              };
+            }
+          });
+        } else {
+          state.messagesData = messages;
+        }
+
+        state.totalPages = totalPages;
+        state.loading = false;
+      })
+      .addCase(getMessagesHistory.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getMessagesHistory.rejected, (state, action) => {
         state.loading = false;
         state.apiMessage = action.error;
       });

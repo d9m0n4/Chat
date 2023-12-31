@@ -30,8 +30,14 @@ export interface GroupedMessages {
   [date: string]: IMessage[];
 }
 
+export interface MessagesData {
+  messages: GroupedMessages;
+  totalPages: number;
+}
+
 export interface IMessagesData {
   messagesData: GroupedMessages | undefined;
+  totalPages?: number;
   apiMessage?: NonNullable<unknown>;
   loading: boolean;
 }
