@@ -6,6 +6,7 @@
   flex: 1;
 }
 .messages {
+  position: relative;
   display: flex;
   flex-direction: column-reverse;
   padding: 1em 2em;
@@ -32,8 +33,7 @@
     }
   .messages__scroller {
     display: flex;
-    flex-direction: column;
-    overflow: initial!important;
+    flex-direction: column-reverse;
   }
 
 
@@ -51,7 +51,13 @@
   padding: 1rem 2rem;
 }
 
+.stop {
+  overflow: hidden;
+}
+
 .typing__message_wrapper {
   margin-top: auto;
   padding: 8px 0;
 }
+
+

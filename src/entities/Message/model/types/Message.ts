@@ -38,6 +38,7 @@ export interface MessagesData {
 export interface IMessagesData {
   messagesData: GroupedMessages | undefined;
   totalPages?: number;
+  page: number;
   apiMessage?: NonNullable<unknown>;
   loading: boolean;
 }

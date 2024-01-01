@@ -1,0 +1,32 @@
+.scroll-button {
+  outline: none;
+  border: none;
+  position: fixed;
+  display: flex;
+  right: 50%;
+  transform: translate3d(100%, -50%, 100px);
+  width: 45px;
+  height: 45px;
+  background: var(--app-primary-bg);
+  filter: drop-shadow(-1px 1px 4px rgba(13, 31, 62, 40%));
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  z-index: 9;
+  cursor: pointer;
+  transition: all .250s ease-in-out;
+  &:active {
+    transform: translateY(8px);
+  }
+  &.active {
+    bottom: 8px;
+    transition: all 0.5s ease;
+    animation: alternate;
+  }
+  .svg {
+    .rect {
+      stroke: var(--app-secondary-bg);
+    }
+  }
+}

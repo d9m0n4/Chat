@@ -5,6 +5,7 @@ import { deleteMessage } from '../services/deleteMessage';
 import { fetchMessages } from '../services/fetchMessages';
 import { getMessagesHistory } from '../services/getMessagesHistory';
 import {
+  GroupedMessages,
   IDeleteMessagePayload,
   IMessage,
   IMessagesData,
@@ -15,12 +16,16 @@ const initialState: IMessagesData = {
   messagesData: undefined,
   apiMessage: undefined,
   loading: false,
+  page: 1,
 };
 
 export const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
     addNewMessage: (state, action: PayloadAction<INewMessagePayload>) => {
       const { message, dialogId } = action.payload;
       const { created_at } = message;
@@ -37,7 +42,6 @@ export const messagesSlice = createSlice({
     },
     deleteMessage: (state, action: PayloadAction<IDeleteMessagePayload>) => {
       const { messageId } = action.payload;
-      console.log(action.payload);
       if (state.messagesData) {
         for (const date in state.messagesData) {
           state.messagesData[date] = state.messagesData[date].filter(
@@ -49,7 +53,6 @@ export const messagesSlice = createSlice({
     updateMyMessageReadStatus: (state, action) => {
       const { date } = action.payload;
       const groupDate = date.substr(0, 10);
-      console.log(groupDate);
 
       if (state.messagesData) {
         for (const date in state.messagesData) {
@@ -66,8 +69,18 @@ export const messagesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchMessages.fulfilled, (state, action) => {
-        state.messagesData = action.payload.messages;
-        state.totalPages = action.payload.totalPages;
+        const { messages, totalPages } = action.payload;
+
+        const reversedMessages: GroupedMessages = {};
+
+        Object.keys(messages)
+          .reverse()
+          .forEach((date) => {
+            reversedMessages[date] = messages[date];
+          });
+
+        state.messagesData = reversedMessages;
+        state.totalPages = totalPages;
         state.loading = false;
       })
       .addCase(fetchMessages.pending, (state) => {
@@ -100,19 +113,21 @@ export const messagesSlice = createSlice({
         }
 
         if (state.messagesData) {
-          Object.keys(messages).forEach((date) => {
-            if (state.messagesData && state.messagesData[date]) {
-              state.messagesData[date] = [
-                ...messages[date],
-                ...state.messagesData[date],
-              ];
-            } else {
-              state.messagesData = {
-                [date]: messages[date],
-                ...state.messagesData,
-              };
-            }
-          });
+          Object.keys(messages)
+            .reverse()
+            .forEach((date) => {
+              if (state.messagesData && state.messagesData[date]) {
+                state.messagesData[date] = [
+                  ...messages[date],
+                  ...state.messagesData[date],
+                ];
+              } else {
+                state.messagesData = {
+                  ...state.messagesData,
+                  [date]: messages[date],
+                };
+              }
+            });
         } else {
           state.messagesData = messages;
         }

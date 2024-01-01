@@ -11,24 +11,26 @@ export const useInfiniteScroll = ({
   callback,
 }: IUseInfiniteScrollProps) => {
   useEffect(() => {
+    const rootElement = root.current;
+    const triggerElement = trigger.current;
+
     const options: IntersectionObserverInit = {
-      root: root.current,
+      root: rootElement,
       threshold: 1.0,
-      rootMargin: '10px',
+      rootMargin: '100px',
     };
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        console.log(entry);
         callback();
       }
     }, options);
-    if (trigger.current) {
-      observer.observe(trigger.current);
+    if (triggerElement) {
+      observer.observe(triggerElement);
     }
 
     return () => {
-      if (trigger.current) {
-        observer.unobserve(trigger.current);
+      if (triggerElement) {
+        observer.unobserve(triggerElement);
       }
     };
   }, [callback, trigger, root]);

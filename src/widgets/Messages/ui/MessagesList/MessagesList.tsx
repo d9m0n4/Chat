@@ -1,21 +1,15 @@
+import clsx from 'classnames';
 import { getActiveDialog } from 'entities/Dialog';
 import { getMessagesState } from 'entities/Message';
 import { getMessagesHistory } from 'entities/Message/model/services/getMessagesHistory';
+import { messagesActions } from 'entities/Message/model/slices/messageSlice';
 import { GroupedMessages } from 'entities/Message/model/types/Message';
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import _debounce from 'lodash/debounce';
+import React, { forwardRef, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useInfiniteScroll } from 'shared/hooks/useInfiniteScroll/useInfiniteScroll';
-import { Loader } from 'shared/ui/Loader';
-import { Skeleton } from 'shared/ui/Skeleton';
+import { ScrollButton } from 'shared/ui/ScrollButton';
 
 import cls from '../Messages.module.scss';
 import { MessagesGroup } from '../MessagesGroup/MessagesGroup';
@@ -34,50 +28,51 @@ export const MessagesList = forwardRef(
     const triggerElementRef = useRef<HTMLDivElement>(null);
     const containerElementRef = useRef<HTMLDivElement>(null);
 
-    const [page, setPage] = useState(1);
-
     const dispatch = useAppDispatch();
     const activeDialog = useSelector(getActiveDialog);
-    const { totalPages, loading } = useSelector(getMessagesState);
+    const { totalPages, loading, page } = useSelector(getMessagesState);
 
-    const next = useCallback(async () => {
-      await dispatch(
-        getMessagesHistory({ dialogId: activeDialog?.id, page: 1 })
-      );
-      setPage((prevPage) => prevPage + 1);
-    }, [page]);
+    const next = () => {
+      if (!loading && totalPages && page < totalPages) {
+        dispatch(getMessagesHistory({ dialogId: activeDialog?.id, page }));
+        dispatch(messagesActions.setPage(page + 1));
+      }
+    };
+
+    const nextDebounced = _debounce(next, 500);
 
     useInfiniteScroll({
       trigger: triggerElementRef,
-      callback: () => setTimeout(() => next(), 600),
       root: containerElementRef,
+      callback: nextDebounced,
     });
 
-    console.log(loading);
+    // useEffect(() => {
+    //   if (containerElementRef.current) {
+    //     containerElementRef.current.scrollTo({
+    //       top: containerElementRef.current.scrollHeight,
+    //       behavior: 'smooth',
+    //     });
+    //   }
+    // }, [messages]);
 
     return (
-      <div className={cls.messages} ref={containerElementRef}>
-        <div className={cls.messages__scroller}>
-          {Object.keys(messages).map((date) => (
-            <MessagesGroup
-              key={date}
-              date={date}
-              messages={messages[date]}
-              userId={userId}
-            />
-          ))}
+      <>
+        <div className={clsx(cls.messages)} ref={containerElementRef}>
+          <ScrollButton onClick={() => console.log(12321)} />
+          <div className={cls.messages__scroller}>
+            {Object.keys(messages).map((date) => (
+              <MessagesGroup
+                key={date}
+                date={date}
+                messages={messages[date]}
+                userId={userId}
+              />
+            ))}
+            <div ref={triggerElementRef}></div>
+          </div>
         </div>
-        <div ref={triggerElementRef} />
-        {loading && (
-          <>
-            <Skeleton width={360} height={56} borderRadius={16} />
-            <Skeleton width={360} height={56} borderRadius={16} />
-            <Skeleton width={360} height={56} borderRadius={16} />
-            <Skeleton width={360} height={56} borderRadius={16} />
-            <Skeleton width={360} height={56} borderRadius={16} />
-          </>
-        )}
-      </div>
+      </>
     );
   }
 );
