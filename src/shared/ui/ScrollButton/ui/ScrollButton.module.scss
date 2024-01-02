@@ -1,23 +1,25 @@
 .scroll-button {
   outline: none;
   border: none;
-  position: fixed;
+  position: absolute;
   display: flex;
   right: 50%;
-  transform: translate3d(100%, -50%, 100px);
+  bottom: var(--textarea-height);
   width: 45px;
   height: 45px;
   background: var(--app-primary-bg);
   filter: drop-shadow(-1px 1px 4px rgba(13, 31, 62, 40%));
+  transform: translate3d(50%, 0, 0);
   backdrop-filter: blur(10px);
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  z-index: 9;
   cursor: pointer;
   transition: all .250s ease-in-out;
+  animation: showBtn 250ms ease-in;
+  z-index: 99;
   &:active {
-    transform: translateY(8px);
+    transform: translate3d(50%, 1rem, 0);
   }
   &.active {
     bottom: 8px;
@@ -28,5 +30,18 @@
     .rect {
       stroke: var(--app-secondary-bg);
     }
+  }
+}
+
+@keyframes showBtn {
+  0% {
+    opacity: 0;
+    bottom: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

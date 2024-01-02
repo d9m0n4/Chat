@@ -46,6 +46,7 @@ export const MessagesGroup: FC<MessagesGroupProps> = memo(
                   handleOpenContextMenu({ event, messageId: message.id })
                 }
                 dataAttr={message.id}
+                onClick={() => console.log(111)}
                 key={message.id}
                 content={message.content}
                 user={message.user}

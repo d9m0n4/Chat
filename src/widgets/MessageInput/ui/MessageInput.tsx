@@ -1,7 +1,14 @@
 import { getActiveDialog } from 'entities/Dialog';
 import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
 import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
-import React, { lazy, memo, useCallback, useRef, useState } from 'react';
+import React, {
+  lazy,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -17,11 +24,9 @@ const EmojiPicker = lazy(() => import('./EmojiPicker/EmojiPicker'));
 
 export const MessageInput = memo(() => {
   const placeholder = 'Введите сообщение...';
-
   const inputDiv = useRef<HTMLDivElement>(null);
   const placeholderRef = useRef<HTMLSpanElement>(null);
   const dispatch = useAppDispatch();
-  const dialogId = useSelector(getActiveDialog);
   const partner = useSelector(getDialogPartner);
   const dialog = useSelector(getActiveDialog);
   const { socket } = useSocket();
@@ -77,13 +82,13 @@ export const MessageInput = memo(() => {
   };
 
   const onSendMessage = async () => {
-    if (!dialogId || !message) {
+    if (!dialog?.id || !message) {
       return;
     }
 
     try {
       const formData = new FormData();
-      formData.append('dialogId', String(dialogId.id));
+      formData.append('dialogId', String(dialog.id));
       formData.append('content', message);
 
       if (files) {
@@ -93,7 +98,7 @@ export const MessageInput = memo(() => {
       }
       await dispatch(sendMessage(formData));
       if (dialog) {
-        dispatch(updateMessagesStatus(dialog?.id));
+        dispatch(updateMessagesStatus(dialog.id));
       }
     } catch (e) {
       console.log(e);
@@ -106,14 +111,44 @@ export const MessageInput = memo(() => {
       inputDiv.current.focus();
       socket?.emit('on_stop_typing_message', {
         partner: partner?.id,
-        dialog: dialog?.id,
+        dialog: dialog.id,
       });
     }
   };
 
+  const messageInputRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState<number>(0);
+  // useEffect(() => {
+  //   const handleHeightChange = () => {
+  //     const height = messageInputRef.current?.clientHeight;
+  //     document.dispatchEvent(
+  //       new CustomEvent('textareachangeheight', { detail: { height } })
+  //     );
+  //   };
+  //
+  //   messageInputRef.current?.addEventListener('input', handleHeightChange);
+  //
+  //   return () => {
+  //     messageInputRef.current?.removeEventListener('input', handleHeightChange);
+  //   };
+  // }, [messageInputRef]);
+
+  useEffect(() => {
+    if (messageInputRef.current) {
+      setHeight(messageInputRef.current.scrollHeight);
+    }
+  }, [messageInputRef.current?.scrollHeight]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      '--textarea-height',
+      `${height}px`
+    );
+  }, [height]);
+
   return (
     <>
-      <div className={cls.messages__input}>
+      <div className={cls.messages__input} ref={messageInputRef}>
         <div className={cls.input__block}>
           <div className={cls.attach}>
             <FileUpload onSetPreview={setFiles} />

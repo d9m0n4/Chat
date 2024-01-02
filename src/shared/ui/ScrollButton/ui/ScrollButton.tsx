@@ -5,11 +5,12 @@ import cls from './ScrollButton.module.scss';
 
 interface ScrollButtonProps {
   onClick: () => void;
+  style?: React.CSSProperties;
 }
 
-export const ScrollButton: FC<ScrollButtonProps> = ({ onClick }) => {
+export const ScrollButton: FC<ScrollButtonProps> = ({ onClick, style }) => {
   return (
-    <button className={cls['scroll-button']} onClick={onClick}>
+    <button className={cls['scroll-button']} onClick={onClick} style={style}>
       <ScrollDown className="icon" />
     </button>
   );
