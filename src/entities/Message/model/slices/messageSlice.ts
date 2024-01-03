@@ -34,9 +34,13 @@ export const messagesSlice = createSlice({
         const date = created_at.substr(0, 10);
         if (state.messagesData) {
           if (!state.messagesData[date]) {
-            state.messagesData[date] = [];
+            state.messagesData = {
+              [date]: [message],
+              ...state.messagesData,
+            };
+          } else {
+            state.messagesData[date].push(message);
           }
-          state.messagesData[date].push(message);
         }
       }
     },
@@ -117,10 +121,9 @@ export const messagesSlice = createSlice({
             .reverse()
             .forEach((date) => {
               if (state.messagesData && state.messagesData[date]) {
-                state.messagesData[date] = [
-                  ...messages[date],
-                  ...state.messagesData[date],
-                ];
+                state.messagesData[date] = Array.from(
+                  new Set([...messages[date], ...state.messagesData[date]])
+                );
               } else {
                 state.messagesData = {
                   ...state.messagesData,

@@ -23,15 +23,17 @@ export const MessagesListRow: FC<IMessagesListRowProps> = memo(
         setRowHeight(index, rowRef.current.clientHeight);
       }
     }, [rowRef]);
-
-    return (
-      <>
-        <div style={style}>
-          <div ref={rowRef} className={cls.group__row}>
-            <MessagesGroup date={date} messages={group} userId={userId} />
-          </div>
-        </div>
-      </>
-    );
+    return null;
   }
 );
+//     return (
+//       <>
+//         <div style={style}>
+//           <div ref={rowRef} className={cls.group__row}>
+//             <MessagesGroup date={date} messages={group} userId={userId} />
+//           </div>
+//         </div>
+//       </>
+//     );
+//   }
+// );

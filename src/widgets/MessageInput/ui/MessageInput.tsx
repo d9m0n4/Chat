@@ -118,20 +118,6 @@ export const MessageInput = memo(() => {
 
   const messageInputRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number>(0);
-  // useEffect(() => {
-  //   const handleHeightChange = () => {
-  //     const height = messageInputRef.current?.clientHeight;
-  //     document.dispatchEvent(
-  //       new CustomEvent('textareachangeheight', { detail: { height } })
-  //     );
-  //   };
-  //
-  //   messageInputRef.current?.addEventListener('input', handleHeightChange);
-  //
-  //   return () => {
-  //     messageInputRef.current?.removeEventListener('input', handleHeightChange);
-  //   };
-  // }, [messageInputRef]);
 
   useEffect(() => {
     if (messageInputRef.current) {

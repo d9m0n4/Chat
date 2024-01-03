@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface IUseInfiniteScrollProps {
   trigger: React.RefObject<HTMLDivElement>;
@@ -10,10 +10,11 @@ export const useInfiniteScroll = ({
   root,
   callback,
 }: IUseInfiniteScrollProps) => {
+  const observer = useRef<IntersectionObserver | null>(null);
+
   useEffect(() => {
     const rootElement = root?.current;
     const triggerElement = trigger?.current;
-    let observer: IntersectionObserver;
 
     if (callback) {
       const options: IntersectionObserverInit = {
@@ -21,19 +22,19 @@ export const useInfiniteScroll = ({
         threshold: 1.0,
         rootMargin: '100px',
       };
-      observer = new IntersectionObserver(([entry]) => {
+      observer.current = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) {
           callback();
         }
       }, options);
-      if (triggerElement) {
-        observer.observe(triggerElement);
+      if (observer.current && triggerElement) {
+        observer.current?.observe(triggerElement);
       }
     }
 
     return () => {
-      if (triggerElement) {
-        observer.unobserve(triggerElement);
+      if (observer.current && triggerElement) {
+        observer.current?.unobserve(triggerElement);
       }
     };
   }, [callback, trigger, root]);

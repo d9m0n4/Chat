@@ -5,11 +5,11 @@ import { MessagesData } from '../types/Message';
 
 export const getMessagesHistory = createAsyncThunk(
   'getMessagesHistory',
-  async ({ dialogId, page }: { dialogId?: number; page: number }, thunkAPI) => {
+  async ({ dialogId, skip }: { dialogId?: number; skip: number }, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       const { data } = await api.get<MessagesData>(
-        `messages/history?dialogId=${dialogId}&page=${page}`
+        `messages/history?dialogId=${dialogId}&skip=${skip}`
       );
       return data;
     } catch (e) {

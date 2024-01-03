@@ -4,8 +4,8 @@ import cls from './Skeleton.module.scss';
 
 interface SkeletonProps {
   className?: string;
-  width: number;
-  height: number;
+  width: number | string;
+  height: number | string;
   borderRadius: number | string;
 }
 

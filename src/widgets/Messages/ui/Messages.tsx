@@ -8,18 +8,11 @@ import { messagesActions } from 'entities/Message/model/slices/messageSlice';
 import { getUserData } from 'entities/User';
 import { MessageManagement } from 'features/MessageManagement';
 import _debounce from 'lodash/debounce';
-import React, {
-  MouseEvent,
-  Suspense,
-  UIEvent,
-  UIEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { ScrollButton } from 'shared/ui/ScrollButton';
+import { Skeleton } from 'shared/ui/Skeleton';
 import { MessageInput } from 'widgets/MessageInput';
 
 import cls from './Messages.module.scss';
@@ -35,9 +28,20 @@ export const Messages = () => {
   const messagesContainer = useRef<HTMLDivElement>(null);
   const { totalPages, loading, page } = useSelector(getMessagesState);
 
+  const messagesLength = useMemo(() => {
+    if (messages) {
+      return Object.values(messages).reduce(
+        (acc, item) => acc + item.length,
+        0
+      );
+    }
+  }, [messages]);
+
   const next = _debounce(() => {
-    if (!loading && totalPages && page < totalPages) {
-      dispatch(getMessagesHistory({ dialogId: activeDialog?.id, page }));
+    if (!loading && totalPages && page < totalPages && messagesLength) {
+      dispatch(
+        getMessagesHistory({ dialogId: activeDialog?.id, skip: messagesLength })
+      );
       dispatch(messagesActions.setPage(page + 1));
     }
   }, 500);
@@ -62,8 +66,6 @@ export const Messages = () => {
     }
   };
 
-  const [height, setHeight] = useState<number>(0);
-
   useEffect(() => {
     if (activeDialog) {
       dispatch(fetchMessages(activeDialog?.id));
@@ -73,24 +75,11 @@ export const Messages = () => {
     }
   }, [activeDialog, dispatch]);
 
-  useEffect(() => {
-    const h = (event: any) => {
-      setHeight(event.detail.height);
-    };
-    document.addEventListener('textareachangeheight', h);
-    return () => {
-      document.removeEventListener('textareachangeheight', h);
-    };
-  }, []);
-
   return (
     <>
       <div ref={messagesWrapper} className={cls.messages__wrapper}>
         {isScrollDownActive && (
-          <ScrollButton
-            onClick={scrollBottom}
-            style={{ bottom: `${height}px` }}
-          />
+          <ScrollButton onClick={scrollBottom} className={cls.scroll__btn} />
         )}
         {messages && (
           <>
@@ -101,7 +90,11 @@ export const Messages = () => {
               getHistory={next}
               onScroll={showScrollButton}
             />
-            <Suspense fallback={'kek'}>
+            <Suspense
+              fallback={
+                <Skeleton height={84} width={'100%'} borderRadius={0} />
+              }
+            >
               <MessageInput />
             </Suspense>
           </>
