@@ -10,7 +10,7 @@ export interface Attachment {
   updated_at: Date;
 }
 
-export interface AttachmentsState {
+export interface IAttachmentsState {
   attachments?: Attachment[];
   error?: string | null;
   isLoading?: boolean;

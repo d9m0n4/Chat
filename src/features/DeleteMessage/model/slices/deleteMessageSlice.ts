@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  isModalOpened: false,
+import { IModalState } from '../types/modal';
+
+const initialState: IModalState = {
+  isOpen: false,
 };
 export const deleteMessageSlice = createSlice({
   name: 'deleteMessage',
   initialState,
   reducers: {
     toggleOpenModal: (state, action) => {
-      state.isModalOpened = action.payload;
+      state.isOpen = action.payload;
     },
   },
 });

@@ -1,7 +1,12 @@
+import { ReduxStoreWithReducerManager } from 'app/providers/storeProvider/types/Store';
 import { Message } from 'entities/Message';
-import { messageContextMenuActions } from 'entities/Message/model/slices/messageContextMenuSlice';
+import {
+  messageContextMenuActions,
+  messageContextMenuReducer,
+} from 'entities/Message/model/slices/messageContextMenuSlice';
 import { IMessage } from 'entities/Message/model/types/Message';
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, memo } from 'react';
+import { useStore } from 'react-redux';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './MessagesGroup.module.scss';
@@ -17,6 +22,7 @@ interface MessagesGroupProps {
 export const MessagesGroup: FC<MessagesGroupProps> = memo(
   ({ date, messages, userId, style }) => {
     const dispatch = useAppDispatch();
+    const store = useStore() as ReduxStoreWithReducerManager;
     const handleOpenContextMenu = ({
       event,
       messageId,
@@ -25,6 +31,7 @@ export const MessagesGroup: FC<MessagesGroupProps> = memo(
       messageId: number;
     }) => {
       event.preventDefault();
+      store.reducerManager.add('messageContextMenu', messageContextMenuReducer);
       dispatch(
         messageContextMenuActions.toggleOpenMenu({
           messageId,
@@ -34,25 +41,6 @@ export const MessagesGroup: FC<MessagesGroupProps> = memo(
       );
     };
 
-    const MessagesData = useMemo(() => {
-      const uniqMessages = Array.from(new Set(messages));
-      return uniqMessages.map((message) => (
-        <Message
-          onContextMenu={(event) =>
-            handleOpenContextMenu({ event, messageId: message.id })
-          }
-          dataAttr={message.id}
-          onClick={() => console.log(111)}
-          key={message.id}
-          content={message.content}
-          user={message.user}
-          isSelf={message.user.id === userId}
-          files={message.files}
-          isRead={message.isRead}
-        />
-      ));
-    }, [messages]);
-
     return (
       <>
         {messages && messages.length > 0 && (
@@ -60,7 +48,21 @@ export const MessagesGroup: FC<MessagesGroupProps> = memo(
             <div className={cls.messages__group_date}>
               {new Date(date).toLocaleDateString()}
             </div>
-            {MessagesData}
+            {messages.map((message) => (
+              <Message
+                onContextMenu={(event) =>
+                  handleOpenContextMenu({ event, messageId: message.id })
+                }
+                dataAttr={message.id}
+                onClick={() => console.log(111)}
+                key={message.id}
+                content={message.content}
+                user={message.user}
+                isSelf={message.user.id === userId}
+                files={message.files}
+                isRead={message.isRead}
+              />
+            ))}
           </div>
         )}
       </>

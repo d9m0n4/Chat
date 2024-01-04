@@ -1,5 +1,5 @@
 import { getActiveDialog } from 'entities/Dialog';
-import { getMessagesState } from 'entities/Message';
+import { getContextMenuIsOpen, getMessagesState } from 'entities/Message';
 import { getMessages } from 'entities/Message/model/selectors/getMessages';
 import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
 import { getMessagesHistory } from 'entities/Message/model/services/getMessagesHistory';
@@ -100,6 +100,7 @@ export const Messages = () => {
           </>
         )}
       </div>
+
       <MessageManagement />
     </>
   );

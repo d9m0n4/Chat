@@ -1,3 +1,3 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
+import { IState } from 'app/providers/storeProvider/types/Store';
 
-export const getRightBarState = (state: RootState) => state.rightBar.isOpened;
+export const getRightBarState = (state: IState) => state?.rightBar?.isOpen;

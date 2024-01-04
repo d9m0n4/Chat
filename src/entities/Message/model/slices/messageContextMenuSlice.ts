@@ -1,14 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-type Position = {
-  x: number;
-  y: number;
-};
-interface IMessageContextMenu {
-  isOpen: boolean;
-  messageId?: number;
-  position?: Position;
-}
+import { IMessageContextMenu } from '../types/messageContextMenu';
 
 const initialState: IMessageContextMenu = {
   isOpen: false,

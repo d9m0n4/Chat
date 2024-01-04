@@ -1,5 +1,5 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
+import { IState } from 'app/providers/storeProvider/types/Store';
 
-export const getActiveDialog = (state: RootState) => state.dialogs.activeDialog;
-export const getPrevActiveDialog = (state: RootState) =>
+export const getActiveDialog = (state: IState) => state.dialogs.activeDialog;
+export const getPrevActiveDialog = (state: IState) =>
   state.dialogs.prevActiveDialogId;

@@ -1,3 +1,3 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
+import { IState } from 'app/providers/storeProvider/types/Store';
 
-export const getMessages = (state: RootState) => state.messages.messagesData;
+export const getMessages = (state: IState) => state.messages.messagesData;

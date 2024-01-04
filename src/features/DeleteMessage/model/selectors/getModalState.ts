@@ -1,3 +1,3 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
+import { IState } from 'app/providers/storeProvider/types/Store';
 
-export const getModalState = (state: RootState) => state.modal;
+export const getModalState = (state: IState) => state.modal;

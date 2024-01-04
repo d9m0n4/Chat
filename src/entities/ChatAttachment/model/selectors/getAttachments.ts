@@ -1,4 +1,3 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
+import { IState } from 'app/providers/storeProvider/types/Store';
 
-export const getAttachments = (state: RootState) =>
-  state.attachments.attachments;
+export const getAttachments = (state: IState) => state.attachments.attachments;

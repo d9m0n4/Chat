@@ -18,7 +18,6 @@ export const Layout = () => {
   const dispatch = useAppDispatch();
   const { dialogData } = useSelector(getDialogsState);
   const { socket } = useSocket();
-  const { notifications } = useSelector(getNotifications);
 
   useEffect(() => {
     dispatch(fetchUserData());
@@ -58,6 +57,16 @@ export const Layout = () => {
   }, [socket]);
 
   useEffect(() => {
+    socket?.on('unauth', (s) => {
+      console.log(s.id);
+      console.log('unauth from layout');
+    });
+    return () => {
+      socket?.off('unauth');
+    };
+  }, [socket]);
+
+  useEffect(() => {
     socket?.on('message_deleted', (m) => {
       dispatch(messagesActions.deleteMessage({ messageId: m.messageId }));
     });
@@ -74,7 +83,7 @@ export const Layout = () => {
         <Outlet />
       </div>
       <Portal>
-        <Notifications notifications={notifications} />
+        <Notifications />
       </Portal>
     </div>
   );

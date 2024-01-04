@@ -4,3 +4,5 @@ export {
   getPrevActiveDialog,
 } from './model/selectors/getActiveDialog';
 export { getFilteredDialogs } from './model/selectors/getFilteredDialogs';
+
+export type { IDialogData } from './model/types/dialogs';

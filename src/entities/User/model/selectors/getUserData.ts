@@ -1,4 +1,4 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
+import { IState } from 'app/providers/storeProvider/types/Store';
 
-export const getUserData = (state: RootState) => state.user.authData;
-export const getUser = (state: RootState) => state.user;
+export const getUserData = (state: IState) => state.auth.authData;
+export const getUser = (state: IState) => state.auth;

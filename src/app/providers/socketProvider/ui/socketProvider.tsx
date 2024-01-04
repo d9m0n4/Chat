@@ -17,6 +17,12 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     socketInstance.on('connect', () => {
       setIsConnected(true);
+
+      if (socketInstance.recovered) {
+        console.log('was recovered');
+      } else {
+        console.log('new session');
+      }
     });
 
     socketInstance.on('disconnect', () => {
@@ -31,6 +37,16 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     console.log(isConnected);
   }, [isConnected]);
+
+  useEffect(() => {
+    socket?.on('unauth', (s) => {
+      s.io.reconnect();
+      console.log('kek');
+    });
+    return () => {
+      socket?.off('unauth');
+    };
+  }, [socket]);
 
   return (
     <SocketContext.Provider value={{ socket, isConnected }}>

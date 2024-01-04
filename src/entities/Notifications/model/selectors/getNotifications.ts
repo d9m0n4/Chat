@@ -1,3 +1,4 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
+import { IState } from 'app/providers/storeProvider/types/Store';
 
-export const getNotifications = (state: RootState) => state.notifications;
+export const getNotifications = (state: IState) =>
+  state.notifications?.notifications;

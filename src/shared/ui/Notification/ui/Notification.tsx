@@ -11,7 +11,11 @@ interface NotificationProps {
   id: string;
 }
 
-export const Notification: FC<NotificationProps> = ({ id, message, duration = 3000 }) => {
+export const Notification: FC<NotificationProps> = ({
+  id,
+  message,
+  duration = 3000,
+}) => {
   const [isShown, setIsShown] = useState(true);
   const timeRef = useRef<ReturnType<typeof setTimeout> | undefined>();
   const dispatch = useDispatch();
@@ -37,10 +41,8 @@ export const Notification: FC<NotificationProps> = ({ id, message, duration = 30
   }
 
   return (
-    <>
-      <div className={cls.notification}>
-        <p className={cls['notification-message']}>{message}</p>
-      </div>
-    </>
+    <div className={cls.notification}>
+      <p className={cls['notification-message']}>{message}</p>
+    </div>
   );
 };

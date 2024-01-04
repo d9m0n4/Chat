@@ -1,17 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { User, findUsers } from '../services/findUsers';
+import { findUsers } from '../services/findUsers';
+import { ICreateDialog } from '../types/createDialog';
 
-interface CreateDialog {
-  error: null | undefined | string;
-  loading: boolean;
-  users: User[] | undefined;
-}
-
-const initialState: CreateDialog = {
+const initialState: ICreateDialog = {
   loading: false,
-  error: '',
-  users: [],
 };
 export const CreateDialogSlice = createSlice({
   name: 'searchUser',

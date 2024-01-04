@@ -1,5 +1,5 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
-import React, { useEffect, useMemo, useTransition } from 'react';
+import { IState } from 'app/providers/storeProvider/types/Store';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -22,7 +22,7 @@ export const DialogList = () => {
   const { loading } = useSelector(getDialogsState);
   const currentDialog = useSelector(getActiveDialog);
   const prevActiveDialogId = useSelector(getPrevActiveDialog);
-  const user = useSelector((state: RootState) => state.user.authData); // убрать!!!!!!!
+  const user = useSelector((state: IState) => state.auth.authData); // убрать!!!!!!!
   const { socket } = useSocket();
   const dispatch = useAppDispatch();
 

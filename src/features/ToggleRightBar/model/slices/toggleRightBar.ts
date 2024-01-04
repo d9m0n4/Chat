@@ -1,11 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { IRightBarState } from '../types/rightBar';
+
+const initialState: IRightBarState = {
+  isOpen: false,
+};
 export const ToggleRightBar = createSlice({
   name: 'rightBar',
-  initialState: { isOpened: false },
+  initialState,
   reducers: {
     toggle: (state) => {
-      state.isOpened = !state.isOpened;
+      state.isOpen = !state.isOpen;
     },
   },
 });

@@ -1,3 +1,3 @@
-import { RootState } from 'app/providers/storeProvider/config/store';
+import { IState } from 'app/providers/storeProvider/types/Store';
 
-export const getDialogsState = (state: RootState) => state.dialogs;
+export const getDialogsState = (state: IState) => state.dialogs;

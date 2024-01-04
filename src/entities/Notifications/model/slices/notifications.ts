@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-import { INotification } from '../types/notification';
+import { INotifications } from '../types/notification';
 
-const initialState: { notifications: INotification[] } = {
+const initialState: INotifications = {
   notifications: [],
 };
 export const notifications = createSlice({
@@ -17,7 +17,9 @@ export const notifications = createSlice({
     },
     clearNotification: (state, action: PayloadAction<{ id: string }>) => {
       console.log(action.payload);
-      state.notifications = state.notifications.filter((notification) => notification.id !== action.payload.id);
+      state.notifications = state.notifications.filter(
+        (notification) => notification.id !== action.payload.id
+      );
     },
   },
 });
