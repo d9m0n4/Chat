@@ -1,3 +1,5 @@
+import { EntityState } from '@reduxjs/toolkit';
+
 interface User {
   name: string;
   nickName: string;
@@ -30,8 +32,8 @@ interface activeDialog {
   partner: Partner;
 }
 
-export interface IDialogData {
-  dialogData: IDialog[];
+export interface IDialogData extends EntityState<IDialog> {
+  // dialogData: IDialog[];
   activeDialog?: activeDialog;
   prevActiveDialogId?: number;
   searchValue: string;

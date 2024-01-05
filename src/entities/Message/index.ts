@@ -12,4 +12,4 @@ export type {
   IMessageContextMenu,
 } from './model/types/messageContextMenu';
 
-export type { IMessagesData } from './model/types/Message';
+export type { IMessagesData, IMessage } from './model/types/Message';

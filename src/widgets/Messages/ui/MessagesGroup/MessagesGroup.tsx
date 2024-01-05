@@ -22,7 +22,6 @@ interface MessagesGroupProps {
 export const MessagesGroup: FC<MessagesGroupProps> = memo(
   ({ date, messages, userId, style }) => {
     const dispatch = useAppDispatch();
-    const store = useStore() as ReduxStoreWithReducerManager;
     const handleOpenContextMenu = ({
       event,
       messageId,
@@ -31,7 +30,6 @@ export const MessagesGroup: FC<MessagesGroupProps> = memo(
       messageId: number;
     }) => {
       event.preventDefault();
-      store.reducerManager.add('messageContextMenu', messageContextMenuReducer);
       dispatch(
         messageContextMenuActions.toggleOpenMenu({
           messageId,

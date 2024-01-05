@@ -1,5 +1,8 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RejectedAction } from '@reduxjs/toolkit/dist/query/core/buildThunks';
+import {
+  PayloadAction,
+  createEntityAdapter,
+  createSlice,
+} from '@reduxjs/toolkit';
 
 import { deleteMessage } from '../services/deleteMessage';
 import { fetchMessages } from '../services/fetchMessages';
@@ -13,10 +16,8 @@ import {
 } from '../types/Message';
 
 const initialState: IMessagesData = {
-  messagesData: undefined,
-  apiMessage: undefined,
   loading: false,
-  page: 1,
+  page: 0,
 };
 
 export const messagesSlice = createSlice({

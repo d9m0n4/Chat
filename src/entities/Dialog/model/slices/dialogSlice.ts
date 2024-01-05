@@ -1,23 +1,37 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { d } from '@pmmmwh/react-refresh-webpack-plugin/types/options';
+import {
+  PayloadAction,
+  createEntityAdapter,
+  createSlice,
+} from '@reduxjs/toolkit';
+import { IState } from 'app/providers/storeProvider/types/Store';
+import { IMessage } from 'entities/Message';
+import { useStore } from 'react-redux';
 
 import { fetchDialogs } from '../services/fetchDialogs';
-import { IDialogData } from '../types/dialogs';
+import { IDialog, IDialogData } from '../types/dialogs';
 
-const initialState: IDialogData = {
-  dialogData: [],
-  searchValue: '',
-};
+const dialogEntityAdapter = createEntityAdapter<IDialog>({
+  selectId: (model: IDialog) => model.id,
+});
+
+export const getDialogs = dialogEntityAdapter.getSelectors<IState>(
+  (state) => state.dialogs || dialogEntityAdapter.getInitialState()
+);
+
 export const dialogSlice = createSlice({
   name: 'dialog',
-  initialState,
+  initialState: dialogEntityAdapter.getInitialState<IDialogData>({
+    entities: {},
+    ids: [],
+    searchValue: '',
+  }),
   reducers: {
     addNewDialog: (state, action) => {
-      state.dialogData.unshift(action.payload);
+      dialogEntityAdapter.setAll(state, action.payload);
     },
     filterDialogs: (state, action) => {
-      state.dialogData = state.dialogData.filter((dialog) =>
-        dialog.partner.name.includes(action.payload)
-      );
+      dialogEntityAdapter.updateMany(state, action);
     },
     setActiveDialog: (state, action) => {
       state.activeDialog = action.payload;
@@ -29,65 +43,49 @@ export const dialogSlice = createSlice({
 
     setUserOnline: (state, action) => {
       const { userId, isOnline } = action.payload;
-      if (state.dialogData) {
-        const dialogToUpdate = state.dialogData.find(
-          (dialog) => dialog.partner.id === userId
-        );
-        if (dialogToUpdate) {
-          dialogToUpdate.partner.isOnline = isOnline;
-        }
+      const dialog = Object.values(state.entities).find(
+        (dialog) => dialog?.partner.id === userId
+      );
+
+      if (dialog) {
+        dialogEntityAdapter.updateOne(state, {
+          id: dialog.id,
+          changes: { partner: { ...dialog.partner, isOnline: isOnline } },
+        });
       }
     },
 
-    updateLastMessage: (state, action: PayloadAction<any>) => {
-      const { dialog, updated_at, created_at, isRead, user, id, content } =
-        action.payload;
-      if (state.dialogData) {
-        const dialogToUpdate = state.dialogData.find(
-          (dialogData) => dialogData.id === dialog.id
-        );
-        if (dialogToUpdate) {
-          dialogToUpdate.latestMessage = !action.payload.content
-            ? null
-            : {
-                content,
-                created_at,
-                id,
-                isRead,
-                updated_at,
-                user,
-              };
-        }
+    updateLastMessage: (state, action: PayloadAction<IMessage>) => {
+      const { dialog, content } = action.payload;
+      if (content) {
+        dialogEntityAdapter.updateOne(state, {
+          id: dialog.id,
+          changes: { latestMessage: { ...action.payload } },
+        });
       }
     },
 
     updateMessagesCount(state, action) {
       const { dialogId, activeDialogId } = action.payload;
       if (dialogId === activeDialogId) {
-        const dialog = state.dialogData.find(
-          (dialog) => dialog.id === activeDialogId
-        );
-        if (dialog) {
-          dialog.unreadMessagesCount = 0;
-        }
+        dialogEntityAdapter.updateOne(state, {
+          id: dialogId,
+          changes: { unreadMessagesCount: 0 },
+        });
       }
     },
 
-    updateReadStatus: (state, action) => {
-      const dialogToUpdate = state.dialogData.find(
-        (dialog) => dialog.id === action.payload
-      );
-      if (dialogToUpdate && dialogToUpdate.latestMessage) {
-        dialogToUpdate.latestMessage.isRead = true;
+    updateReadStatus: (state, action: PayloadAction<{ id: number }>) => {
+      const dialog = state.entities[action.payload.id];
+      if (dialog && dialog.latestMessage) {
+        dialog.latestMessage.isRead = true;
       }
     },
     updateUnreadMessagesCount(state, action) {
       const { message, userId } = action.payload;
       const { dialog } = message;
       if (message.user.id !== userId) {
-        const dialogToUpdate = state.dialogData.find(
-          (dialogData) => dialogData.id === dialog.id
-        );
+        const dialogToUpdate = state.entities[dialog.id];
         if (dialogToUpdate) {
           dialogToUpdate.unreadMessagesCount += 1;
         }
@@ -97,12 +95,11 @@ export const dialogSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchDialogs.fulfilled, (state, action) => {
-        state.dialogData = action.payload;
+        dialogEntityAdapter.setAll(state, action.payload);
         state.loading = false;
       })
       .addCase(fetchDialogs.pending, (state) => {
         state.loading = true;
-        state.dialogData = [];
       })
       .addCase(fetchDialogs.rejected, (state) => {
         state.error = 'error';
@@ -111,5 +108,5 @@ export const dialogSlice = createSlice({
   },
 });
 
-export const { reducer: dialogReducer } = dialogSlice;
+export const { reducer: dialogReducers } = dialogSlice;
 export const { actions: dialogActions } = dialogSlice;

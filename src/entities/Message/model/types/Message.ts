@@ -36,7 +36,7 @@ export interface MessagesData {
 }
 
 export interface IMessagesData {
-  messagesData: GroupedMessages | undefined;
+  messagesData?: GroupedMessages;
   totalPages?: number;
   page: number;
   apiMessage?: NonNullable<unknown>;

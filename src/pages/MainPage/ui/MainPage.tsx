@@ -49,7 +49,7 @@ export const MainPage: FC = () => {
   useEffect(() => {
     socket?.on('update_messages_status', ({ userId, dialog }) => {
       if (userId !== user?.id) {
-        dispatch(dialogActions.updateReadStatus(dialog.id));
+        dispatch(dialogActions.updateReadStatus({ id: dialog.id }));
       }
       if (userId === user?.id) {
         dispatch(

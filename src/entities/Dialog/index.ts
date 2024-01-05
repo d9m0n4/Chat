@@ -6,3 +6,4 @@ export {
 export { getFilteredDialogs } from './model/selectors/getFilteredDialogs';
 
 export type { IDialogData } from './model/types/dialogs';
+export { dialogReducers } from './model/slices/dialogSlice';

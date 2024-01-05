@@ -1,22 +1,33 @@
 import { getActiveDialog } from 'entities/Dialog';
-import { getContextMenuIsOpen, getMessagesState } from 'entities/Message';
+import { getMessagesState } from 'entities/Message';
 import { getMessages } from 'entities/Message/model/selectors/getMessages';
 import { fetchMessages } from 'entities/Message/model/services/fetchMessages';
 import { getMessagesHistory } from 'entities/Message/model/services/getMessagesHistory';
 import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
+import { messageContextMenuReducer } from 'entities/Message/model/slices/messageContextMenuSlice';
 import { messagesActions } from 'entities/Message/model/slices/messageSlice';
+import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
 import { getUserData } from 'entities/User';
 import { MessageManagement } from 'features/MessageManagement';
+import { rightBarReducer } from 'features/ToggleRightBar/model/slices/toggleRightBar';
 import _debounce from 'lodash/debounce';
 import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { ReducersList } from 'shared/types/Store';
 import { ScrollButton } from 'shared/ui/ScrollButton';
 import { Skeleton } from 'shared/ui/Skeleton';
 import { MessageInput } from 'widgets/MessageInput';
 
 import cls from './Messages.module.scss';
 import { MessagesList } from './MessagesList/MessagesList';
+
+const reducers: ReducersList = {
+  messageContextMenu: messageContextMenuReducer,
+  notifications: notificationReducer,
+  rightBar: rightBarReducer,
+};
 
 export const Messages = () => {
   const [isScrollDownActive, setIsScrollDownActive] = useState(false);
@@ -76,7 +87,7 @@ export const Messages = () => {
   }, [activeDialog, dispatch]);
 
   return (
-    <>
+    <DynamicModuleLoader reducers={reducers}>
       <div ref={messagesWrapper} className={cls.messages__wrapper}>
         {isScrollDownActive && (
           <ScrollButton onClick={scrollBottom} className={cls.scroll__btn} />
@@ -100,8 +111,7 @@ export const Messages = () => {
           </>
         )}
       </div>
-
       <MessageManagement />
-    </>
+    </DynamicModuleLoader>
   );
 };

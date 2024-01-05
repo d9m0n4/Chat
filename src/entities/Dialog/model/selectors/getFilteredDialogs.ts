@@ -1,11 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { IState } from 'app/providers/storeProvider/types/Store';
 
-const getDialogs = (state: IState) => state.dialogs.dialogData;
+import { getDialogs } from '../slices/dialogSlice';
+
 const getSearchValue = (state: IState) => state.dialogs.searchValue;
 
 export const getFilteredDialogs = createSelector(
-  [getDialogs, getSearchValue],
+  [getDialogs.selectAll, getSearchValue],
   (dialogs, searchValue) => {
     if (!searchValue) {
       return dialogs;

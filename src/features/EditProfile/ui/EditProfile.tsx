@@ -1,4 +1,5 @@
 import { notificationActions } from 'entities/Notifications';
+import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
 import { getUserData } from 'entities/User';
 import { updateUserInfo } from 'entities/User/model/services/updateUserInfo';
 import React, { useEffect, useRef, useState } from 'react';
@@ -6,6 +7,8 @@ import { useSelector } from 'react-redux';
 import { ReactComponent as EditIcon } from 'shared/assets/icons/pencil.svg';
 import { BASE_URL } from 'shared/config/api/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { ReducersList } from 'shared/types/Store';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
@@ -13,6 +16,9 @@ import { Input } from 'shared/ui/Input/Input';
 
 import cls from './EditProfile.module.scss';
 
+const reducers: ReducersList = {
+  notifications: notificationReducer,
+};
 export const EditProfile = () => {
   const userData = useSelector(getUserData);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -46,7 +52,11 @@ export const EditProfile = () => {
     try {
       await dispatch(updateUserInfo(formData)).unwrap();
       setIsEditing(false);
-      dispatch(notificationActions.setNotification({ message: 'Профиль успешно обновлен' }));
+      dispatch(
+        notificationActions.setNotification({
+          message: 'Профиль успешно обновлен',
+        })
+      );
     } catch (e: any) {
       dispatch(notificationActions.setNotification(e.message));
     }
@@ -60,47 +70,58 @@ export const EditProfile = () => {
   }, [userData]);
 
   return (
-    <div className={cls.profile__info}>
-      <Button onClick={() => setIsEditing(!isEditing)} className={cls.edit__btn}>
-        <EditIcon className={'icon'} />
-      </Button>
-      <input
-        disabled={!isEditing}
-        max={1}
-        accept="image/png, image/gif, image/jpeg"
-        type="file"
-        ref={inputRef}
-        hidden
-        onChange={changeAvatar}
-      />
-      <Avatar
-        width={100}
-        src={avatarUrl ? avatarUrl : userData?.avatar ? `${BASE_URL}${userData.avatar}` : null}
-        onClick={() => inputRef.current?.click()}
-        className={cls.profile__avatar}
-        name={userData?.name}
-      />
-      <form onSubmit={submitHandler} className={cls.profile__form}>
-        <Input
-          placeholder={'Имя'}
-          required={true}
-          disable={!isEditing}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+    <DynamicModuleLoader reducers={reducers}>
+      <div className={cls.profile__info}>
+        <Button
+          onClick={() => setIsEditing(!isEditing)}
+          className={cls.edit__btn}
+        >
+          <EditIcon className={'icon'} />
+        </Button>
+        <input
+          disabled={!isEditing}
+          max={1}
+          accept="image/png, image/gif, image/jpeg"
+          type="file"
+          ref={inputRef}
+          hidden
+          onChange={changeAvatar}
         />
-        <Input
-          placeholder={'Никнейм'}
-          required={true}
-          disable={!isEditing}
-          value={nickName}
-          onChange={(e) => setNickName(e.target.value)}
+        <Avatar
+          width={100}
+          src={
+            avatarUrl
+              ? avatarUrl
+              : userData?.avatar
+              ? `${BASE_URL}${userData.avatar}`
+              : null
+          }
+          onClick={() => inputRef.current?.click()}
+          className={cls.profile__avatar}
+          name={userData?.name}
         />
-        {isEditing && (
-          <Button type={'submit'} variant={ButtonVariants.PRIMARY}>
-            Сохранить
-          </Button>
-        )}
-      </form>
-    </div>
+        <form onSubmit={submitHandler} className={cls.profile__form}>
+          <Input
+            placeholder={'Имя'}
+            required={true}
+            disable={!isEditing}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            placeholder={'Никнейм'}
+            required={true}
+            disable={!isEditing}
+            value={nickName}
+            onChange={(e) => setNickName(e.target.value)}
+          />
+          {isEditing && (
+            <Button type={'submit'} variant={ButtonVariants.PRIMARY}>
+              Сохранить
+            </Button>
+          )}
+        </form>
+      </div>
+    </DynamicModuleLoader>
   );
 };
