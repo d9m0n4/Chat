@@ -51,7 +51,7 @@ code {
   letter-spacing: 0.02em;
   background-color: var(--app-secondary-bg);
   display: flex;
-  height: 100vh;
+  height: 100dvh;
 }
 
 .main {
@@ -75,10 +75,39 @@ code {
   justify-content: space-between;
   height: calc(100vh - 80px);
   overflow: hidden;
+  &__content {
+    display: flex;
+    flex: 1;
+    &--empty {
+      color: var(--app-primary-text);
+      width: 100%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 
 a {
   text-decoration: none;
   color: var(--app-primary-text);
+}
+
+@media screen and (max-width: 425px){
+  .main {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100%;
+  }
+  .main-section {
+    height: auto;
+    position: relative;
+  }
+  .main__wrapper {
+    height: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+  }
 }
 

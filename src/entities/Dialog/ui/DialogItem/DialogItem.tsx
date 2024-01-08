@@ -13,7 +13,7 @@ import cls from './DialogItem.module.scss';
 
 interface IDialogItem extends IDialog {
   isActive?: boolean;
-  isOnline: boolean | undefined;
+  isOnline?: boolean;
   onClick: () => void;
   myId: number | undefined;
 }
@@ -34,7 +34,10 @@ export const DialogItem: FC<IDialogItem> = memo(
     const isTyping = useTypingIndicator(id, socket);
 
     return (
-      <li className={`${cls.item} ${isActive && cls.active}`} onClick={onClick}>
+      <div
+        className={`${cls.item} ${isActive && cls.active}`}
+        onClick={onClick}
+      >
         <RippleEffect />
         <div className={cls.user}>
           {isOnline && <Online className={cls.isOnline} />}
@@ -79,7 +82,7 @@ export const DialogItem: FC<IDialogItem> = memo(
             </div>
           )}
         </div>
-      </li>
+      </div>
     );
   }
 );

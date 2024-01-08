@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { io } from 'socket.io-client';
 
 export const BASE_URL = 'http://localhost:5000';
 export const api = axios.create({
@@ -27,6 +28,7 @@ api.interceptors.response.use(
           withCredentials: true,
         });
         localStorage.setItem('jwt', refreshResponse.data.accessToken);
+
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return api.request(originalRequest!);
       } catch (e) {

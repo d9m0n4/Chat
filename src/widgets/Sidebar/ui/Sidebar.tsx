@@ -1,3 +1,5 @@
+import { getDialogsState } from 'entities/Dialog/model/selectors/getDialogs';
+import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { getUserData } from 'entities/User';
 import { userActions } from 'entities/User/model/slices/userSlice';
 import React from 'react';
@@ -19,27 +21,47 @@ export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
   const userData = useSelector(getUserData);
+  const { activeDialog } = useSelector(getDialogsState);
   const handleLogout = () => {
     dispatch(userActions.logout());
     socket?.disconnect();
+  };
+
+  const handleResetActiveDialog = () => {
+    if (activeDialog) {
+      dispatch(dialogActions.setActiveDialog());
+    }
   };
 
   return (
     <div className={cls.sidebar}>
       <div className={cls.user}>
         <NavLink to={'/profile'}>
-          <Avatar src={userData?.avatar && `${BASE_URL}${userData.avatar}`} name={userData?.name} />
+          <Avatar
+            src={userData?.avatar && `${BASE_URL}${userData.avatar}`}
+            name={userData?.name}
+          />
         </NavLink>
       </div>
       <div className={cls.sidebar__nav}>
         <div className={cls.links}>
-          <NavLink to={'/dialogs'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
+          <NavLink
+            to={'/dialogs'}
+            onClick={handleResetActiveDialog}
+            className={({ isActive }) => (isActive ? `${cls.active}` : '')}
+          >
             <Chat className={`${cls.icon} icon`} />
           </NavLink>
-          <NavLink to={'favorites'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
+          <NavLink
+            to={'favorites'}
+            className={({ isActive }) => (isActive ? `${cls.active}` : '')}
+          >
             <Bookmark className={`${cls.icon} icon`} />
           </NavLink>
-          <NavLink to={'settings'} className={({ isActive }) => (isActive ? `${cls.active}` : '')}>
+          <NavLink
+            to={'settings'}
+            className={({ isActive }) => (isActive ? `${cls.active}` : '')}
+          >
             <Settings className={`${cls.icon} icon`} />
           </NavLink>
         </div>

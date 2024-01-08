@@ -9,7 +9,8 @@ import cls from './Input.module.scss';
 
 interface InputProps
   extends Omit<HTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
-  className?: string;
+  inputClassName?: string;
+  containerClassName?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
@@ -25,7 +26,8 @@ interface InputProps
 export const Input = forwardRef(
   (
     {
-      className,
+      inputClassName,
+      containerClassName,
       onChange,
       value,
       type,
@@ -41,7 +43,7 @@ export const Input = forwardRef(
     ref: React.ForwardedRef<HTMLInputElement | null>
   ) => {
     return (
-      <div className={cls.field}>
+      <div className={clsx(cls.field, containerClassName)}>
         <input
           ref={ref}
           name={name}
@@ -49,7 +51,7 @@ export const Input = forwardRef(
           onChange={onChange}
           required={required}
           disabled={disable}
-          className={clsx(cls.field__input, className)}
+          className={clsx(cls.field__input, inputClassName)}
           type={type}
           {...props}
         />

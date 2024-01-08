@@ -61,7 +61,7 @@ export const LoginForm: FC = () => {
               control={control}
               render={({ field }) => (
                 <Input
-                  className={clsx(
+                  inputClassName={clsx(
                     cls.input,
                     !!errors.nickName && cls['input--error']
                   )}
@@ -81,7 +81,7 @@ export const LoginForm: FC = () => {
               control={control}
               render={({ field }) => (
                 <Input
-                  className={clsx(
+                  inputClassName={clsx(
                     cls.input,
                     !!errors.password && cls['input--error']
                   )}

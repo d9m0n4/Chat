@@ -6,13 +6,21 @@ import {
 } from '@reduxjs/toolkit';
 import { IState } from 'app/providers/storeProvider/types/Store';
 import { IMessage } from 'entities/Message';
-import { useStore } from 'react-redux';
 
 import { fetchDialogs } from '../services/fetchDialogs';
 import { IDialog, IDialogData } from '../types/dialogs';
 
 const dialogEntityAdapter = createEntityAdapter<IDialog>({
   selectId: (model: IDialog) => model.id,
+  sortComparer: (a, b) => {
+    const aDate = a.latestMessage
+      ? new Date(a.latestMessage.created_at).getTime()
+      : 0;
+    const bDate = b.latestMessage
+      ? new Date(b.latestMessage.created_at).getTime()
+      : 0;
+    return bDate - aDate;
+  },
 });
 
 export const getDialogs = dialogEntityAdapter.getSelectors<IState>(
@@ -28,12 +36,16 @@ export const dialogSlice = createSlice({
   }),
   reducers: {
     addNewDialog: (state, action) => {
-      dialogEntityAdapter.setAll(state, action.payload);
+      console.log(action.payload);
+      dialogEntityAdapter.addOne(state, action.payload);
     },
     filterDialogs: (state, action) => {
       dialogEntityAdapter.updateMany(state, action);
     },
-    setActiveDialog: (state, action) => {
+    setActiveDialog: (
+      state,
+      action: PayloadAction<{ id: number; partner: any } | undefined>
+    ) => {
       state.activeDialog = action.payload;
       state.prevActiveDialogId = state.activeDialog?.id;
     },

@@ -1,6 +1,6 @@
 import { notificationActions } from 'entities/Notifications';
 import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
-import { getUserData } from 'entities/User';
+import { getAuthData } from 'entities/User/model/selectors/getUserData';
 import { updateUserInfo } from 'entities/User/model/services/updateUserInfo';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
 import { Input } from 'shared/ui/Input/Input';
+import { Skeleton } from 'shared/ui/Skeleton';
 
 import cls from './EditProfile.module.scss';
 
@@ -20,10 +21,10 @@ const reducers: ReducersList = {
   notifications: notificationReducer,
 };
 export const EditProfile = () => {
-  const userData = useSelector(getUserData);
+  const { authData, isLoading } = useSelector(getAuthData);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [name, setName] = useState(userData?.name || '');
-  const [nickName, setNickName] = useState(userData?.nickName || '');
+  const [name, setName] = useState(authData?.name || '');
+  const [nickName, setNickName] = useState(authData?.nickName || '');
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -63,11 +64,11 @@ export const EditProfile = () => {
   };
 
   useEffect(() => {
-    if (userData) {
-      setName(userData.name || '');
-      setNickName(userData.nickName || '');
+    if (authData) {
+      setName(authData.name || '');
+      setNickName(authData.nickName || '');
     }
-  }, [userData]);
+  }, [authData]);
 
   return (
     <DynamicModuleLoader reducers={reducers}>
@@ -78,28 +79,34 @@ export const EditProfile = () => {
         >
           <EditIcon className={'icon'} />
         </Button>
-        <input
-          disabled={!isEditing}
-          max={1}
-          accept="image/png, image/gif, image/jpeg"
-          type="file"
-          ref={inputRef}
-          hidden
-          onChange={changeAvatar}
-        />
-        <Avatar
-          width={100}
-          src={
-            avatarUrl
-              ? avatarUrl
-              : userData?.avatar
-              ? `${BASE_URL}${userData.avatar}`
-              : null
-          }
-          onClick={() => inputRef.current?.click()}
-          className={cls.profile__avatar}
-          name={userData?.name}
-        />
+        {isLoading ? (
+          <Skeleton width={100} height={100} borderRadius={'50%'} />
+        ) : (
+          <>
+            <input
+              disabled={!isEditing}
+              max={1}
+              accept="image/png, image/gif, image/jpeg"
+              type="file"
+              ref={inputRef}
+              hidden
+              onChange={changeAvatar}
+            />
+            <Avatar
+              width={100}
+              src={
+                avatarUrl
+                  ? avatarUrl
+                  : authData?.avatar
+                  ? `${BASE_URL}${authData.avatar}`
+                  : null
+              }
+              onClick={() => inputRef.current?.click()}
+              className={cls.profile__avatar}
+              name={authData?.name}
+            />
+          </>
+        )}
         <form onSubmit={submitHandler} className={cls.profile__form}>
           <Input
             placeholder={'Имя'}

@@ -8,10 +8,7 @@
   opacity: 0.85;
   position: relative;
   .search__field {
-    box-shadow: none;
-    background-color: var(--app-tooltip);
-    padding: 0.5em 0.6em;
-    width: 240px;
+    position: relative;
   }
 
   .name {
@@ -28,5 +25,30 @@
     top: 50%;
     transform: translateY(-50%);
     right: -1em;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .header {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    grid-auto-flow: dense;
+    row-gap: 1rem;
+    .name {
+      position: relative;
+      grid-row-start: 1;
+      text-align: center;
+    }
+    .search__field {
+      grid-row-start: 2;
+      margin-right: 2rem;
+      input {
+        width: 100%;
+      }
+    }
+    .button {
+      grid-row-start: 2;
+    }
   }
 }

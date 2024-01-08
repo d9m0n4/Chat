@@ -15,7 +15,7 @@ export const ChatHeader = () => {
     <div className={cls.header}>
       {location.pathname.includes('dialogs') && (
         <>
-          <SearchDialogs />
+          <SearchDialogs classname={cls.search__field} />
           <div className={cls.name}>
             {partner && (
               <>
@@ -24,7 +24,7 @@ export const ChatHeader = () => {
               </>
             )}
           </div>
-          <ToggleRightBar />
+          {partner && <ToggleRightBar classname={cls.button} />}
         </>
       )}
     </div>

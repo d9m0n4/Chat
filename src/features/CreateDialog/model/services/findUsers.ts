@@ -14,7 +14,7 @@ export const findUsers = createAsyncThunk(
     try {
       if (query) {
         const response = await api.get<User[]>(
-          `/user/search?nickname=${query}`
+          `/dialogs/search?nickname=${query}`
         );
         return response.data;
       }

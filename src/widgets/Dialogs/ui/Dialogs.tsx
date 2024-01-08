@@ -1,7 +1,12 @@
 import { DialogList } from 'entities/Dialog';
-import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
+import { getDialogsState } from 'entities/Dialog/model/selectors/getDialogs';
+import {
+  dialogActions,
+  getDialogs,
+} from 'entities/Dialog/model/slices/dialogSlice';
 import { CreateDialogModal } from 'features/CreateDialog';
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { ReactComponent as Add } from 'shared/assets/icons/plus.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
@@ -13,6 +18,8 @@ export const Dialogs = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
+  const dialogs = useSelector(getDialogs.selectTotal);
+  const { loading } = useSelector(getDialogsState);
 
   useEffect(() => {
     socket?.on('dialog_created', (payload) => {
@@ -35,6 +42,11 @@ export const Dialogs = () => {
           </div>
         </div>
         <div className={cls.dialogs__body}>
+          {!loading && dialogs < 1 && (
+            <p className={cls.dialogs__empty}>
+              Здесь будут показаны Ваши диалоги
+            </p>
+          )}
           <DialogList />
         </div>
       </div>

@@ -1,3 +1,4 @@
+@import "app/styles/vars";
 .messages__wrapper {
   display: flex;
   flex-direction: column;
@@ -19,9 +20,13 @@
   height: 100%;
   max-height: calc(100% - 84px);
   overflow: auto;
+  &.scroll--hidden {
+    overflow: hidden;
+    padding: 1em calc(2em + $scrollBarWidth) 1em 2em;
+  }
 
     &::-webkit-scrollbar {
-      width: 6px;
+      width: $scrollBarWidth;
     }
 
     &::-webkit-scrollbar-track {
@@ -56,11 +61,16 @@
   padding: 1rem 2rem;
 }
 
-
-
 .typing__message_wrapper {
   margin-top: auto;
   padding: 8px 0;
 }
 
+@media screen and (max-width: 425px){
+  .messages__wrapper {
+    position: absolute;
+    inset: 0;
+    background-color: var(--app-primary-bg);
+  }
+}
 

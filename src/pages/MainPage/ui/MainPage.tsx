@@ -73,7 +73,14 @@ export const MainPage: FC = () => {
   return (
     <div className="main-section">
       <Dialogs />
-      <Outlet />
+      <div className={'main-section__content'}>
+        {!activeDialog && (
+          <p className="main-section__content--empty">
+            Выберите, кому бы Вы хотели написать
+          </p>
+        )}
+        <Outlet />
+      </div>
       {partner && (
         <>
           {isRightBarOpened && (

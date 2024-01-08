@@ -14,12 +14,15 @@ export const CreateDialogSlice = createSlice({
     builder
       .addCase(findUsers.pending, (state) => {
         state.loading = true;
+        state.users = undefined;
       })
       .addCase(findUsers.rejected, (state) => {
         state.error = 'error';
+        state.loading = false;
       })
       .addCase(findUsers.fulfilled, (state, action) => {
         state.users = action.payload;
+        state.loading = false;
       });
   },
 });

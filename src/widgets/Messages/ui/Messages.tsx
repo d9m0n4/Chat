@@ -10,12 +10,13 @@ import { notificationReducer } from 'entities/Notifications/model/slices/notific
 import { getUserData } from 'entities/User';
 import { MessageManagement } from 'features/MessageManagement';
 import { rightBarReducer } from 'features/ToggleRightBar/model/slices/toggleRightBar';
-import _debounce from 'lodash/debounce';
 import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
 import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { ReducersList } from 'shared/types/Store';
+import { MessagesListLoading } from 'shared/ui/MessagesListLoading/MessagesListLoading';
 import { ScrollButton } from 'shared/ui/ScrollButton';
 import { Skeleton } from 'shared/ui/Skeleton';
 import { MessageInput } from 'widgets/MessageInput';
@@ -48,14 +49,16 @@ export const Messages = () => {
     }
   }, [messages]);
 
-  const next = _debounce(() => {
+  const next = () => {
     if (!loading && totalPages && page < totalPages && messagesLength) {
       dispatch(
         getMessagesHistory({ dialogId: activeDialog?.id, skip: messagesLength })
       );
       dispatch(messagesActions.setPage(page + 1));
     }
-  }, 500);
+  };
+
+  const debouncedFetchHistory = useDebounce(next, 500);
 
   const showScrollButton = (event: React.UIEvent<HTMLDivElement>) => {
     const scrollPosition = Math.floor(
@@ -92,14 +95,16 @@ export const Messages = () => {
         {isScrollDownActive && (
           <ScrollButton onClick={scrollBottom} className={cls.scroll__btn} />
         )}
+        {loading && <MessagesListLoading />}
         {messages && (
           <>
             <MessagesList
               containerRef={messagesContainer}
               messages={messages}
               userId={user?.id}
-              getHistory={next}
+              getHistory={debouncedFetchHistory}
               onScroll={showScrollButton}
+              isLoading={loading}
             />
             <Suspense
               fallback={

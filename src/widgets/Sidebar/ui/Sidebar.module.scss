@@ -5,7 +5,6 @@
   flex-direction: column;
   align-items: center;
   padding: 16px 0 32px 0;
-
   &__nav {
     display: flex;
     flex-direction: column;
@@ -20,7 +19,7 @@
     .links {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 1rem;
     }
   }
   .active {
@@ -28,8 +27,30 @@
       stroke: var(--app-accent);
     }
   }
-
   .user {
     margin-bottom: 32px;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .sidebar {
+    z-index: 99;
+    width: 100%;
+    flex-direction: row;
+    padding: 1rem;
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    &__nav {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      .links {
+        flex-direction: row;
+      }
+    }
+    .user {
+      margin: 0;
+    }
   }
 }

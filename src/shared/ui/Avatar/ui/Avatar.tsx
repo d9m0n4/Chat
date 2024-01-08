@@ -1,10 +1,8 @@
 import clsx from 'classnames';
 import React, { FC, HTMLAttributes } from 'react';
+import { generateAvatarColor } from 'shared/utils/generateAvatarColor/generateAvatarColor';
+import { getInitials } from 'shared/utils/getInitials/getInitials';
 
-// eslint-disable-next-line no-restricted-imports
-import { generateAvatarColor } from '../../../utils/generateAvatarColor/generateAvatarColor';
-// eslint-disable-next-line no-restricted-imports
-import { getInitials } from '../../../utils/getInitials/getInitials';
 import cls from './Avatar.module.scss';
 
 interface AvatarProps extends HTMLAttributes<HTMLImageElement> {
@@ -16,8 +14,16 @@ interface AvatarProps extends HTMLAttributes<HTMLImageElement> {
   className?: string;
 }
 
-export const Avatar: FC<AvatarProps> = ({ src, width = 48, name, onClick, className }) => {
-  const color = name ? generateAvatarColor(getInitials(`${name} ${name.length}`)) : 'red';
+export const Avatar: FC<AvatarProps> = ({
+  src,
+  width = 48,
+  name,
+  onClick,
+  className,
+}) => {
+  const color = name
+    ? generateAvatarColor(getInitials(`${name} ${name.length}`))
+    : 'red';
   return (
     <div
       onClick={onClick}
@@ -30,7 +36,13 @@ export const Avatar: FC<AvatarProps> = ({ src, width = 48, name, onClick, classN
       }}
     >
       {src ? (
-        <img className={cls.avatar__image} src={src} width={width} height={width} alt="avatar" />
+        <img
+          className={cls.avatar__image}
+          src={src}
+          width={width}
+          height={width}
+          alt="avatar"
+        />
       ) : (
         <span>{name && getInitials(name)}</span>
       )}

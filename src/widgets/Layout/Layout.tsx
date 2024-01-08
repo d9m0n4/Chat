@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -17,25 +17,11 @@ import { Sidebar } from '../Sidebar';
 
 export const Layout = () => {
   const dispatch = useAppDispatch();
-  const { socket, isConnected } = useSocket();
-  const dialogData = useSelector(getDialogs.selectAll);
+  const { socket } = useSocket();
 
   useEffect(() => {
     dispatch(fetchUserData());
   }, []);
-
-  useEffect(() => {
-    if (dialogData) {
-      socket?.emit(
-        'user_online',
-        dialogData?.map((dialog) => dialog.partner.id)
-      );
-    }
-
-    return () => {
-      socket?.off('user_online');
-    };
-  }, [socket]);
 
   useEffect(() => {
     const setUserOnline = (user: number) => {
@@ -44,9 +30,10 @@ export const Layout = () => {
     const setUserOffline = (user: number) => {
       dispatch(dialogActions.setUserOnline({ userId: user, isOnline: false }));
     };
-    socket?.on('friends_online', (ids: number[]) =>
-      ids.forEach((id) => setUserOnline(id))
-    );
+    socket?.on('friends_online', (ids: number[]) => {
+      ids.forEach((id) => setUserOnline(id));
+      console.log(ids);
+    });
     socket?.on('online', setUserOnline);
     socket?.on('offline', setUserOffline);
 
@@ -54,16 +41,6 @@ export const Layout = () => {
       socket?.off('online', setUserOnline);
       socket?.off('offline', setUserOffline);
       socket?.off('friends_online');
-    };
-  }, [socket]);
-
-  useEffect(() => {
-    socket?.on('unauth', (s) => {
-      console.log(s.id);
-      console.log('unauth from layout');
-    });
-    return () => {
-      socket?.off('unauth');
     };
   }, [socket]);
 
@@ -79,7 +56,7 @@ export const Layout = () => {
   return (
     <div className="main">
       <Sidebar />
-      <div>
+      <div className="main__wrapper">
         <ChatHeader />
         <Outlet />
       </div>

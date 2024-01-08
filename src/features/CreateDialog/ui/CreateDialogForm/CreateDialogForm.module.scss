@@ -1,10 +1,15 @@
 .form {
+  display: flex;
+  flex-direction: column;
   padding: 16px 32px;
   background-color: var(--app-primary-bg);
   border-radius: 8px;
   color: var(--app-secondary-text);
   width: 520px;
+  max-height: 475px;
+  height: 100%;
   letter-spacing: 0.02em;
+  overflow: hidden;
   .heading {
     display: flex;
     justify-content: space-between;
@@ -15,21 +20,41 @@
       font-size: 18px;
       color: var(--app-primary-text);
     }
-    .close {
-    }
   }
   .search {
     padding: 1.5em 0;
     &__field {
       background-color: var(--app-message);
       width: 100%;
+      padding-right: 3rem;
     }
   }
 
   .body {
     border-top: 1px solid var(--app-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     .list {
-      padding: 1.5em 0;
+      padding: 1.5em 1em 0 0;
+      overflow: auto;
+      height: 100%;
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        border-radius: 100px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--app-border);
+        border-radius: 100px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: var(--app-gray);
+      }
       &__item {
         margin-bottom: 8px;
         .wrapper {
@@ -64,6 +89,9 @@
           }
         }
       }
+    }
+    .empty {
+      margin-top: 1rem;
     }
   }
 
