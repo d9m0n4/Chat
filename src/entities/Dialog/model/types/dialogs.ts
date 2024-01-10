@@ -27,14 +27,14 @@ export interface IDialog {
   unreadMessagesCount: number;
 }
 
-interface activeDialog {
+export interface IActiveDialog {
   id: number;
   partner: Partner;
 }
 
 export interface IDialogData extends EntityState<IDialog> {
   // dialogData: IDialog[];
-  activeDialog?: activeDialog;
+  activeDialog?: IActiveDialog | null;
   prevActiveDialogId?: number;
   searchValue: string;
   error?: string;

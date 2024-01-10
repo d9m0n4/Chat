@@ -29,7 +29,7 @@ export const Sidebar = () => {
 
   const handleResetActiveDialog = () => {
     if (activeDialog) {
-      dispatch(dialogActions.setActiveDialog());
+      dispatch(dialogActions.setActiveDialog(null));
     }
   };
 

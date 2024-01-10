@@ -8,7 +8,7 @@ import { IState } from 'app/providers/storeProvider/types/Store';
 import { IMessage } from 'entities/Message';
 
 import { fetchDialogs } from '../services/fetchDialogs';
-import { IDialog, IDialogData } from '../types/dialogs';
+import { IActiveDialog, IDialog, IDialogData } from '../types/dialogs';
 
 const dialogEntityAdapter = createEntityAdapter<IDialog>({
   selectId: (model: IDialog) => model.id,
@@ -42,11 +42,8 @@ export const dialogSlice = createSlice({
     filterDialogs: (state, action) => {
       dialogEntityAdapter.updateMany(state, action);
     },
-    setActiveDialog: (
-      state,
-      action: PayloadAction<{ id: number; partner: any } | undefined>
-    ) => {
-      state.activeDialog = action.payload;
+    setActiveDialog: (state, action: PayloadAction<IActiveDialog | null>) => {
+      state.activeDialog = action.payload ? action.payload : null;
       state.prevActiveDialogId = state.activeDialog?.id;
     },
     setSearchValue: (state, action) => {

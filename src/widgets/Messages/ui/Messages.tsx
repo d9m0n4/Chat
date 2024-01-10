@@ -81,13 +81,21 @@ export const Messages = () => {
   };
 
   useEffect(() => {
-    if (activeDialog) {
-      dispatch(fetchMessages(activeDialog?.id));
-      dispatch(updateMessagesStatus(activeDialog?.id));
-      dispatch(messagesActions.setPage(1));
-      setIsScrollDownActive(false);
+    dispatch(messagesActions.setPage(1));
+    setIsScrollDownActive(false);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!activeDialog) {
+      return;
     }
-  }, [activeDialog, dispatch]);
+    const promise = dispatch(fetchMessages(activeDialog.id));
+    const promise2 = dispatch(updateMessagesStatus(activeDialog?.id));
+    return () => {
+      promise.abort();
+      promise2.abort();
+    };
+  }, [activeDialog?.id]);
 
   return (
     <DynamicModuleLoader reducers={reducers}>

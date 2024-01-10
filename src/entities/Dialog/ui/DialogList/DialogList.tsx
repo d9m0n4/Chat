@@ -30,16 +30,18 @@ export const DialogList = () => {
   useEffect(() => {
     dispatch(fetchDialogs());
     return () => {
-      dispatch(dialogActions.setActiveDialog());
+      dispatch(dialogActions.setActiveDialog(null));
     };
   }, []);
 
   const setActiveDialog = ({ id, partner }: { id: number; partner: any }) => {
-    dispatch(dialogActions.setActiveDialog({ id, partner }));
-    if (prevActiveDialogId) {
-      socket?.emit('on_dialog_leave', { dialogId: prevActiveDialogId });
+    if (id !== prevActiveDialogId) {
+      dispatch(dialogActions.setActiveDialog({ id, partner }));
+      if (prevActiveDialogId) {
+        socket?.emit('on_dialog_leave', { dialogId: prevActiveDialogId });
+      }
+      socket?.emit('on_dialog_join', { dialogId: id });
     }
-    socket?.emit('on_dialog_join', { dialogId: id });
   };
 
   if (loading) {
