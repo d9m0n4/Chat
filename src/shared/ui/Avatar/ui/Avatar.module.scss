@@ -1,3 +1,8 @@
+.avatar__container {
+  border-radius: 50%;
+  overflow: hidden;
+
+}
 .avatar {
   border-radius: 50%;
   text-align: center;
@@ -5,14 +10,9 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   span {
     font-weight: 500;
     color: var(--app-primary-text);
-  }
-  &__image {
-    object-fit: cover;
-    display: block;
   }
 }
 

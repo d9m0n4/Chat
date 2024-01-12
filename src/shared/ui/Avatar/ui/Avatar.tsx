@@ -3,6 +3,8 @@ import React, { FC, HTMLAttributes } from 'react';
 import { generateAvatarColor } from 'shared/utils/generateAvatarColor/generateAvatarColor';
 import { getInitials } from 'shared/utils/getInitials/getInitials';
 
+import { AppImage } from '../../Image';
+import { Skeleton } from '../../Skeleton';
 import cls from './Avatar.module.scss';
 
 interface AvatarProps extends HTMLAttributes<HTMLImageElement> {
@@ -24,27 +26,39 @@ export const Avatar: FC<AvatarProps> = ({
   const color = name
     ? generateAvatarColor(getInitials(`${name} ${name.length}`))
     : 'red';
+
   return (
     <div
+      className={cls.avatar__container}
       onClick={onClick}
-      className={clsx(cls.avatar, className)}
       style={{
         maxWidth: `${width}px`,
         width: `${width}px`,
         height: `${width}px`,
-        background: `linear-gradient(#fff -95%, ${color})`,
       }}
     >
       {src ? (
-        <img
-          className={cls.avatar__image}
-          src={src}
-          width={width}
+        <AppImage
           height={width}
-          alt="avatar"
+          width={width}
+          className={className}
+          src={src}
+          fallback={
+            <Skeleton height={width} width={width} borderRadius={'50%'} />
+          }
         />
       ) : (
-        <span>{name && getInitials(name)}</span>
+        <div
+          className={clsx(cls.avatar, className)}
+          style={{
+            maxWidth: `${width}px`,
+            width: `${width}px`,
+            height: `${width}px`,
+            background: `linear-gradient(#fff -95%, ${color})`,
+          }}
+        >
+          {name && getInitials(name)}
+        </div>
       )}
     </div>
   );

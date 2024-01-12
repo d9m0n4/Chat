@@ -5,6 +5,7 @@ import { getActiveDialog } from 'entities/Dialog';
 import React, { FC, memo, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as Chevron } from 'shared/assets/icons/cheveron-down.svg';
+import { BASE_URL } from 'shared/config/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Avatar } from 'shared/ui/Avatar';
 import { Button } from 'shared/ui/Button';
@@ -48,7 +49,12 @@ export const Interlocutor: FC<InterlocutorProps> = memo(
     return (
       <div className={cls.interlocutor}>
         <div className={cls.info}>
-          <Avatar width={100} height={100} src={avatar} />
+          <Avatar
+            name={name}
+            width={100}
+            height={100}
+            src={avatar ? `${BASE_URL}${avatar}` : null}
+          />
           <div className={cls.name}>
             {name} {nickName}
           </div>

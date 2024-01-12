@@ -1,10 +1,7 @@
 import clsx from 'classnames';
-import { getMessagesState } from 'entities/Message';
 import { GroupedMessages } from 'entities/Message/model/types/Message';
-import React, { FC, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC, useEffect, useRef } from 'react';
 import { useInfiniteScroll } from 'shared/hooks/useInfiniteScroll/useInfiniteScroll';
-import { MessagesListLoading } from 'shared/ui/MessagesListLoading/MessagesListLoading';
 
 import cls from '../Messages.module.scss';
 import { MessagesGroup } from '../MessagesGroup/MessagesGroup';
@@ -26,11 +23,13 @@ export const MessagesList: FC<IMessagesList> = ({
   onScroll,
   isLoading,
 }) => {
-  if (!messages || Object.keys(messages).length < 0) {
+  if (!messages || Object.keys(messages).length < 1) {
     return (
-      <>
-        <p>У Вас еще нет сообщений</p>
-      </>
+      <div className={cls.empty}>
+        <p className={cls.empty__text}>
+          У Вас еще нет сообщений, начните диалог
+        </p>
+      </div>
     );
   }
 

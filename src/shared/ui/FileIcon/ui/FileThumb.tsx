@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { ReactComponent as FileIcon } from 'shared/assets/icons/doc.svg';
 import { BASE_URL } from 'shared/config/api/api';
 
+import { AppImage } from '../../Image';
+import { Skeleton } from '../../Skeleton';
 import cls from './FileThumb.module.scss';
 
 export interface FileIconProps {
@@ -23,11 +25,11 @@ export const FileThumb: FC<FileIconProps> = ({
   return (
     <>
       {isImage(ext) ? (
-        <img
-          width={`${width}px`}
+        <AppImage
           className={cls.file__image}
+          width={width}
           src={`${BASE_URL}${url}`}
-          alt={name}
+          fallback={<Skeleton width={width} height={width} borderRadius={8} />}
         />
       ) : (
         <div className={cls.file}>

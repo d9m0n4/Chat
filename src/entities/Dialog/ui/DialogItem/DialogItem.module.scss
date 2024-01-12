@@ -46,6 +46,7 @@
     position: relative;
     .avatar {
       border: 2px solid var(--app-primary-bg);
+      border-radius: 50%;
     }
     .isOnline {
       position: absolute;

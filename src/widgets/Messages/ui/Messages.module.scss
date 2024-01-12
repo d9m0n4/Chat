@@ -66,6 +66,16 @@
   padding: 8px 0;
 }
 
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  &__text {
+    color: var(--app-primary-text);
+  }
+}
+
 @media screen and (max-width: 425px){
   .messages__wrapper {
     position: absolute;

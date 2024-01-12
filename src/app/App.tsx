@@ -1,5 +1,5 @@
 import { Theme } from 'features/ChangeTheme/ui/ThemeCard';
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { getAuthData } from '../entities/User/model/selectors/getUserData';
