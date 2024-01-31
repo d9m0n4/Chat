@@ -27,13 +27,11 @@ export const AppRouter = () => {
           <Route path={'dialogs'} element={<MainPage />}>
             <Route path={':id'} element={<Messages />} />
           </Route>
-        </Route>
-        {/*возможно тут следует сделать отдельный Layout*/}
-        <Route element={<Layout />}>
           <Route path="favorites" element={<FavoritesPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="profile" element={<ProfilePage />} />
         </Route>
+        {/*возможно тут следует сделать отдельный Layout*/}
       </Route>
     </Routes>
   );

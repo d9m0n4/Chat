@@ -1,14 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { ChatHeader } from 'widgets/ChatHeader';
 
-import {
-  dialogActions,
-  getDialogs,
-} from '../../entities/Dialog/model/slices/dialogSlice';
+import { dialogActions } from '../../entities/Dialog/model/slices/dialogSlice';
 import { messagesActions } from '../../entities/Message/model/slices/messageSlice';
 import { Notifications } from '../../entities/Notifications';
 import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
@@ -34,12 +30,12 @@ export const Layout = () => {
       ids.forEach((id) => setUserOnline(id));
       console.log(ids);
     });
-    socket?.on('online', setUserOnline);
-    socket?.on('offline', setUserOffline);
+    socket?.on('set_friend_online', setUserOnline);
+    socket?.on('set_friend_offline', setUserOffline);
 
     return () => {
-      socket?.off('online', setUserOnline);
-      socket?.off('offline', setUserOffline);
+      socket?.off('set_friend_online', setUserOnline);
+      socket?.off('set_friend_offline', setUserOffline);
       socket?.off('friends_online');
     };
   }, [socket]);

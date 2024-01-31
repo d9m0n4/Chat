@@ -104,7 +104,7 @@ export const dialogSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchDialogs.fulfilled, (state, action) => {
-        dialogEntityAdapter.setAll(state, action.payload);
+        dialogEntityAdapter.addMany(state, action.payload);
         state.loading = false;
       })
       .addCase(fetchDialogs.pending, (state) => {

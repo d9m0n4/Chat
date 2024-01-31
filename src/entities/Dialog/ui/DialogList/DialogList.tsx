@@ -58,7 +58,7 @@ export const DialogList = () => {
                 myId={user?.id}
                 isActive={dialog.id === currentDialog?.id}
                 {...dialog}
-                isOnline={dialog.partner.isOnline}
+                isOnline={dialog.partner ? dialog.partner.isOnline : false}
                 onClick={() =>
                   setActiveDialog({ id: dialog.id, partner: dialog.partner })
                 }

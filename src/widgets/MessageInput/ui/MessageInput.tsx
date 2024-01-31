@@ -12,6 +12,7 @@ import React, {
 import { useSelector } from 'react-redux';
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
+import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { Button } from 'shared/ui/Button';
 
@@ -33,6 +34,13 @@ export const MessageInput = memo(() => {
 
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState<File[] | null>(null);
+
+  const stopTyping = useDebounce(() => {
+    socket?.emit('on_stop_typing_message', {
+      partner: partner?.id,
+      dialog: dialog?.id,
+    });
+  }, 1000);
 
   const handleChangeEmoji = useCallback((emoji: string) => {
     if (inputDiv.current) {
@@ -66,11 +74,7 @@ export const MessageInput = memo(() => {
         partner: partner?.id,
         dialog: dialog?.id,
       });
-    } else {
-      socket?.emit('on_stop_typing_message', {
-        partner: partner?.id,
-        dialog: dialog?.id,
-      });
+      stopTyping();
     }
   };
 
