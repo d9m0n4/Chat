@@ -2,7 +2,19 @@
   width: 155px;
   height: 90px;
   border-radius: 0.5em;
-  background-color: var(--app-secondary-bg);
+
   box-shadow: var(--app-message-shadow);
   cursor: pointer;
+}
+
+.default {
+  background-color: #F8F9FF;
+}
+
+.dark {
+  background-color: #353E65;
+}
+
+.dark_g {
+  background-color: #1B2240;
 }

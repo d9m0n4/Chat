@@ -52,15 +52,19 @@ export const dialogSlice = createSlice({
 
     setUserOnline: (state, action) => {
       const { userId, isOnline } = action.payload;
-      const dialog = Object.values(state.entities).find(
-        (dialog) => dialog?.partner.id === userId
-      );
+      if (state.ids.length > 0) {
+        const dialog = Object.values(state.entities).find(
+          (dialog) => dialog?.partner.id === userId
+        );
 
-      if (dialog) {
-        dialogEntityAdapter.updateOne(state, {
-          id: dialog.id,
-          changes: { partner: { ...dialog.partner, isOnline: isOnline } },
-        });
+        console.log(dialog);
+
+        if (dialog) {
+          dialogEntityAdapter.updateOne(state, {
+            id: dialog.id,
+            changes: { partner: { ...dialog.partner, isOnline: isOnline } },
+          });
+        }
       }
     },
 

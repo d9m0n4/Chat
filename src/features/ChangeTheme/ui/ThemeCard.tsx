@@ -1,26 +1,26 @@
 import clsx from 'classnames';
 import React, { useEffect, useState } from 'react';
 
+import { Theme, defaultTheme } from '../consts/themes';
 import cls from './ThemeCard.module.scss';
 
-export enum Theme {
-  DEFAULT = 'default',
-  DARK = 'dark',
-}
-
-const defaultTheme = Theme.DEFAULT;
-
-export const ThemeCard = ({ themeName }: { themeName: string }) => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || defaultTheme);
-
+export const ThemeCard = ({
+  themeName,
+  classname,
+}: {
+  themeName: Theme;
+  classname?: string;
+}) => {
+  console.log(themeName);
   const changeTheme = () => {
-    setTheme((prev) => (prev === Theme.DARK ? Theme.DEFAULT : Theme.DARK));
+    document.documentElement.setAttribute('data-theme', themeName);
+    localStorage.setItem('theme', themeName);
   };
 
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  return <div className={clsx(cls.theme__card, cls[themeName])} onClick={changeTheme} />;
+  return (
+    <div
+      className={clsx(cls.theme__card, classname && cls[classname])}
+      onClick={changeTheme}
+    />
+  );
 };

@@ -1,13 +1,8 @@
-import { Theme } from 'features/ChangeTheme/ui/ThemeCard';
-import { useEffect, useLayoutEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useLayoutEffect } from 'react';
 
-import { getAuthData } from '../entities/User/model/selectors/getUserData';
-import { useAppDispatch } from '../shared/hooks/useAppDispatch/useAppDispatch';
+import { defaultTheme } from '../features/ChangeTheme/consts/themes';
 import { AppRouter } from './providers/routerProvider';
 import './styles/index.scss';
-
-const defaultTheme = Theme.DEFAULT;
 
 function App() {
   const theme = localStorage.getItem('theme') || defaultTheme;

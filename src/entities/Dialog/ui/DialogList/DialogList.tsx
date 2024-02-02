@@ -1,10 +1,9 @@
 import { IState } from 'app/providers/storeProvider/types/Store';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
-import { Skeleton } from 'shared/ui/Skeleton';
 
 import {
   getActiveDialog,
@@ -34,6 +33,26 @@ export const DialogList = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const setUserOnline = (user: number) => {
+      dispatch(dialogActions.setUserOnline({ userId: user, isOnline: true }));
+    };
+    const setUserOffline = (user: number) => {
+      dispatch(dialogActions.setUserOnline({ userId: user, isOnline: false }));
+    };
+    socket?.on('friends_online', (ids: number[]) => {
+      ids.forEach((id) => setUserOnline(id));
+    });
+    socket?.on('set_friend_online', setUserOnline);
+    socket?.on('set_friend_offline', setUserOffline);
+
+    return () => {
+      socket?.off('set_friend_online', setUserOnline);
+      socket?.off('set_friend_offline', setUserOffline);
+      socket?.off('friends_online');
+    };
+  }, [socket]);
+
   const setActiveDialog = ({ id, partner }: { id: number; partner: any }) => {
     if (id !== prevActiveDialogId) {
       dispatch(dialogActions.setActiveDialog({ id, partner }));
@@ -58,7 +77,7 @@ export const DialogList = () => {
                 myId={user?.id}
                 isActive={dialog.id === currentDialog?.id}
                 {...dialog}
-                isOnline={dialog.partner ? dialog.partner.isOnline : false}
+                isOnline={dialog.partner.isOnline}
                 onClick={() =>
                   setActiveDialog({ id: dialog.id, partner: dialog.partner })
                 }
