@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 240px;
+  .title {
+    color: var(--app-primary-text);
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .submit-error {
+    text-align: justify;
+    color: var(--app-primary-text);
+  }
+  .next-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: .875rem;
+    margin-top: 1rem;
+    color: var(--app-primary-text);
+    .link {
+      color: var(--app-accent);
+      margin-top: .5rem;
+      font-size: 1rem;
+    }
+  }
+}
+

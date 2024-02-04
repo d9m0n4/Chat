@@ -1,16 +1,4 @@
-.wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1em;
-  max-width: 240px;
-  .title {
-    color: var(--app-primary-text);
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  .form {
+.form {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -42,8 +30,4 @@
       }
     }
   }
-  .submit-error {
-    text-align: justify;
-    color: var(--app-primary-text);
-  }
-}
+

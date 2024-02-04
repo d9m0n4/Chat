@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-import { userActions } from 'entities/User/model/slices/userSlice';
-import { IUserData } from 'entities/User/model/types/user';
-import { api } from 'shared/config/api/api';
+
+import { userActions } from '../../../../entities/User/model/slices/userSlice';
+import { IUserData } from '../../../../entities/User/model/types/user';
+import { api } from '../../../../shared/config/api/api';
 
 interface LoginData {
   nickName: string;
