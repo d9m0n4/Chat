@@ -1,10 +1,7 @@
-import { AxiosError } from 'axios';
-import { userActions } from 'entities/User/model/slices/userSlice';
-import { IUserData } from 'entities/User/model/types/user';
 import React, { FC } from 'react';
-import { api } from 'shared/config/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 
+import { login } from '../model/services/Login';
 import { schema } from '../model/validators/loginFormValidator';
 import { AuthForm } from './AuthForm/AuthForm';
 
@@ -22,15 +19,7 @@ export const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
 
   const onSubmitForm = async (data: LoginData) => {
-    try {
-      const { data: UserData } = await api.post<IUserData>('auth/signIn', data);
-      localStorage.setItem('jwt', UserData.accessToken);
-      await dispatch(userActions.setAuthData(UserData));
-    } catch (e) {
-      if (e && e instanceof AxiosError) {
-        console.log(e);
-      }
-    }
+    dispatch(login(data));
   };
   return (
     <AuthForm

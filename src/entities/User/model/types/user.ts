@@ -5,13 +5,8 @@ export interface IUser {
   nickName: string;
 }
 
-export interface IUserData extends IUser {
-  refreshToken: string;
-  accessToken: string;
-}
-
-export interface AuthData {
-  authData?: IUser;
+export interface IUserState {
+  user?: IUser;
   isLoading?: boolean;
   isAuth: boolean;
 }

@@ -9,13 +9,15 @@ import { IAttachmentsState } from 'entities/ChatAttachment';
 import { IDialogData } from 'entities/Dialog';
 import { IMessageContextMenu, IMessagesData } from 'entities/Message';
 import { INotifications } from 'entities/Notifications';
-import { AuthData } from 'entities/User';
+import { IUserState } from 'entities/User';
+import { AuthState } from 'features/Auth';
 import { ICreateDialog } from 'features/CreateDialog';
 import { IModalState } from 'features/DeleteMessage';
 import { IRightBarState } from 'features/ToggleRightBar';
 
 export interface IState {
-  auth: AuthData;
+  auth: AuthState;
+  user: IUserState;
   dialogs: IDialogData;
   messages: IMessagesData;
   attachments: IAttachmentsState;

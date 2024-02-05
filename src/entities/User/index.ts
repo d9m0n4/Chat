@@ -1,2 +1,2 @@
-export { getUserData } from './model/selectors/getUserData';
-export type { AuthData } from './model/types/user';
+export { getUserState } from './model/selectors/getUserData';
+export type { IUserState } from './model/types/user';

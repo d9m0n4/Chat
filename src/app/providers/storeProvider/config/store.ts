@@ -8,13 +8,15 @@ import { attachmentsReducer } from 'entities/ChatAttachment/model/slices/attachm
 import { dialogReducers } from 'entities/Dialog/model/slices/dialogSlice';
 import { messagesReducer } from 'entities/Message/model/slices/messageSlice';
 import { userReducer } from 'entities/User/model/slices/userSlice';
+import { authReducer } from 'features/Auth/model/slices/authSlice';
 
 import { IState } from '../types/Store';
 import { createReducerManager } from './reducerManager';
 
 export const createStore = () => {
   const rootReducers: ReducersMapObject<IState> = {
-    auth: userReducer,
+    auth: authReducer,
+    user: userReducer,
     dialogs: dialogReducers,
     messages: messagesReducer,
     attachments: attachmentsReducer,

@@ -1,6 +1,6 @@
 import { notificationActions } from 'entities/Notifications';
 import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
-import { getAuthData } from 'entities/User/model/selectors/getUserData';
+import { getUserState } from 'entities/User/model/selectors/getUserData';
 import { updateUserInfo } from 'entities/User/model/services/updateUserInfo';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -21,10 +21,10 @@ const reducers: ReducersList = {
   notifications: notificationReducer,
 };
 export const EditProfile = () => {
-  const { authData, isLoading } = useSelector(getAuthData);
+  const { isLoading, user } = useSelector(getUserState);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [name, setName] = useState(authData?.name || '');
-  const [nickName, setNickName] = useState(authData?.nickName || '');
+  const [name, setName] = useState(user?.name || '');
+  const [nickName, setNickName] = useState(user?.nickName || '');
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -64,11 +64,11 @@ export const EditProfile = () => {
   };
 
   useEffect(() => {
-    if (authData) {
-      setName(authData.name || '');
-      setNickName(authData.nickName || '');
+    if (user) {
+      setName(user.name || '');
+      setNickName(user.nickName || '');
     }
-  }, [authData]);
+  }, [user]);
 
   return (
     <DynamicModuleLoader reducers={reducers}>
@@ -97,13 +97,13 @@ export const EditProfile = () => {
               src={
                 avatarUrl
                   ? avatarUrl
-                  : authData?.avatar
-                  ? `${BASE_URL}${authData.avatar}`
+                  : user?.avatar
+                  ? `${BASE_URL}${user.avatar}`
                   : null
               }
               onClick={() => inputRef.current?.click()}
               className={cls.profile__avatar}
-              name={authData?.name}
+              name={user?.name}
             />
           </>
         )}

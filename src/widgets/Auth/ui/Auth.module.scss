@@ -4,14 +4,15 @@
   justify-content: center;
   flex-direction: column;
   max-width: 240px;
+  gap: 1rem;
   .title {
     color: var(--app-primary-text);
     font-size: 1.2em;
     font-weight: bold;
-    margin-bottom: 1rem;
+
   }
   .submit-error {
-    text-align: justify;
+    text-align: center;
     color: var(--app-primary-text);
   }
   .next-form {
@@ -19,7 +20,7 @@
     flex-direction: column;
     align-items: center;
     font-size: .875rem;
-    margin-top: 1rem;
+
     color: var(--app-primary-text);
     .link {
       color: var(--app-accent);

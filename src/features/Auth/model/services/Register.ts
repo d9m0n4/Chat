@@ -4,17 +4,16 @@ import { ValidationErrors } from 'shared/config/api';
 import { api } from 'shared/config/api/api';
 
 import { ApiError, IUserData } from '../types/auth';
-import { LoginData } from '../types/login';
+import { RegisterData } from '../types/register';
 
-export const login = createAsyncThunk<
+export const register = createAsyncThunk<
   IUserData,
-  LoginData,
+  RegisterData,
   { rejectValue: ApiError | undefined }
->('login', async (formData: LoginData, thunkAPI) => {
+>('login', async (formData: RegisterData, thunkAPI) => {
   const { rejectWithValue } = thunkAPI;
   try {
-    const { data } = await api.post<IUserData>('auth/signIn', formData);
-    localStorage.setItem('jwt', data.accessToken);
+    const { data } = await api.post<IUserData>('auth/signUp', formData);
     return data;
   } catch (e) {
     if (axios.isAxiosError(e)) {

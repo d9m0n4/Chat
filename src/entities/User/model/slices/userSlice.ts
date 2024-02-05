@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchUserData } from '../services/fetchUserData';
 import { updateUserInfo } from '../services/updateUserInfo';
-import { AuthData } from '../types/user';
+import { IUserState } from '../types/user';
 
-const initialState: AuthData = {
-  authData: undefined,
+const initialState: IUserState = {
+  user: undefined,
   isAuth: !!localStorage.getItem('jwt'),
 };
 export const userSlice = createSlice({
@@ -13,13 +13,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setAuthData: (state, action) => {
-      state.authData = action.payload;
+      state.user = action.payload;
       state.isAuth = true;
     },
     logout: (state) => {
       localStorage.removeItem('jwt');
       document.cookie = '';
-      state.authData = undefined;
+      state.user = undefined;
       state.isAuth = false;
     },
     setIsAuth: (state, action) => {
@@ -29,7 +29,7 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserData.fulfilled, (state, action) => {
-        state.authData = action.payload;
+        state.user = action.payload;
         state.isLoading = false;
         state.isAuth = true;
       })
@@ -37,12 +37,12 @@ export const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchUserData.rejected, (state) => {
-        state.authData = undefined;
+        state.user = undefined;
         state.isLoading = false;
         state.isAuth = false;
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
-        state.authData = action.payload;
+        state.user = action.payload;
         state.isAuth = true;
         state.isLoading = false;
       })

@@ -3,7 +3,7 @@ import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartn
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { messagesActions } from 'entities/Message/model/slices/messageSlice';
 import { IMessage } from 'entities/Message/model/types/Message';
-import { getUserData } from 'entities/User/model/selectors/getUserData';
+import { getUserState } from 'entities/User/model/selectors/getUserData';
 import { getRightBarState } from 'features/ToggleRightBar/model/selectors/getRightBarState';
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ export const MainPage: FC = () => {
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
   const activeDialog = useSelector(getActiveDialog);
-  const user = useSelector(getUserData);
+  const { user } = useSelector(getUserState);
   const isRightBarOpened = useSelector(getRightBarState);
 
   useEffect(() => {

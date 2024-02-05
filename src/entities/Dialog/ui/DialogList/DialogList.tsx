@@ -22,7 +22,7 @@ export const DialogList = () => {
   const { loading } = useSelector(getDialogsState);
   const currentDialog = useSelector(getActiveDialog);
   const prevActiveDialogId = useSelector(getPrevActiveDialog);
-  const user = useSelector((state: IState) => state.auth.authData); // убрать!!!!!!!
+  const user = useSelector((state: IState) => state.user.user); // убрать!!!!!!!
   const { socket } = useSocket();
   const dispatch = useAppDispatch();
 

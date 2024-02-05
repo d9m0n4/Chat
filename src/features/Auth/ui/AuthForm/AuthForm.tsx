@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'classnames';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   Controller,
   FieldError,
@@ -34,10 +34,14 @@ export const AuthForm: FC<AuthFormProps<any>> = ({
     reset,
     handleSubmit,
     control,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid, isSubmitting, isSubmitSuccessful },
   } = useForm<FieldValues>({ mode: 'onChange', resolver: yupResolver(schema) });
 
-  console.log(errors);
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [reset, isSubmitSuccessful]);
 
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmitForm)}>
@@ -53,7 +57,13 @@ export const AuthForm: FC<AuthFormProps<any>> = ({
                 )}
                 {...field}
                 placeholder={propsField.placeholder}
-                type={propsField.type}
+                type={
+                  propsField.type === 'password'
+                    ? isPasswordShown
+                      ? 'text'
+                      : 'password'
+                    : 'text'
+                }
                 after={
                   propsField.type === 'password' &&
                   (isPasswordShown ? (

@@ -7,7 +7,7 @@ import { updateMessagesStatus } from 'entities/Message/model/services/updateMess
 import { messageContextMenuReducer } from 'entities/Message/model/slices/messageContextMenuSlice';
 import { messagesActions } from 'entities/Message/model/slices/messageSlice';
 import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
-import { getUserData } from 'entities/User';
+import { getUserState } from 'entities/User/model/selectors/getUserData';
 import { MessageManagement } from 'features/MessageManagement';
 import { rightBarReducer } from 'features/ToggleRightBar/model/slices/toggleRightBar';
 import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
@@ -32,7 +32,7 @@ const reducers: ReducersList = {
 
 export const Messages = () => {
   const [isScrollDownActive, setIsScrollDownActive] = useState(false);
-  const user = useSelector(getUserData);
+  const { user } = useSelector(getUserState);
   const messages = useSelector(getMessages);
   const activeDialog = useSelector(getActiveDialog);
   const dispatch = useAppDispatch();

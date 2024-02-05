@@ -29,7 +29,7 @@ export const AppRouter = () => {
             </SocketProvider>
           }
         >
-          <Route path={'*'} element={<Navigate to={'/'} />} />
+          <Route path={'*'} element={<Navigate to={'/dialogs'} />} />
           <Route path={'/'} element={<Navigate to={'dialogs'} />} />
           <Route path={'dialogs'} element={<MainPage />}>
             <Route path={':id'} element={<Messages />} />
@@ -38,7 +38,6 @@ export const AppRouter = () => {
           <Route path="settings" element={<SettingsPage />} />
           <Route path="profile" element={<ProfilePage />} />
         </Route>
-        {/*возможно тут следует сделать отдельный Layout*/}
       </Route>
     </Routes>
   );

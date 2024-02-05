@@ -1,4 +1,4 @@
-import { getUserData } from 'entities/User';
+import { getIsAuthState } from 'features/Auth/model/selectors/getAuthState';
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
@@ -7,14 +7,14 @@ import { ReactComponent as Logo } from 'shared/assets/icons/logo.svg';
 import cls from './AuthPage.module.scss';
 
 export const AuthPage: FC = () => {
-  const user = useSelector(getUserData);
+  const isAuth = useSelector(getIsAuthState);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (isAuth) {
       navigate('/');
     }
-  }, [user]);
+  }, [isAuth]);
 
   return (
     <div className={cls.auth}>

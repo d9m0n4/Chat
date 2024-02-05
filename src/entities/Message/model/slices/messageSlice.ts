@@ -99,7 +99,7 @@ export const messagesSlice = createSlice({
       .addCase(
         deleteMessage.fulfilled,
         (state, action: PayloadAction<IDeleteMessagePayload>) => {
-          // messagesSlice.caseReducers.deleteMessage(state, action);
+          messagesSlice.caseReducers.deleteMessage(state, action);
           state.loading = false;
         }
       )

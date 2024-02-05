@@ -1,7 +1,5 @@
 import { GroupedMessages } from 'entities/Message/model/types/Message';
-import { getUserData } from 'entities/User';
 import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { api } from 'shared/config/api/api';
 import { MessagesList } from 'widgets/Messages';
 import { PageContainer } from 'widgets/PageContainer';

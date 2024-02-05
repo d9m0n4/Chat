@@ -1,7 +1,7 @@
 import { getDialogsState } from 'entities/Dialog/model/selectors/getDialogs';
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
-import { getUserData } from 'entities/User';
-import { userActions } from 'entities/User/model/slices/userSlice';
+import { getUserState } from 'entities/User/model/selectors/getUserData';
+import { authActions } from 'features/Auth/model/slices/authSlice';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -20,10 +20,11 @@ import cls from './Sidebar.module.scss';
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
-  const userData = useSelector(getUserData);
+  const { user } = useSelector(getUserState);
   const { activeDialog } = useSelector(getDialogsState);
+
   const handleLogout = () => {
-    dispatch(userActions.logout());
+    dispatch(authActions.logout());
     socket?.disconnect();
   };
 
@@ -38,8 +39,8 @@ export const Sidebar = () => {
       <div className={cls.user}>
         <NavLink to={'/profile'}>
           <Avatar
-            src={userData?.avatar && `${BASE_URL}${userData.avatar}`}
-            name={userData?.name}
+            src={user?.avatar && `${BASE_URL}${user.avatar}`}
+            name={user?.name}
           />
         </NavLink>
       </div>
