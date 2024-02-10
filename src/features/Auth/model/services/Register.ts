@@ -10,7 +10,7 @@ export const register = createAsyncThunk<
   IUserData,
   RegisterData,
   { rejectValue: ApiError | undefined }
->('login', async (formData: RegisterData, thunkAPI) => {
+>('register', async (formData: RegisterData, thunkAPI) => {
   const { rejectWithValue } = thunkAPI;
   try {
     const { data } = await api.post<IUserData>('auth/signUp', formData);

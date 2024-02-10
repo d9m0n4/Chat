@@ -1,7 +1,7 @@
 import clsx from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { Theme, defaultTheme } from '../consts/themes';
+import { Theme } from '../consts/themes';
 import cls from './ThemeCard.module.scss';
 
 export const ThemeCard = ({
@@ -11,7 +11,6 @@ export const ThemeCard = ({
   themeName: Theme;
   classname?: string;
 }) => {
-  console.log(themeName);
   const changeTheme = () => {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('theme', themeName);

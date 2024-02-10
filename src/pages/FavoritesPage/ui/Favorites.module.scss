@@ -1,3 +1,26 @@
-.favorites {
+@import "app/styles/vars";
+
+.favorite-messages {
   display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 3em;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: $scrollBarWidth;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--app-border);
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--app-gray);
+  }
 }

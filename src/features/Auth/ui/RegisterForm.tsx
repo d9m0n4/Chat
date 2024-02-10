@@ -16,7 +16,7 @@ export const RegisterForm: FC = () => {
   const dispatch = useAppDispatch();
 
   const onSubmitForm = async (data: RegisterData) => {
-    dispatch(register(data));
+    await dispatch(register(data));
   };
 
   return (

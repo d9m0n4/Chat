@@ -18,10 +18,10 @@ import { IRightBarState } from 'features/ToggleRightBar';
 export interface IState {
   auth: AuthState;
   user: IUserState;
-  dialogs: IDialogData;
   messages: IMessagesData;
   attachments: IAttachmentsState;
 
+  dialogs?: IDialogData;
   rightBar?: IRightBarState;
   messageContextMenu?: IMessageContextMenu;
   modal?: IModalState;

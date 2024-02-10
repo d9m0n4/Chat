@@ -1,1 +1,18 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  &__theme {
+    display: flex;
+    gap: 2rem;
+  }
+}
 
+@media screen and (max-width: 425px){
+  .settings {
+    &__theme {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+}

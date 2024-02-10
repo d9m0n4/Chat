@@ -9,7 +9,7 @@ import {
   getActiveDialog,
   getPrevActiveDialog,
 } from '../../model/selectors/getActiveDialog';
-import { getDialogsState } from '../../model/selectors/getDialogs';
+import { isDialogLoading } from '../../model/selectors/getDialogs';
 import { getFilteredDialogs } from '../../model/selectors/getFilteredDialogs';
 import { fetchDialogs } from '../../model/services/fetchDialogs';
 import { dialogActions } from '../../model/slices/dialogSlice';
@@ -19,7 +19,7 @@ import cls from './DialogList.module.scss';
 
 export const DialogList = () => {
   const dialogs = useSelector(getFilteredDialogs);
-  const { loading } = useSelector(getDialogsState);
+  const loading = useSelector(isDialogLoading);
   const currentDialog = useSelector(getActiveDialog);
   const prevActiveDialogId = useSelector(getPrevActiveDialog);
   const user = useSelector((state: IState) => state.user.user); // убрать!!!!!!!

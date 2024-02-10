@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IRightBarState } from '../types/rightBar';
 
 const initialState: IRightBarState = {
-  isOpen: false,
+  isOpen: true,
 };
 export const ToggleRightBar = createSlice({
   name: 'rightBar',

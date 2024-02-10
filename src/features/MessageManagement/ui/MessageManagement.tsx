@@ -49,8 +49,16 @@ export const MessageManagement = () => {
   const handleAddToFavorites = async () => {
     try {
       if (messageId) {
-        await api.post('/messages/favorites', { message: messageId });
-        dispatch(notificationActions.setNotification({ message: 'Готово!' }));
+        const response = await api.post('/messages/favorites', {
+          message: messageId,
+        });
+        if (response.data.status === 400) {
+          dispatch(
+            notificationActions.setNotification({
+              message: response.data.message,
+            })
+          );
+        }
       }
     } catch (e) {
       console.log(e);
@@ -59,8 +67,8 @@ export const MessageManagement = () => {
   };
 
   const contextMenuOptions = {
-    Удалить: handleDeleteMessage,
     'Добавить в избранное': handleAddToFavorites,
+    'Удалить ': handleDeleteMessage,
   };
 
   return (

@@ -1,4 +1,4 @@
-import { getActiveDialog } from 'entities/Dialog';
+import { dialogReducers, getActiveDialog } from 'entities/Dialog';
 import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { messagesActions } from 'entities/Message/model/slices/messageSlice';
@@ -10,8 +10,14 @@ import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
+import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { ReducersList } from 'shared/types/Store';
 import { Dialogs } from 'widgets/Dialogs';
 import { Interlocutor } from 'widgets/Interlocutor';
+
+const reducers: ReducersList = {
+  dialogs: dialogReducers,
+};
 
 export const MainPage: FC = () => {
   const partner = useSelector(getDialogPartner);
@@ -29,6 +35,9 @@ export const MainPage: FC = () => {
       dispatch(dialogActions.updateLastMessage(message));
       dispatch(
         dialogActions.updateUnreadMessagesCount({ message, userId: user?.id })
+      );
+      dispatch(
+        dialogActions.setUserOnline({ userId: message.user.id, isOnline: true })
       );
     });
 
@@ -72,28 +81,30 @@ export const MainPage: FC = () => {
 
   return (
     <div className="main-section">
-      <Dialogs />
-      <div className={'main-section__content'}>
-        {!activeDialog && (
-          <p className="main-section__content--empty">
-            Выберите, кому бы Вы хотели написать
-          </p>
-        )}
-        <Outlet />
-      </div>
-      {partner && (
-        <>
-          {isRightBarOpened && (
-            <Interlocutor
-              id={partner?.id}
-              name={partner?.name}
-              avatar={partner?.avatar}
-              nickName={partner?.nickName}
-              isOnline={partner.isOnline}
-            />
+      <DynamicModuleLoader reducers={reducers}>
+        <Dialogs />
+        <div className={'main-section__content'}>
+          {!activeDialog && (
+            <p className="main-section__content--empty">
+              Выберите, кому бы Вы хотели написать
+            </p>
           )}
-        </>
-      )}
+          <Outlet />
+        </div>
+        {partner && (
+          <>
+            {isRightBarOpened && (
+              <Interlocutor
+                id={partner?.id}
+                name={partner?.name}
+                avatar={partner?.avatar}
+                nickName={partner?.nickName}
+                isOnline={partner.isOnline}
+              />
+            )}
+          </>
+        )}
+      </DynamicModuleLoader>
     </div>
   );
 };

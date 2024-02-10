@@ -36,3 +36,10 @@
     opacity: 1;
   }
 }
+
+
+@media screen and (max-width: 425px){
+  .modal {
+    padding: .5rem;
+  }
+}

@@ -8,5 +8,4 @@ export interface IUser {
 export interface IUserState {
   user?: IUser;
   isLoading?: boolean;
-  isAuth: boolean;
 }

@@ -1,5 +1,8 @@
 import { DialogList } from 'entities/Dialog';
-import { getDialogsState } from 'entities/Dialog/model/selectors/getDialogs';
+import {
+  getDialogsState,
+  isDialogLoading,
+} from 'entities/Dialog/model/selectors/getDialogs';
 import {
   dialogActions,
   getDialogs,
@@ -19,7 +22,7 @@ export const Dialogs = () => {
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
   const dialogs = useSelector(getDialogs.selectTotal);
-  const { loading } = useSelector(getDialogsState);
+  const loading = useSelector(isDialogLoading);
 
   useEffect(() => {
     socket?.on('dialog_created', (payload) => {

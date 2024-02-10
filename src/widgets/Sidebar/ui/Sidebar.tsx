@@ -1,4 +1,4 @@
-import { getDialogsState } from 'entities/Dialog/model/selectors/getDialogs';
+import { getActiveDialog } from 'entities/Dialog';
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { getUserState } from 'entities/User/model/selectors/getUserData';
 import { authActions } from 'features/Auth/model/slices/authSlice';
@@ -21,7 +21,7 @@ export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
   const { user } = useSelector(getUserState);
-  const { activeDialog } = useSelector(getDialogsState);
+  const activeDialog = useSelector(getActiveDialog);
 
   const handleLogout = () => {
     dispatch(authActions.logout());

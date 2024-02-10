@@ -9,7 +9,7 @@ export interface IUserData {
 
 export interface AuthState {
   isAuth: boolean;
-  error?: string;
+  message?: string;
   token?: string;
   isLoading: boolean;
 }

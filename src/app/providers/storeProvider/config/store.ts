@@ -17,7 +17,7 @@ export const createStore = () => {
   const rootReducers: ReducersMapObject<IState> = {
     auth: authReducer,
     user: userReducer,
-    dialogs: dialogReducers,
+    // dialogs: dialogReducers,
     messages: messagesReducer,
     attachments: attachmentsReducer,
   };

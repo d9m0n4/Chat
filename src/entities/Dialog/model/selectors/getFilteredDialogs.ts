@@ -3,7 +3,7 @@ import { IState } from 'app/providers/storeProvider/types/Store';
 
 import { getDialogs } from '../slices/dialogSlice';
 
-const getSearchValue = (state: IState) => state.dialogs.searchValue;
+const getSearchValue = (state: IState) => state.dialogs?.searchValue;
 
 export const getFilteredDialogs = createSelector(
   [getDialogs.selectAll, getSearchValue],

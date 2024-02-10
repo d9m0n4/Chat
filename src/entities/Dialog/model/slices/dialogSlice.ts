@@ -57,8 +57,6 @@ export const dialogSlice = createSlice({
           (dialog) => dialog?.partner.id === userId
         );
 
-        console.log(dialog);
-
         if (dialog) {
           dialogEntityAdapter.updateOne(state, {
             id: dialog.id,

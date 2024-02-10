@@ -23,9 +23,15 @@
 
     color: var(--app-primary-text);
     .link {
-      color: var(--app-accent);
+      color: var(--app-primary-text);
       margin-top: .5rem;
       font-size: 1rem;
+      opacity: .95;
+      &:hover {
+        transition: .250s ease;
+        font-weight: 500;
+        opacity: 1;
+      }
     }
   }
 }

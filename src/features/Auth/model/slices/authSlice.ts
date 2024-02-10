@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { login } from '../services/Login';
+import { register } from '../services/Register';
 import { AuthState } from '../types/auth';
 
 const initialState: AuthState = {
   isAuth: !!localStorage.getItem('jwt'),
-  error: undefined,
+  message: undefined,
   token: undefined,
   isLoading: false,
 };
@@ -33,13 +34,25 @@ export const authSlice = createSlice({
         state.token = accessToken;
         state.isAuth = true;
         state.isLoading = false;
-        state.error = undefined;
+        state.message = undefined;
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(login.rejected, (state, action) => {
-        state.error = action.payload?.message;
+        state.message = action.payload?.message;
+        state.isLoading = false;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        const { nickName } = action.payload;
+        state.isLoading = false;
+        state.message = `Пользователь ${nickName} зарегистрирован!`;
+      })
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.message = action.payload?.message;
         state.isLoading = false;
       });
   },
