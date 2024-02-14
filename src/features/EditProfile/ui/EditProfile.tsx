@@ -48,7 +48,9 @@ export const EditProfile = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('nickName', nickName);
-    formData.append('avatar', avatar);
+    if (avatar) {
+      formData.append('avatar', avatar);
+    }
 
     try {
       await dispatch(updateUserInfo(formData)).unwrap();
@@ -69,6 +71,8 @@ export const EditProfile = () => {
       setNickName(user.nickName || '');
     }
   }, [user]);
+
+  console.log(avatarUrl);
 
   return (
     <DynamicModuleLoader reducers={reducers}>

@@ -26,6 +26,9 @@ export const authSlice = createSlice({
     setIsAuth: (state, action) => {
       state.isAuth = action.payload;
     },
+    resetMessage: (state) => {
+      state.message = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder

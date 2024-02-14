@@ -8,6 +8,7 @@ import cls from './Auth.module.scss';
 
 export const Login = () => {
   const authMessage = useSelector(getAuthMessage);
+
   return (
     <div className={cls.wrapper}>
       <div className={cls.title}>Войти</div>
