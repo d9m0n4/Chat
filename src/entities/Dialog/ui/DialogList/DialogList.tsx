@@ -1,4 +1,4 @@
-import { IState } from 'app/providers/storeProvider/types/Store';
+import { getUserState } from 'entities/User';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,7 @@ export const DialogList = () => {
   const loading = useSelector(isDialogLoading);
   const currentDialog = useSelector(getActiveDialog);
   const prevActiveDialogId = useSelector(getPrevActiveDialog);
-  const user = useSelector((state: IState) => state.user.user); // убрать!!!!!!!
+  const { user } = useSelector(getUserState);
   const { socket } = useSocket();
   const dispatch = useAppDispatch();
 

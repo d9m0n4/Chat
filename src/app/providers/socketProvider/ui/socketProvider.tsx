@@ -22,29 +22,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       setIsConnected(true);
     });
 
-    if (socketInstance.recovered) {
-      console.log('was recovered');
-    } else {
-      console.log('new session');
-    }
-
-    socketInstance.on('disconnect', (reason, description) => {
-      setIsConnected(false);
-      // socket?.connect();
-      // socketInstance.connect();
-      // console.log('reason', reason, 'description', description);
-      // if (reason === 'transport close') {
-      //   console.log('adsda21');
-      //   socketInstance.connect();
-      // }
-    });
-
-    // socketInstance.on('connect_failed', function () {
-    //   console.log('connection failed. reconnecting...');
-    //   socket?.connect();
-    //   socketInstance?.connect();
-    // });
-
     setSocket(socketInstance);
     return () => {
       socketInstance.disconnect();

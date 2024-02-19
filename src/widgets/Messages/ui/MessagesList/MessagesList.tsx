@@ -23,6 +23,14 @@ export const MessagesList: FC<IMessagesList> = ({
   onScroll,
   isLoading,
 }) => {
+  const triggerElementRef = useRef<HTMLDivElement>(null);
+
+  useInfiniteScroll({
+    trigger: triggerElementRef,
+    root: containerRef,
+    callback: getHistory,
+  });
+
   if (!messages || Object.keys(messages).length < 1) {
     return (
       <div className={cls.empty}>
@@ -32,14 +40,6 @@ export const MessagesList: FC<IMessagesList> = ({
       </div>
     );
   }
-
-  const triggerElementRef = useRef<HTMLDivElement>(null);
-
-  useInfiniteScroll({
-    trigger: triggerElementRef,
-    root: containerRef,
-    callback: getHistory,
-  });
 
   return (
     <div
@@ -56,7 +56,9 @@ export const MessagesList: FC<IMessagesList> = ({
             userId={userId}
           />
         ))}
-        <div ref={triggerElementRef}></div>
+        {Object.keys(messages).length > 2 && (
+          <div ref={triggerElementRef}></div>
+        )}
       </div>
     </div>
   );

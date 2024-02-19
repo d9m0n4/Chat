@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, memo, useEffect, useState } from 'react';
+import React, { FC, memo } from 'react';
 import { BASE_URL } from 'shared/config/api/api';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { useTypingIndicator } from 'shared/hooks/useTypingIndicator/useTypingIndicator';

@@ -77,6 +77,12 @@
             .status {
               color: var(--app-online);
               font-size: 0.9em;
+              &--online {
+                color: var(--app-online);
+              }
+              &--offline {
+                color: var(--app-gray);
+              }
             }
             .button {
               font-size: 0.95em;

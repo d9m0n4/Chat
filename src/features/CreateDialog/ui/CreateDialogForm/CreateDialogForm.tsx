@@ -94,7 +94,17 @@ export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
                           <div className={cls.name}>{user.nickName}</div>
                         </div>
                         <div className={cls.info}>
-                          <div className={cls.status}>онлайн</div>
+                          <div className={cls.status}>
+                            {user.isOnline ? (
+                              <span className={cls['status--online']}>
+                                онлайн
+                              </span>
+                            ) : (
+                              <span className={cls['status--offline']}>
+                                оффлайн
+                              </span>
+                            )}
+                          </div>
                           <Button
                             className={cls.button}
                             onClick={() => handleCreateDialog(user.id)}

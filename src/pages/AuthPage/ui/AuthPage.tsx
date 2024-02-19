@@ -15,7 +15,6 @@ export const AuthPage: FC = () => {
   const isAuth = useSelector(getIsAuthState);
   const navigate = useNavigate();
   const authMessage = useSelector(getAuthMessage);
-
   const dispatch = useAppDispatch();
 
   if (authMessage) {

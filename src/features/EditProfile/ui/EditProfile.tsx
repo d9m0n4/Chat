@@ -72,8 +72,6 @@ export const EditProfile = () => {
     }
   }, [user]);
 
-  console.log(avatarUrl);
-
   return (
     <DynamicModuleLoader reducers={reducers}>
       <div className={cls.profile__info}>

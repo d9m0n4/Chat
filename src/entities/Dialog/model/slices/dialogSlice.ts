@@ -36,7 +36,6 @@ export const dialogSlice = createSlice({
   }),
   reducers: {
     addNewDialog: (state, action) => {
-      console.log(action.payload);
       dialogEntityAdapter.addOne(state, action.payload);
     },
     filterDialogs: (state, action) => {

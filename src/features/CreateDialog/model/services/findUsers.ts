@@ -6,6 +6,7 @@ export interface User {
   nickName: string;
   id: number;
   avatar: string | null;
+  isOnline: boolean;
 }
 export const findUsers = createAsyncThunk(
   'createDialog/fetchUsers',
