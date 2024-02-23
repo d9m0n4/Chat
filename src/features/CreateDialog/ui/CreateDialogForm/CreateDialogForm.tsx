@@ -1,8 +1,10 @@
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
+import { notificationActions } from 'entities/Notifications';
 import React, { FC, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Close } from 'shared/assets/icons/x.svg';
+import { BASE_URL } from 'shared/config/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
 import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
@@ -55,8 +57,10 @@ export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
         navigate(`/dialogs/${dialog.id}`);
         onClose();
       }
-    } catch (e) {
+    } catch (e: any) {
+      onClose();
       console.log(e);
+      dispatch(notificationActions.setNotification({ message: e }));
     }
   };
 
@@ -90,7 +94,12 @@ export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
                     <li key={user.id} className={cls.list__item}>
                       <div className={cls.wrapper}>
                         <div className={cls.user}>
-                          <Avatar width={40} height={40} />
+                          <Avatar
+                            width={40}
+                            height={40}
+                            name={user.name}
+                            src={user.avatar && `${BASE_URL}${user.avatar}`}
+                          />
                           <div className={cls.name}>{user.nickName}</div>
                         </div>
                         <div className={cls.info}>

@@ -1,8 +1,6 @@
 import { dialogReducers, getActiveDialog } from 'entities/Dialog';
 import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
-import { getDialogsState } from 'entities/Dialog/model/selectors/getDialogs';
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
-import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
 import { messagesActions } from 'entities/Message/model/slices/messageSlice';
 import { IMessage } from 'entities/Message/model/types/Message';
 import { getUserState } from 'entities/User/model/selectors/getUserData';
@@ -26,19 +24,11 @@ export const MainPage: FC = () => {
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
   const activeDialog = useSelector(getActiveDialog);
-  const dialogs = useSelector(getDialogsState);
   const { user } = useSelector(getUserState);
   const isRightBarOpened = useSelector(getRightBarState);
 
   useEffect(() => {
     socket?.on('message_created', (message: IMessage) => {
-      if (
-        !dialogs?.ids.includes(message.dialog.id) &&
-        user?.id !== message.user.id
-      ) {
-        console.log(message.dialog);
-        dispatch(dialogActions.addNewDialog(message.dialog)); // нужно получать созданный диалог
-      }
       dispatch(
         messagesActions.addNewMessage({ message, dialogId: activeDialog?.id })
       );

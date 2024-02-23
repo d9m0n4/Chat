@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { notificationActions } from 'entities/Notifications';
 import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
 import { getUserState } from 'entities/User/model/selectors/getUserData';
@@ -61,7 +62,11 @@ export const EditProfile = () => {
         })
       );
     } catch (e: any) {
-      dispatch(notificationActions.setNotification(e.message));
+      dispatch(
+        notificationActions.setNotification({
+          message: e,
+        })
+      );
     }
   };
 

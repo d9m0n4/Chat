@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { api } from 'shared/config/api/api';
 
 export const createDialog = createAsyncThunk(
@@ -6,10 +7,14 @@ export const createDialog = createAsyncThunk(
   async (partnerId: number, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const response = await api.post('dialogs', { partner: partnerId });
+      const response = await api.post('dialog', { partner: partnerId });
       return response.data;
     } catch (e) {
-      return rejectWithValue(e);
+      if (axios.isAxiosError(e)) {
+        return rejectWithValue(e.response?.data.message);
+      } else {
+        return new Error('Непредвиденная ошибка');
+      }
     }
   }
 );

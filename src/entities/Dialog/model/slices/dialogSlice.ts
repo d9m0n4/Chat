@@ -1,4 +1,3 @@
-import { d } from '@pmmmwh/react-refresh-webpack-plugin/types/options';
 import {
   PayloadAction,
   createEntityAdapter,
@@ -35,7 +34,7 @@ export const dialogSlice = createSlice({
     searchValue: '',
   }),
   reducers: {
-    addNewDialog: (state, action) => {
+    addNewDialog: (state, action: PayloadAction<IDialog>) => {
       dialogEntityAdapter.addOne(state, action.payload);
     },
     filterDialogs: (state, action) => {

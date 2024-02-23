@@ -1,11 +1,8 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
-import { ReducersList } from 'shared/types/Store';
 import { Notification } from 'shared/ui/Notification';
 
 import { getNotifications } from '../model/selectors/getNotifications';
-import { notificationReducer } from '../model/slices/notifications';
 import { INotification } from '../model/types/notification';
 import cls from './Notifications.module.scss';
 

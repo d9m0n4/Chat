@@ -33,7 +33,6 @@ export interface IActiveDialog {
 }
 
 export interface IDialogData extends EntityState<IDialog> {
-  // dialogData: IDialog[];
   activeDialog?: IActiveDialog | null;
   prevActiveDialogId?: number;
   searchValue: string;

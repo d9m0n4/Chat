@@ -9,11 +9,6 @@ interface FilePreviewerProps {
 }
 
 export const FilePreviewer: FC<FilePreviewerProps> = ({ files }) => {
-  files?.forEach((file) => {
-    const ext = file.name.split('.').pop();
-    console.log(ext);
-  });
-
   return (
     <div className={cls.filePreviewer}>
       {files &&

@@ -13,14 +13,15 @@ export const deleteMessage = createAsyncThunk(
   async ({ messageId, forAll }: deleteProps, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const response = await api.post(`messages/delete/${messageId}`, { deleteForEveryone: forAll });
+      const response = await api.post(`messages/delete/${messageId}`, {
+        deleteForEveryone: forAll,
+      });
       return response.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
         const axiosError = e as AxiosError<ValidationErrors>;
-        return rejectWithValue(axiosError.response?.data);
+        return rejectWithValue(axiosError.response?.data.message);
       }
-
       throw rejectWithValue(e);
     }
   }

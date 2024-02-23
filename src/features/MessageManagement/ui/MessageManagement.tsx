@@ -1,3 +1,4 @@
+import axios, { AxiosError } from 'axios';
 import { getContextMenuMessageId } from 'entities/Message/model/selectors/getContextMenuState';
 import { deleteMessage } from 'entities/Message/model/services/deleteMessage';
 import { messageContextMenuReducer } from 'entities/Message/model/slices/messageContextMenuSlice';
@@ -39,7 +40,7 @@ export const MessageManagement = () => {
           notificationActions.setNotification({ message: response.message })
         );
       } catch (e: any) {
-        dispatch(notificationActions.setNotification({ message: e.message }));
+        dispatch(notificationActions.setNotification({ message: e }));
       } finally {
         setIsModalShown((isShow) => !isShow);
       }
@@ -60,8 +61,16 @@ export const MessageManagement = () => {
           );
         }
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e)) {
+        dispatch(
+          notificationActions.setNotification({
+            message: e.response?.data.message,
+          })
+        );
+      } else {
+        console.error(e);
+      }
     }
     handleCloseContextMenu();
   };

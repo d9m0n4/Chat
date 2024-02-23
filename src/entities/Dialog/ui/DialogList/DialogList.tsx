@@ -13,6 +13,7 @@ import { isDialogLoading } from '../../model/selectors/getDialogs';
 import { getFilteredDialogs } from '../../model/selectors/getFilteredDialogs';
 import { fetchDialogs } from '../../model/services/fetchDialogs';
 import { dialogActions } from '../../model/slices/dialogSlice';
+import { IDialog } from '../../model/types/dialogs';
 import { DialogItem } from '../DialogItem/DialogItem';
 import { DialogListLoading } from '../DialogListLoading/DialogListLoading';
 import cls from './DialogList.module.scss';
@@ -40,6 +41,11 @@ export const DialogList = () => {
     const setUserOffline = (user: number) => {
       dispatch(dialogActions.setUserOnline({ userId: user, isOnline: false }));
     };
+
+    socket?.on('new_dialog_created', (dialog: IDialog) =>
+      dispatch(dialogActions.addNewDialog(dialog))
+    );
+
     socket?.on('friends_online', (ids: number[]) => {
       ids.forEach((id) => setUserOnline(id));
     });
@@ -50,6 +56,7 @@ export const DialogList = () => {
       socket?.off('set_friend_online', setUserOnline);
       socket?.off('set_friend_offline', setUserOffline);
       socket?.off('friends_online');
+      socket?.off('new_dialog_created');
     };
   }, [socket]);
 
