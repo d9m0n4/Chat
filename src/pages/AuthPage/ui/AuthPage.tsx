@@ -1,11 +1,9 @@
-import {
-  getAuthMessage,
-  getIsAuthState,
-} from 'features/Auth/model/selectors/getAuthState';
-import { authActions } from 'features/Auth/model/slices/authSlice';
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
+
+import { getAuthMessage, getIsAuthState } from 'features/Auth';
+import { authActions } from 'features/Auth/model/slices/authSlice';
 import { ReactComponent as Logo } from 'shared/assets/icons/logo.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 

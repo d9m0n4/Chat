@@ -2,20 +2,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .4rem;
+  gap: 0.4rem;
   &__image {
-
     object-fit: contain;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
   }
   &__icon {
     * {
-      stroke: var(--app-gray)
+      stroke: var(--app-gray);
     }
   }
   span {
     font-weight: 500;
     color: var(--app-gray);
   }
-
 }

@@ -23,10 +23,14 @@ export const AttachmentSlice = createSlice({
           state.error = null;
         }
       )
-      .addCase(getAttachmentByDialogId.rejected, (state) => {
-        state.attachments = undefined;
-        state.isLoading = false;
-        state.error = 'ошибка получения вложений';
+      .addCase(getAttachmentByDialogId.rejected, (state, action) => {
+        if (action.payload) {
+          state.error = action.payload?.message;
+          state.isLoading = false;
+        } else {
+          state.error = action.error.message;
+          state.isLoading = false;
+        }
       });
   },
 });

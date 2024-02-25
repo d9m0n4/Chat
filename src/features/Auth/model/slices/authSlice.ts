@@ -20,7 +20,6 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       localStorage.removeItem('jwt');
-      document.cookie = '';
       state.isAuth = false;
     },
     setIsAuth: (state, action) => {
@@ -43,8 +42,13 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(login.rejected, (state, action) => {
-        state.message = action.payload?.message;
-        state.isLoading = false;
+        if (action.payload) {
+          state.message = action.payload?.message;
+          state.isLoading = false;
+        } else {
+          state.message = action.error.message;
+          state.isLoading = false;
+        }
       })
       .addCase(register.fulfilled, (state, action) => {
         const { nickName } = action.payload;
@@ -55,8 +59,13 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(register.rejected, (state, action) => {
-        state.message = action.payload?.message;
-        state.isLoading = false;
+        if (action.payload) {
+          state.message = action.payload?.message;
+          state.isLoading = false;
+        } else {
+          state.message = action.error.message;
+          state.isLoading = false;
+        }
       });
   },
 });

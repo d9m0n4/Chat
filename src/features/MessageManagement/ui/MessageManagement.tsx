@@ -1,22 +1,18 @@
-import axios, { AxiosError } from 'axios';
-import { getContextMenuMessageId } from 'entities/Message/model/selectors/getContextMenuState';
-import { deleteMessage } from 'entities/Message/model/services/deleteMessage';
-import { messageContextMenuReducer } from 'entities/Message/model/slices/messageContextMenuSlice';
-import { notificationActions } from 'entities/Notifications/model/slices/notifications';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+
+import { SerializedError } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { getContextMenuMessageId } from 'entities/Message/model/selectors/getContextMenuState';
+import { deleteMessage } from 'entities/Message/model/services/deleteMessage';
+import { notificationActions } from 'entities/Notifications/model/slices/notifications';
 import { api } from 'shared/config/api/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useMessageContextMenu } from 'shared/hooks/useMessageContextMenu/useMessageContextMenu';
-import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
-import { ReducersList } from 'shared/types/Store';
 
 import { DeleteMessageModal } from '../../DeleteMessage';
 import { MessageContextMenu } from '../../MessageContextMenu';
 
-const reducers: ReducersList = {
-  messageContextMenu: messageContextMenuReducer,
-};
 export const MessageManagement = () => {
   const [isModalShown, setIsModalShown] = useState(false);
   const [id, setId] = useState<number | undefined>();
@@ -39,8 +35,9 @@ export const MessageManagement = () => {
         dispatch(
           notificationActions.setNotification({ message: response.message })
         );
-      } catch (e: any) {
-        dispatch(notificationActions.setNotification({ message: e }));
+      } catch (err) {
+        const e = err as SerializedError;
+        dispatch(notificationActions.setNotification({ message: e.message }));
       } finally {
         setIsModalShown((isShow) => !isShow);
       }

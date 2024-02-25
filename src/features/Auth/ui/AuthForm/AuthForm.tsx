@@ -1,5 +1,3 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import clsx from 'classnames';
 import React, { FC, useEffect, useState } from 'react';
 import {
   Controller,
@@ -8,22 +6,26 @@ import {
   SubmitHandler,
   useForm,
 } from 'react-hook-form';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import clsx from 'classnames';
 import { ReactComponent as Arrow } from 'shared/assets/icons/arrowR.svg';
 import { ReactComponent as EyeOff } from 'shared/assets/icons/eye-off.svg';
 import { ReactComponent as Eye } from 'shared/assets/icons/eye.svg';
 import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
 import { Input } from 'shared/ui/Input/Input';
+import { ObjectSchema } from 'yup';
 
 import cls from './AuthForm.module.scss';
 
 interface AuthFormProps<T extends FieldValues> {
   onSubmitForm: SubmitHandler<T>;
-  schema: any; // Replace 'any' with your actual schema type
+  schema: ObjectSchema<T>;
   fields: Array<{ name: string; placeholder: string; type?: string }>;
 }
 
-export const AuthForm: FC<AuthFormProps<any>> = ({
+export const AuthForm: FC<AuthFormProps<FieldValues>> = ({
   onSubmitForm,
   schema,
   fields,

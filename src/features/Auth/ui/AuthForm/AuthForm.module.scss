@@ -1,34 +1,33 @@
 .form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-self: stretch;
+  &__input-control {
     display: flex;
     flex-direction: column;
-    gap: 1em;
-    align-self: stretch;
-    &__input-control {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      .input {
-        display: block;
-      }
-      .input--error {
-        border: 1px solid #ff5071;
-        transition: all 250ms ease;
-      }
-      .error {
-        padding: 0 .25rem ;
-        color: var(--app-primary-text);
-        font-size: .8rem;
-        letter-spacing: 0.01rem;
-      }
+    gap: 8px;
+    .input {
+      display: block;
     }
-    .button {
-      display: flex;
-      justify-content: center;
-      transition: opacity .250s ease;
-      &:disabled {
-        opacity: .6;
-        cursor: initial;
-      }
+    .input--error {
+      border: 1px solid #ff5071;
+      transition: all 250ms ease;
+    }
+    .error {
+      padding: 0 0.25rem;
+      color: var(--app-primary-text);
+      font-size: 0.8rem;
+      letter-spacing: 0.01rem;
     }
   }
-
+  .button {
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.25s ease;
+    &:disabled {
+      opacity: 0.6;
+      cursor: initial;
+    }
+  }
+}

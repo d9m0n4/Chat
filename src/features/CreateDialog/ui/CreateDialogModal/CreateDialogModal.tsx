@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { Modal } from 'shared/ui/Modal/ui/Modal';
 
 import { CreateDialogForm } from '../CreateDialogForm/CreateDialogForm';

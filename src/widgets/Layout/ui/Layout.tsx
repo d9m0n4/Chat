@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+
+import { messagesActions } from 'entities/Message/model/slices/messageSlice';
+import { Notifications } from 'entities/Notifications';
+import { fetchUserData } from 'entities/User/model/services/fetchUserData';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
-import { ChatHeader } from 'widgets/ChatHeader';
+import { Portal } from 'shared/ui/Portal';
 
-import { messagesActions } from '../../entities/Message/model/slices/messageSlice';
-import { Notifications } from '../../entities/Notifications';
-import { fetchUserData } from '../../entities/User/model/services/fetchUserData';
-import { Portal } from '../../shared/ui/Portal';
-import { Sidebar } from '../Sidebar';
+import { ChatHeader } from '../../ChatHeader';
+import { Sidebar } from '../../Sidebar';
 
 export const Layout = () => {
   const dispatch = useAppDispatch();

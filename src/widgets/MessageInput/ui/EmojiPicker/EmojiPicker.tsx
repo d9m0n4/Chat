@@ -1,6 +1,8 @@
+import React, { FC, useState } from 'react';
+
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
-import React, { FC, useState } from 'react';
+import { BaseEmoji } from 'emoji-mart/index';
 import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg';
 import { Button } from 'shared/ui/Button';
 
@@ -9,7 +11,6 @@ import cls from './EmojiPicker.module.scss';
 interface EmojiPickerProps {
   onSelect: (native: string) => void;
 }
-
 const EmojiPicker: FC<EmojiPickerProps> = ({ onSelect }) => {
   const [isOpened, setIsOpened] = useState(false);
 
@@ -26,6 +27,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({ onSelect }) => {
       {isOpened && (
         <div className={cls.EmojiPicker}>
           <Picker
+            theme
             onClickOutside={() => setIsOpened(false)}
             autoFocus
             data={data}
@@ -36,7 +38,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({ onSelect }) => {
             locale="ru"
             emojiSize="16"
             perLine={9}
-            onEmojiSelect={(emoji: any) => {
+            onEmojiSelect={(emoji: BaseEmoji) => {
               if (!emoji?.native) return;
               onSelect(emoji.native);
             }}

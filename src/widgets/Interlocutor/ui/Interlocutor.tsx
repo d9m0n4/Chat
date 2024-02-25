@@ -1,9 +1,9 @@
-import { Attach } from 'entities/ChatAttachment';
-import { getAttachments } from 'entities/ChatAttachment/model/selectors/getAttachments';
-import { getAttachmentByDialogId } from 'entities/ChatAttachment/model/services/getAttachmentByDialogId';
-import { getActiveDialog } from 'entities/Dialog';
 import React, { FC, memo, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+
+import { Attach, getAttachments } from 'entities/ChatAttachment';
+import { getAttachmentByDialogId } from 'entities/ChatAttachment/model/services/getAttachmentByDialogId';
+import { getActiveDialog } from 'entities/Dialog';
 import { ReactComponent as Chevron } from 'shared/assets/icons/cheveron-down.svg';
 import { BASE_URL } from 'shared/config/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -21,7 +21,7 @@ type InterlocutorProps = {
 };
 
 export const Interlocutor: FC<InterlocutorProps> = memo(
-  ({ id, avatar, nickName, name, isOnline }) => {
+  ({ avatar, nickName, name, isOnline }) => {
     const dispatch = useAppDispatch();
     const activeDialog = useSelector(getActiveDialog);
     const dialogAttachments = useSelector(getAttachments);

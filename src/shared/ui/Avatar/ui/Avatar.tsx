@@ -1,5 +1,6 @@
-import clsx from 'classnames';
 import React, { FC, HTMLAttributes } from 'react';
+
+import clsx from 'classnames';
 import { generateAvatarColor } from 'shared/utils/generateAvatarColor/generateAvatarColor';
 import { getInitials } from 'shared/utils/getInitials/getInitials';
 

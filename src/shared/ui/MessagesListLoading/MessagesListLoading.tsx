@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import { TypingDots } from '../TypingMessage';
 import cls from './MessagesListLoading.module.scss';

@@ -1,4 +1,3 @@
-import clsx from 'classnames';
 import React, {
   FC,
   ImgHTMLAttributes,
@@ -6,6 +5,8 @@ import React, {
   useLayoutEffect,
   useState,
 } from 'react';
+
+import clsx from 'classnames';
 
 import cls from './Image.module.scss';
 

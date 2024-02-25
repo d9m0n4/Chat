@@ -1,7 +1,7 @@
-import { User } from '../services/findUsers';
+import { IUser } from 'entities/User';
 
 export interface ICreateDialog {
   error?: null | string;
   loading: boolean;
-  users?: User[];
+  users?: IUser[];
 }

@@ -1,12 +1,8 @@
-import { ReduxStoreWithReducerManager } from 'app/providers/storeProvider/types/Store';
-import { Message } from 'entities/Message';
-import {
-  messageContextMenuActions,
-  messageContextMenuReducer,
-} from 'entities/Message/model/slices/messageContextMenuSlice';
-import { IMessage } from 'entities/Message/model/types/Message';
 import React, { FC, memo } from 'react';
-import { useStore } from 'react-redux';
+
+import { Message } from 'entities/Message';
+import { messageContextMenuActions } from 'entities/Message/model/slices/messageContextMenuSlice';
+import { IMessage } from 'entities/Message/model/types/Message';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './MessagesGroup.module.scss';
@@ -52,7 +48,6 @@ export const MessagesGroup: FC<MessagesGroupProps> = memo(
                   handleOpenContextMenu({ event, messageId: message.id })
                 }
                 dataAttr={message.id}
-                onClick={() => console.log(111)}
                 key={message.id}
                 content={message.content}
                 user={message.user}

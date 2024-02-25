@@ -1,4 +1,5 @@
 import React, { FC, useRef } from 'react';
+
 import { ReactComponent as Attach } from 'shared/assets/icons/paper-clip.svg';
 import { Button } from 'shared/ui/Button';
 

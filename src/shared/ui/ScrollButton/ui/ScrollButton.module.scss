@@ -15,7 +15,7 @@
   align-items: center;
   border-radius: 50%;
   cursor: pointer;
-  transition: all .250s ease-in-out;
+  transition: all 0.25s ease-in-out;
   animation: showBtn 250ms ease-in;
   z-index: 99;
   &:active {

@@ -1,5 +1,5 @@
 .confirm__modal {
-  padding: 1.5em 1.5em .5em 1.5em;
+  padding: 1.5em 1.5em 0.5em 1.5em;
   background-color: var(--app-primary-bg);
   border-radius: 1em;
   color: var(--app-primary-text);
@@ -11,7 +11,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: .8em;
+    gap: 0.8em;
     input {
       opacity: 0;
       position: absolute;
@@ -54,11 +54,11 @@
     align-self: flex-end;
 
     .button {
-      padding: .8em;
-      border-radius: .5em;
+      padding: 0.8em;
+      border-radius: 0.5em;
       color: var(--app-primary-text);
       &:hover {
-        transition: background-color .25s ease-in-out;
+        transition: background-color 0.25s ease-in-out;
         background-color: var(--app-controls);
       }
     }

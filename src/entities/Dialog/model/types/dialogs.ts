@@ -1,15 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit';
+import { IUser } from 'entities/User';
 
-interface User {
-  name: string;
-  nickName: string;
-  id: number;
-  avatar: string | null;
-}
-
-type Partner = User & {
-  isOnline?: boolean;
-};
 export interface IDialogLastMessage {
   content: string;
   created_at: string;
@@ -22,14 +13,14 @@ export interface IDialog {
   created_at: Date;
   id: number;
   latestMessage: IDialogLastMessage | null;
-  partner: Partner;
+  partner: IUser;
   updated_at: Date;
   unreadMessagesCount: number;
 }
 
 export interface IActiveDialog {
   id: number;
-  partner: Partner;
+  partner: IUser;
 }
 
 export interface IDialogData extends EntityState<IDialog> {

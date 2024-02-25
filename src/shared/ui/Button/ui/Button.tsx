@@ -1,5 +1,6 @@
-import clsx from 'classnames';
 import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+
+import clsx from 'classnames';
 
 import cls from './Button.module.scss';
 

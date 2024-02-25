@@ -1,13 +1,16 @@
-import { dialogReducers, getActiveDialog } from 'entities/Dialog';
-import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
-import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
-import { messagesActions } from 'entities/Message/model/slices/messageSlice';
-import { IMessage } from 'entities/Message/model/types/Message';
-import { getUserState } from 'entities/User/model/selectors/getUserData';
-import { getRightBarState } from 'features/ToggleRightBar/model/selectors/getRightBarState';
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
+
+import { dialogReducers, getActiveDialog } from 'entities/Dialog';
+import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
+import { fetchDialogs } from 'entities/Dialog/model/services/fetchDialogs';
+import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
+import { messagesActions } from 'entities/Message/model/slices/messageSlice';
+import { IMessage } from 'entities/Message/model/types/Message';
+import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
+import { getUserState } from 'entities/User/model/selectors/getUserData';
+import { getRightBarState } from 'features/ToggleRightBar';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
@@ -17,6 +20,7 @@ import { Interlocutor } from 'widgets/Interlocutor';
 
 const reducers: ReducersList = {
   dialogs: dialogReducers,
+  notifications: notificationReducer,
 };
 
 export const MainPage: FC = () => {
@@ -26,6 +30,13 @@ export const MainPage: FC = () => {
   const activeDialog = useSelector(getActiveDialog);
   const { user } = useSelector(getUserState);
   const isRightBarOpened = useSelector(getRightBarState);
+
+  useEffect(() => {
+    dispatch(fetchDialogs());
+    return () => {
+      dispatch(dialogActions.setActiveDialog(null));
+    };
+  }, []);
 
   useEffect(() => {
     socket?.on('message_created', (message: IMessage) => {

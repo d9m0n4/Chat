@@ -1,17 +1,17 @@
-import { getUserState } from 'entities/User';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { IUser, getUserState } from 'entities/User';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
 
 import {
   getActiveDialog,
+  getFilteredDialogs,
   getPrevActiveDialog,
-} from '../../model/selectors/getActiveDialog';
-import { isDialogLoading } from '../../model/selectors/getDialogs';
-import { getFilteredDialogs } from '../../model/selectors/getFilteredDialogs';
-import { fetchDialogs } from '../../model/services/fetchDialogs';
+  isDialogLoading,
+} from '../../model/selectors';
 import { dialogActions } from '../../model/slices/dialogSlice';
 import { IDialog } from '../../model/types/dialogs';
 import { DialogItem } from '../DialogItem/DialogItem';
@@ -26,13 +26,6 @@ export const DialogList = () => {
   const { user } = useSelector(getUserState);
   const { socket } = useSocket();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchDialogs());
-    return () => {
-      dispatch(dialogActions.setActiveDialog(null));
-    };
-  }, []);
 
   useEffect(() => {
     const setUserOnline = (user: number) => {
@@ -60,7 +53,7 @@ export const DialogList = () => {
     };
   }, [socket]);
 
-  const setActiveDialog = ({ id, partner }: { id: number; partner: any }) => {
+  const setActiveDialog = ({ id, partner }: { id: number; partner: IUser }) => {
     if (id !== prevActiveDialogId) {
       dispatch(dialogActions.setActiveDialog({ id, partner }));
       if (prevActiveDialogId) {

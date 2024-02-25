@@ -1,2 +1,2 @@
 export { getUserState } from './model/selectors/getUserData';
-export type { IUserState } from './model/types/user';
+export type { IUserState, IUser } from './model/types/user';

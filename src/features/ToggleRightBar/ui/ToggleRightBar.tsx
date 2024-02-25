@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { ReactComponent as Dots } from 'shared/assets/icons/dots-horizontal.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Button } from 'shared/ui/Button';

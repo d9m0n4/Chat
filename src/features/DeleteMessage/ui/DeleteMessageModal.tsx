@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { Button } from 'shared/ui/Button';
 import { Modal } from 'shared/ui/Modal/ui/Modal';
 
@@ -8,7 +9,6 @@ export const DeleteMessageModal = ({
   isOpened,
   onClose,
   onConfirm,
-  onCancel,
 }: {
   isOpened: boolean;
   onClose: () => void;

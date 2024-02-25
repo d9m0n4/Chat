@@ -1,11 +1,12 @@
+import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+
 import {
   getContextMenuIsOpen,
   getContextMenuMessageId,
   getContextMenuPosition,
 } from 'entities/Message/model/selectors/getContextMenuState';
 import { messageContextMenuActions } from 'entities/Message/model/slices/messageContextMenuSlice';
-import { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '../useAppDispatch/useAppDispatch';
 

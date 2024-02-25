@@ -16,16 +16,17 @@
       box-shadow: var(--app-input-shadow-active);
     }
   }
-  &__before, &__after {
+  &__before,
+  &__after {
     position: absolute;
     display: flex;
     top: 50%;
     transform: translateY(-50%);
   }
   &__before {
-    left: .5em;
+    left: 0.5em;
   }
   &__after {
-    right: .5em;
+    right: 0.5em;
   }
 }

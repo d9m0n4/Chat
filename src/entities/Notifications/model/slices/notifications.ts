@@ -10,10 +10,15 @@ export const notifications = createSlice({
   name: 'notifications',
   initialState,
   reducers: {
-    setNotification: (state, action: PayloadAction<{ message: string }>) => {
+    setNotification: (
+      state,
+      action: PayloadAction<{ message: string | undefined }>
+    ) => {
       const uniqueId = uuidv4();
-      const notificationWithId = { ...action.payload, id: uniqueId };
-      state.notifications.push(notificationWithId);
+      if (action.payload.message) {
+        const notificationWithId = { ...action.payload, id: uniqueId };
+        state.notifications.push(notificationWithId);
+      }
     },
     clearNotification: (state, action: PayloadAction<{ id: string }>) => {
       state.notifications = state.notifications.filter(

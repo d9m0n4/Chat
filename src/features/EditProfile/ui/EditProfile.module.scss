@@ -1,12 +1,12 @@
 .profile {
- &__info {
-   position: relative;
-   display: flex;
-   flex-direction: column;
-   gap: 1em;
-   align-items: center;
-   align-self: center;
- }
+  &__info {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    align-self: center;
+  }
   &__form {
     display: flex;
     flex-direction: column;

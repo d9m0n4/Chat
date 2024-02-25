@@ -1,5 +1,6 @@
-import clsx from 'classnames';
 import React from 'react';
+
+import clsx from 'classnames';
 
 import { Theme } from '../consts/themes';
 import cls from './ThemeCard.module.scss';

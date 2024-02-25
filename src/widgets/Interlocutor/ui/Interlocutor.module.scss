@@ -1,4 +1,4 @@
-@import "app/styles/vars";
+@import 'app/styles/vars';
 
 .interlocutor {
   padding: 2em 0 2em 1em;
@@ -64,9 +64,9 @@
 }
 
 @keyframes barTranslate {
- 0% {
-   transform: translate3d($rightBarWidth, 0, 0);
- }
+  0% {
+    transform: translate3d($rightBarWidth, 0, 0);
+  }
   100% {
     transform: translate3d(0, 0, 0);
   }

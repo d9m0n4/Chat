@@ -1,5 +1,6 @@
-import { messageContextMenuReducer } from 'entities/Message/model/slices/messageContextMenuSlice';
 import React, { FC, useRef } from 'react';
+
+import { messageContextMenuReducer } from 'entities/Message/model/slices/messageContextMenuSlice';
 import { useOutsideClick } from 'shared/hooks/useOutsideClick/useOutsideClick';
 import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { ReducersList } from 'shared/types/Store';

@@ -24,9 +24,14 @@ export const userSlice = createSlice({
       .addCase(fetchUserData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchUserData.rejected, (state) => {
-        state.user = undefined;
-        state.isLoading = false;
+      .addCase(fetchUserData.rejected, (state, action) => {
+        if (action.payload) {
+          state.error = action.payload?.message;
+          state.isLoading = false;
+        } else {
+          state.error = action.error.message;
+          state.isLoading = false;
+        }
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.user = action.payload;
@@ -35,8 +40,14 @@ export const userSlice = createSlice({
       .addCase(updateUserInfo.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateUserInfo.rejected, (state) => {
-        state.isLoading = false;
+      .addCase(updateUserInfo.rejected, (state, action) => {
+        if (action.payload) {
+          state.error = action.payload?.message;
+          state.isLoading = false;
+        } else {
+          state.error = action.error.message;
+          state.isLoading = false;
+        }
       });
   },
 });

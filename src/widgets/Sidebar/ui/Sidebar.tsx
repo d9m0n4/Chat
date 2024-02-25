@@ -1,10 +1,11 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 import { getActiveDialog } from 'entities/Dialog';
 import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { getUserState } from 'entities/User/model/selectors/getUserData';
 import { authActions } from 'features/Auth/model/slices/authSlice';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { ReactComponent as Bookmark } from 'shared/assets/icons/bookmark.svg';
 import { ReactComponent as Chat } from 'shared/assets/icons/chat.svg';
 import { ReactComponent as Settings } from 'shared/assets/icons/cog.svg';

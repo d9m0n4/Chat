@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Skeleton } from 'shared/ui/Skeleton';
 
 import cls from './DialogListLoading.module.scss';

@@ -1,13 +1,14 @@
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
 import { AuthPage } from 'pages/AuthPage';
 import { FavoritesPage } from 'pages/FavoritesPage';
 import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { SettingsPage } from 'pages/SettingsPage';
-import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
 import { Login } from 'widgets/Auth/ui/Login';
 import { Register } from 'widgets/Auth/ui/Register';
-import { Layout } from 'widgets/Layout/Layout';
+import { Layout } from 'widgets/Layout';
 import { Messages } from 'widgets/Messages';
 
 import { SocketProvider } from '../../socketProvider';

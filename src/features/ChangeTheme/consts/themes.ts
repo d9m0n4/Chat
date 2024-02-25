@@ -4,4 +4,4 @@ export enum Theme {
   DARK_G = 'dark_g',
 }
 
-export const defaultTheme = Theme.DEFAULT;
+export const defaultTheme = Theme.DARK;

@@ -1,15 +1,11 @@
-import { FC } from 'react';
 import { useSelector } from 'react-redux';
+
 import { Notification } from 'shared/ui/Notification';
 
 import { getNotifications } from '../model/selectors/getNotifications';
-import { INotification } from '../model/types/notification';
 import cls from './Notifications.module.scss';
 
-interface INotificationsProps {
-  notifications?: INotification[];
-}
-export const Notifications: FC<INotificationsProps> = () => {
+export const Notifications = () => {
   const notificationsList = useSelector(getNotifications);
 
   if (

@@ -1,6 +1,3 @@
-import { getActiveDialog } from 'entities/Dialog';
-import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
-import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
 import React, {
   lazy,
   memo,
@@ -10,6 +7,10 @@ import React, {
   useState,
 } from 'react';
 import { useSelector } from 'react-redux';
+
+import { getActiveDialog } from 'entities/Dialog';
+import { getDialogPartner } from 'entities/Dialog/model/selectors/getDialogPartner';
+import { updateMessagesStatus } from 'entities/Message/model/services/updateMessagesStatus';
 import { ReactComponent as Send } from 'shared/assets/icons/paper-airplane.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
@@ -96,11 +97,11 @@ export const MessageInput = memo(() => {
       formData.append('content', message);
 
       if (files) {
-        files.forEach((file, index) => {
+        files.forEach((file) => {
           formData.append(`file`, file);
         });
       }
-      await dispatch(sendMessage(formData));
+      await dispatch(sendMessage(formData)).unwrap();
       if (dialog) {
         dispatch(updateMessagesStatus(dialog.id));
       }
@@ -118,6 +119,31 @@ export const MessageInput = memo(() => {
         dialog: dialog.id,
       });
     }
+  };
+
+  const handleSubmitOnEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      onSendMessage();
+      return false;
+    } else if (e.key === 'Enter' && e.shiftKey) {
+      insertNewLine();
+    }
+  };
+
+  const handlePaste = (
+    e: React.SyntheticEvent<HTMLDivElement, ClipboardEvent>
+  ) => {
+    e.preventDefault();
+    const text = e.nativeEvent.clipboardData?.getData('text/plain');
+    document.execCommand('insertText', false, text);
+  };
+
+  const insertNewLine = () => {
+    const selection = window.getSelection();
+    const range = selection?.getRangeAt(0);
+    const newLine = document.createElement('br');
+    range?.insertNode(newLine);
   };
 
   const messageInputRef = useRef<HTMLDivElement>(null);
@@ -152,6 +178,8 @@ export const MessageInput = memo(() => {
                 onClick={handleFocusInput}
                 onInput={handleInputChange}
                 onChange={handleInputChange}
+                onKeyDown={handleSubmitOnEnter}
+                onPaste={handlePaste}
                 className={cls.input}
                 contentEditable
                 role="textbox"

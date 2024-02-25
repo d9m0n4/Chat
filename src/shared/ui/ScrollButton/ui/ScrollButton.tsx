@@ -1,5 +1,6 @@
-import clsx from 'classnames';
 import React, { FC } from 'react';
+
+import clsx from 'classnames';
 import { ReactComponent as ScrollDown } from 'shared/assets/icons/chevronDoubleDown.svg';
 
 import cls from './ScrollButton.module.scss';

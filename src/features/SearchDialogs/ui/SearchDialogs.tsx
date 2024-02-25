@@ -1,10 +1,8 @@
-import clsx from 'classnames';
-import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import React, { FC, useState } from 'react';
+
+import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { Input } from 'shared/ui/Input/Input';
-
-import cls from './SearchDialogs.module.scss';
 
 interface ISearchDialogsProps {
   classname?: string;

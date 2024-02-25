@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { ReactComponent as Download } from 'shared/assets/icons/download.svg';
 import { Button } from 'shared/ui/Button';
 import { FileThumb } from 'shared/ui/FileIcon';

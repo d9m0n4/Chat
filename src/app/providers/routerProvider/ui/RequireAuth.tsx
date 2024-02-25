@@ -1,7 +1,8 @@
-import { getIsAuthState } from 'features/Auth/model/selectors/getAuthState';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+
+import { getIsAuthState } from 'features/Auth';
 
 export const RequireAuth = () => {
   const location = useLocation();

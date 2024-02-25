@@ -1,10 +1,11 @@
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { SerializedError } from '@reduxjs/toolkit';
 import { notificationActions } from 'entities/Notifications';
 import { notificationReducer } from 'entities/Notifications/model/slices/notifications';
 import { getUserState } from 'entities/User/model/selectors/getUserData';
 import { updateUserInfo } from 'entities/User/model/services/updateUserInfo';
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { ReactComponent as EditIcon } from 'shared/assets/icons/pencil.svg';
 import { BASE_URL } from 'shared/config/api/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -61,10 +62,11 @@ export const EditProfile = () => {
           message: 'Профиль успешно обновлен',
         })
       );
-    } catch (e: any) {
+    } catch (err) {
+      const e = err as SerializedError;
       dispatch(
         notificationActions.setNotification({
-          message: e,
+          message: e.message,
         })
       );
     }

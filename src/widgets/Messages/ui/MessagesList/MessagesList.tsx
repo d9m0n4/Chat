@@ -1,6 +1,7 @@
+import React, { FC, useRef } from 'react';
+
 import clsx from 'classnames';
 import { GroupedMessages } from 'entities/Message/model/types/Message';
-import React, { FC, useEffect, useRef } from 'react';
 import { useInfiniteScroll } from 'shared/hooks/useInfiniteScroll/useInfiniteScroll';
 
 import cls from '../Messages.module.scss';

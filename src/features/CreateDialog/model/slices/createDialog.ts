@@ -16,9 +16,14 @@ export const CreateDialogSlice = createSlice({
         state.loading = true;
         state.users = undefined;
       })
-      .addCase(findUsers.rejected, (state) => {
-        state.error = 'error';
-        state.loading = false;
+      .addCase(findUsers.rejected, (state, action) => {
+        if (action.payload) {
+          state.error = action.payload?.message;
+          state.loading = false;
+        } else {
+          state.error = action.error.message;
+          state.loading = false;
+        }
       })
       .addCase(findUsers.fulfilled, (state, action) => {
         state.users = action.payload;

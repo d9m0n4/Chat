@@ -1,26 +1,24 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { SerializedError, createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
+import { IUser } from 'entities/User';
 import { api } from 'shared/config/api/api';
 
-export interface User {
-  name: string;
-  nickName: string;
-  id: number;
-  avatar: string | null;
-  isOnline: boolean;
-}
-export const findUsers = createAsyncThunk(
-  'createDialog/fetchUsers',
-  async (query: string, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      if (query) {
-        const response = await api.get<User[]>(
-          `/dialogs/search?nickname=${query}`
-        );
-        return response.data;
-      }
-    } catch (e) {
-      return rejectWithValue(e);
+export const findUsers = createAsyncThunk<
+  IUser[],
+  string,
+  { rejectValue: SerializedError | undefined }
+>('createDialog/fetchUsers', async (query, thunkAPI) => {
+  const { rejectWithValue } = thunkAPI;
+  try {
+    const response = await api.get<IUser[]>(
+      `/dialogs/search?nickname=${query}`
+    );
+    return response.data;
+  } catch (err) {
+    const axiosError = err as AxiosError<SerializedError>;
+    if (!axiosError.response) {
+      throw err;
     }
+    return rejectWithValue(axiosError.response.data);
   }
-);
+});

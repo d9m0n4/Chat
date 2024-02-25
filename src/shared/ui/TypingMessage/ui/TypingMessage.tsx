@@ -1,5 +1,6 @@
-import { IUser } from 'entities/User/model/types/user';
 import React from 'react';
+
+import { IUser } from 'entities/User/model/types/user';
 
 import { Avatar } from '../../Avatar';
 import cls from './TypingMessage.module.scss';

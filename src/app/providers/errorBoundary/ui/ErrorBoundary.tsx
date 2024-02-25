@@ -1,4 +1,5 @@
-import React, { ErrorInfo, FC, ReactNode } from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
+
 import { AppError } from 'widgets/AppError';
 
 interface ErrorBoundaryProps {
@@ -19,6 +20,7 @@ export class ErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
+    console.log(error);
     return { hasError: true };
   }
 

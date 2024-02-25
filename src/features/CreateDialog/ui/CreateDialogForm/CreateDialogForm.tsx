@@ -1,8 +1,10 @@
-import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
-import { notificationActions } from 'entities/Notifications';
 import React, { FC, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import { SerializedError } from '@reduxjs/toolkit';
+import { dialogActions } from 'entities/Dialog/model/slices/dialogSlice';
+import { notificationActions } from 'entities/Notifications';
 import { ReactComponent as Close } from 'shared/assets/icons/x.svg';
 import { BASE_URL } from 'shared/config/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
@@ -16,8 +18,8 @@ import { TypingDots } from 'shared/ui/TypingMessage';
 
 import {
   getIsLoadingFindUsers,
-  getUsers,
-} from '../../model/selectors/getUsers';
+  getUsersState,
+} from '../../model/selectors/getUsersState';
 import { createDialog } from '../../model/services/createDialog';
 import { findUsers } from '../../model/services/findUsers';
 import { addDialogReducer } from '../../model/slices/createDialog';
@@ -32,7 +34,7 @@ interface AddDialogFormProps {
 
 export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
   const dispatch = useAppDispatch();
-  const users = useSelector(getUsers);
+  const users = useSelector(getUsersState);
   const isLoading = useSelector(getIsLoadingFindUsers);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -57,10 +59,10 @@ export const CreateDialogForm: FC<AddDialogFormProps> = ({ onClose }) => {
         navigate(`/dialogs/${dialog.id}`);
         onClose();
       }
-    } catch (e: any) {
+    } catch (err) {
+      const e = err as SerializedError;
       onClose();
-      console.log(e);
-      dispatch(notificationActions.setNotification({ message: e }));
+      dispatch(notificationActions.setNotification({ message: e.message }));
     }
   };
 

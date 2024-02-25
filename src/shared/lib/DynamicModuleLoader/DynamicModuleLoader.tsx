@@ -1,11 +1,10 @@
-import { Reducer } from '@reduxjs/toolkit';
-import {
-  IState,
-  IStateKey,
-  ReduxStoreWithReducerManager,
-} from 'app/providers/storeProvider/types/Store';
 import React, { FC, useEffect } from 'react';
 import { useStore } from 'react-redux';
+
+import {
+  IState,
+  ReduxStoreWithReducerManager,
+} from 'app/providers/storeProvider/types/Store';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch/useAppDispatch';
 import { ReducersList } from '../../types/Store';

@@ -110,9 +110,14 @@ export const dialogSlice = createSlice({
       .addCase(fetchDialogs.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchDialogs.rejected, (state) => {
-        state.error = 'error';
-        state.loading = false;
+      .addCase(fetchDialogs.rejected, (state, action) => {
+        if (action.payload) {
+          state.error = action.payload.message;
+          state.loading = false;
+        } else {
+          state.error = action.error.message;
+          state.loading = false;
+        }
       });
   },
 });

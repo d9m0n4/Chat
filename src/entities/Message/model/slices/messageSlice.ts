@@ -1,8 +1,4 @@
-import {
-  PayloadAction,
-  createEntityAdapter,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { deleteMessage } from '../services/deleteMessage';
 import { fetchMessages } from '../services/fetchMessages';
@@ -10,7 +6,6 @@ import { getMessagesHistory } from '../services/getMessagesHistory';
 import {
   GroupedMessages,
   IDeleteMessagePayload,
-  IMessage,
   IMessagesData,
   INewMessagePayload,
 } from '../types/Message';
@@ -92,9 +87,14 @@ export const messagesSlice = createSlice({
         state.loading = true;
         state.messagesData = undefined;
       })
-      .addCase(fetchMessages.rejected, (state) => {
-        state.apiMessage = 'error';
-        state.loading = false;
+      .addCase(fetchMessages.rejected, (state, action) => {
+        if (action.payload) {
+          state.apiMessage = action.payload?.message;
+          state.loading = false;
+        } else {
+          state.apiMessage = action.error.message;
+          state.loading = false;
+        }
       })
       .addCase(
         deleteMessage.fulfilled,
@@ -107,8 +107,13 @@ export const messagesSlice = createSlice({
         state.loading = true;
       })
       .addCase(deleteMessage.rejected, (state, action) => {
-        state.loading = false;
-        state.apiMessage = action.error;
+        if (action.payload) {
+          state.apiMessage = action.payload?.message;
+          state.loading = false;
+        } else {
+          state.apiMessage = action.error.message;
+          state.loading = false;
+        }
       })
       .addCase(getMessagesHistory.fulfilled, (state, action) => {
         const { messages, totalPages } = action.payload;
@@ -143,8 +148,13 @@ export const messagesSlice = createSlice({
         state.loading = true;
       })
       .addCase(getMessagesHistory.rejected, (state, action) => {
-        state.loading = false;
-        state.apiMessage = action.error;
+        if (action.payload) {
+          state.apiMessage = action.payload?.message;
+          state.loading = false;
+        } else {
+          state.apiMessage = action.error.message;
+          state.loading = false;
+        }
       });
   },
 });

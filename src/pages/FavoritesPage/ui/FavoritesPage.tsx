@@ -1,5 +1,6 @@
-import { GroupedMessages } from 'entities/Message/model/types/Message';
 import React, { FC, useEffect, useState } from 'react';
+
+import { GroupedMessages } from 'entities/Message/model/types/Message';
 import { api } from 'shared/config/api/api';
 import { MessagesGroup } from 'widgets/Messages/ui/MessagesGroup/MessagesGroup';
 import { PageContainer } from 'widgets/PageContainer';

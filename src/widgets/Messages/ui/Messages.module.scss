@@ -1,4 +1,4 @@
-@import "app/styles/vars";
+@import 'app/styles/vars';
 .messages__wrapper {
   display: flex;
   flex-direction: column;
@@ -7,9 +7,8 @@
   flex: 1;
   position: relative;
   .scroll__btn {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
-
 }
 .messages {
   position: relative;
@@ -25,27 +24,26 @@
     padding: 1em calc(2em + $scrollBarWidth) 1em 2em;
   }
 
-    &::-webkit-scrollbar {
-      width: $scrollBarWidth;
-    }
+  &::-webkit-scrollbar {
+    width: $scrollBarWidth;
+  }
 
-    &::-webkit-scrollbar-track {
-      border-radius: 100px;
-    }
+  &::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
 
-    &::-webkit-scrollbar-thumb {
-      background: var(--app-border);
-      border-radius: 100px;
-    }
+  &::-webkit-scrollbar-thumb {
+    background: var(--app-border);
+    border-radius: 100px;
+  }
 
-    &::-webkit-scrollbar-thumb:hover {
-      background: var(--app-gray);
-    }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--app-gray);
+  }
   .messages__scroller {
     display: flex;
     flex-direction: column-reverse;
   }
-
 
   .group {
     &__row {
@@ -76,11 +74,10 @@
   }
 }
 
-@media screen and (max-width: 425px){
+@media screen and (max-width: 425px) {
   .messages__wrapper {
     position: absolute;
     inset: 0;
     background-color: var(--app-primary-bg);
   }
 }
-

@@ -1,4 +1,6 @@
 import React, { FC } from 'react';
+import { DeepPartial } from 'react-hook-form';
+
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 
 import { login } from '../model/services/Login';
@@ -18,14 +20,14 @@ export const LoginForm: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const onSubmitForm = async (data: LoginData) => {
-    dispatch(login(data));
+  const onSubmitForm = async (data: DeepPartial<LoginData>) => {
+    dispatch(login(data as LoginData));
   };
   return (
     <AuthForm
-      onSubmitForm={(data: LoginData) => onSubmitForm(data)}
-      schema={schema}
       fields={loginFields}
+      onSubmitForm={onSubmitForm}
+      schema={schema}
     />
   );
 };

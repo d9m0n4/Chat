@@ -1,5 +1,6 @@
-import clsx from 'classnames';
 import React, { FC } from 'react';
+
+import clsx from 'classnames';
 import { ReturnFileExt } from 'shared/utils/files/files';
 
 import cls from './FilePreviewer.module.scss';

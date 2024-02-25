@@ -1,8 +1,8 @@
-import { RegisterForm } from 'features/Auth';
-import { getAuthMessage } from 'features/Auth/model/selectors/getAuthState';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { RegisterForm, getAuthMessage } from 'features/Auth';
 
 import cls from './Auth.module.scss';
 

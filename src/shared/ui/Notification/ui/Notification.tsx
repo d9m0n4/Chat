@@ -1,6 +1,7 @@
-import { notificationActions } from 'entities/Notifications';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import { notificationActions } from 'entities/Notifications';
 
 import cls from './Notification.module.scss';
 

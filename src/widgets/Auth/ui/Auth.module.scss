@@ -9,7 +9,6 @@
     color: var(--app-primary-text);
     font-size: 1.2em;
     font-weight: bold;
-
   }
   .submit-error {
     text-align: center;
@@ -19,20 +18,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: .875rem;
+    font-size: 0.875rem;
 
     color: var(--app-primary-text);
     .link {
       color: var(--app-primary-text);
-      margin-top: .5rem;
+      margin-top: 0.5rem;
       font-size: 1rem;
-      opacity: .95;
+      opacity: 0.95;
       &:hover {
-        transition: .250s ease;
+        transition: 0.25s ease;
         font-weight: 500;
         opacity: 1;
       }
     }
   }
 }
-

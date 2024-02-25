@@ -1,15 +1,13 @@
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import { DialogList } from 'entities/Dialog';
-import {
-  getDialogsState,
-  isDialogLoading,
-} from 'entities/Dialog/model/selectors/getDialogs';
+import { isDialogLoading } from 'entities/Dialog/model/selectors/getDialogs';
 import {
   dialogActions,
   getDialogs,
 } from 'entities/Dialog/model/slices/dialogSlice';
 import { CreateDialogModal } from 'features/CreateDialog';
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { ReactComponent as Add } from 'shared/assets/icons/plus.svg';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useSocket } from 'shared/hooks/useSocket/useSocket';
@@ -46,9 +44,11 @@ export const Dialogs = () => {
         </div>
         <div className={cls.dialogs__body}>
           {!loading && dialogs < 1 && (
-            <p className={cls.dialogs__empty}>
-              Здесь будут показаны Ваши диалоги
-            </p>
+            <>
+              <p className={cls.dialogs__empty}>
+                Здесь будут показаны Ваши диалоги
+              </p>
+            </>
           )}
           <DialogList />
         </div>

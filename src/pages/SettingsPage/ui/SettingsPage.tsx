@@ -1,6 +1,7 @@
+import React, { FC } from 'react';
+
 import { ThemeCard } from 'features/ChangeTheme';
 import { Theme } from 'features/ChangeTheme/consts/themes';
-import React, { FC } from 'react';
 import { PageContainer } from 'widgets/PageContainer';
 
 import cls from './SettingsPage.module.scss';

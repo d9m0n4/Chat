@@ -1,3 +1,6 @@
+import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { getActiveDialog } from 'entities/Dialog';
 import { getMessagesState } from 'entities/Message';
 import { getMessages } from 'entities/Message/model/selectors/getMessages';
@@ -10,8 +13,6 @@ import { notificationReducer } from 'entities/Notifications/model/slices/notific
 import { getUserState } from 'entities/User/model/selectors/getUserData';
 import { MessageManagement } from 'features/MessageManagement';
 import { rightBarReducer } from 'features/ToggleRightBar/model/slices/toggleRightBar';
-import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
 import { DynamicModuleLoader } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';

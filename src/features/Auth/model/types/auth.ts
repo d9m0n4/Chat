@@ -13,9 +13,3 @@ export interface AuthState {
   token?: string;
   isLoading: boolean;
 }
-
-export interface ApiError {
-  error: string;
-  message: string;
-  statusCode: number;
-}

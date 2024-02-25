@@ -1,9 +1,10 @@
-import clsx from 'classnames';
 import React, {
   HTMLAttributes,
   HTMLInputTypeAttribute,
   forwardRef,
 } from 'react';
+
+import clsx from 'classnames';
 
 import cls from './Input.module.scss';
 
