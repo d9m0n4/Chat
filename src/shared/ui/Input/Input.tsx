@@ -22,6 +22,7 @@ interface InputProps
   after?: React.ReactNode;
   onAfterIconClick?: () => void;
   onBeforeIconClick?: () => void;
+  placeholder: string;
 }
 
 export const Input = forwardRef(
@@ -39,6 +40,7 @@ export const Input = forwardRef(
       name,
       onAfterIconClick,
       onBeforeIconClick,
+      placeholder,
       ...props
     }: InputProps,
     ref: React.ForwardedRef<HTMLInputElement | null>
@@ -49,6 +51,7 @@ export const Input = forwardRef(
           ref={ref}
           name={name}
           value={value}
+          placeholder={placeholder}
           onChange={onChange}
           required={required}
           disabled={disable}

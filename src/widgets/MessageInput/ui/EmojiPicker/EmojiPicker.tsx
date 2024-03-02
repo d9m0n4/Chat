@@ -1,7 +1,5 @@
 import React, { FC, useState } from 'react';
 
-import data from '@emoji-mart/data';
-import { BaseEmoji } from 'emoji-mart/index';
 import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg';
 import { Button } from 'shared/ui/Button';
 
@@ -30,7 +28,6 @@ const EmojiPicker: FC<EmojiPickerProps> = ({ onSelect }) => {
             theme
             onClickOutside={() => setIsOpened(false)}
             autoFocus
-            data={data}
             showPreview={false}
             showSkinTones={false}
             previewPosition="none"
@@ -38,7 +35,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({ onSelect }) => {
             locale="ru"
             emojiSize="16"
             perLine={9}
-            onEmojiSelect={(emoji: BaseEmoji) => {
+            onEmojiSelect={(emoji: any) => {
               if (!emoji?.native) return;
               onSelect(emoji.native);
             }}

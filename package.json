@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@reduxjs/toolkit": "^1.9.5",
@@ -104,10 +106,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@emoji-mart/data": "^1.1.2",
-    "@emoji-mart/react": "^1.1.1",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
-    "@types/emoji-mart": "^3.0.14",
     "@types/lodash": "^4.14.202",
     "@types/react-window": "^1.8.8",
     "@types/throttle-debounce": "^5.0.2",
