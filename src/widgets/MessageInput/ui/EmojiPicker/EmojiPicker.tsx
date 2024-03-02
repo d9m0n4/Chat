@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react';
 
 import data from '@emoji-mart/data';
-import Picker from '@emoji-mart/react';
 import { BaseEmoji } from 'emoji-mart/index';
 import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg';
 import { Button } from 'shared/ui/Button';
 
 import cls from './EmojiPicker.module.scss';
+import { PickerWidget } from './PickerWidget';
 
 interface EmojiPickerProps {
   onSelect: (native: string) => void;
@@ -26,7 +26,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({ onSelect }) => {
       </Button>
       {isOpened && (
         <div className={cls.EmojiPicker}>
-          <Picker
+          <PickerWidget
             theme
             onClickOutside={() => setIsOpened(false)}
             autoFocus
