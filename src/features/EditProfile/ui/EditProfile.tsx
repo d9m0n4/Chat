@@ -16,6 +16,7 @@ import { Button } from 'shared/ui/Button';
 import { ButtonVariants } from 'shared/ui/Button/ui/Button';
 import { Input } from 'shared/ui/Input/Input';
 import { Skeleton } from 'shared/ui/Skeleton';
+import { isValidFile } from 'shared/utils/isValidFile/isValidFile';
 
 import cls from './EditProfile.module.scss';
 
@@ -37,6 +38,18 @@ export const EditProfile = () => {
 
   const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files;
+
+    const { isValid, message } = isValidFile(file, 1048576, 'image');
+
+    if (!isValid) {
+      dispatch(
+        notificationActions.setNotification({
+          message: message,
+        })
+      );
+      return;
+    }
+
     if (file && file[0] instanceof Blob) {
       const objectUrl = URL.createObjectURL(file[0] as Blob);
       setAvatar(file[0]);

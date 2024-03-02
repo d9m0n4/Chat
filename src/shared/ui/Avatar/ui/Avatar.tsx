@@ -24,9 +24,8 @@ export const Avatar: FC<AvatarProps> = ({
   onClick,
   className,
 }) => {
-  const color = name
-    ? generateAvatarColor(getInitials(`${name} ${name.length}`))
-    : 'red';
+  const color =
+    name && generateAvatarColor(getInitials(`${name} ${name.length}`));
 
   return (
     <div
@@ -55,7 +54,12 @@ export const Avatar: FC<AvatarProps> = ({
             maxWidth: `${width}px`,
             width: `${width}px`,
             height: `${width}px`,
-            background: `linear-gradient(#fff -95%, ${color})`,
+            background: `linear-gradient(#fff -95%, ${
+              color ||
+              getComputedStyle(document.body).getPropertyValue(
+                '--app-secondary-bg'
+              )
+            })`,
           }}
         >
           {name && getInitials(name)}

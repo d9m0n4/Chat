@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { SerializedError } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { getContextMenuMessageId } from 'entities/Message/model/selectors/getContextMenuState';
+import { addFavorite } from 'entities/Message/model/services/addFavorite';
 import { deleteMessage } from 'entities/Message/model/services/deleteMessage';
 import { notificationActions } from 'entities/Notifications/model/slices/notifications';
-import { api } from 'shared/config/api/api';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { useMessageContextMenu } from 'shared/hooks/useMessageContextMenu/useMessageContextMenu';
 
@@ -47,27 +46,12 @@ export const MessageManagement = () => {
   const handleAddToFavorites = async () => {
     try {
       if (messageId) {
-        const response = await api.post('/messages/favorites', {
-          message: messageId,
-        });
-        if (response.data.status === 400) {
-          dispatch(
-            notificationActions.setNotification({
-              message: response.data.message,
-            })
-          );
-        }
+        await dispatch(addFavorite({ messageId })).unwrap();
+        dispatch(notificationActions.setNotification({ message: 'Готово!' }));
       }
-    } catch (e: unknown) {
-      if (axios.isAxiosError(e)) {
-        dispatch(
-          notificationActions.setNotification({
-            message: e.response?.data.message,
-          })
-        );
-      } else {
-        console.error(e);
-      }
+    } catch (err) {
+      const e = err as SerializedError;
+      dispatch(notificationActions.setNotification({ message: e.message }));
     }
     handleCloseContextMenu();
   };
