@@ -12,7 +12,7 @@ export const updateUserInfo = createAsyncThunk<
   const { rejectWithValue } = thunkAPI;
 
   try {
-    const { data } = await api.patch<IUser>('/user/updates', userInfo);
+    const { data } = await api.patch<IUser>('/user/update', userInfo);
     return data;
   } catch (err) {
     const axiosError = err as AxiosError<SerializedError>;
