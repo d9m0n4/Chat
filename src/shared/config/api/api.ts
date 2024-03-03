@@ -24,7 +24,7 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response?.status === 401 && error.config) {
       try {
-        const refreshResponse = await axios.get(`${BASE_URL}/auth/refresh`, {
+        const refreshResponse = await axios.get(`${BASE_URL}auth/refresh`, {
           withCredentials: true,
         });
         localStorage.setItem('jwt', refreshResponse.data.accessToken);
