@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-export const BASE_URL = 'https://yarwebapp.ru/';
+export const BASE_URL = 'https://yarwebapp.ru';
 export const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -24,7 +24,7 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response?.status === 401 && error.config) {
       try {
-        const refreshResponse = await axios.get(`${BASE_URL}auth/refresh`, {
+        const refreshResponse = await axios.get(`${BASE_URL}/auth/refresh`, {
           withCredentials: true,
         });
         localStorage.setItem('jwt', refreshResponse.data.accessToken);
