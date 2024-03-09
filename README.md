@@ -19,6 +19,5 @@
 
 ## Backend ##
 - **NestJs**
-- **Express**
 - **PostgresQL**
 - **TypeOrm**
