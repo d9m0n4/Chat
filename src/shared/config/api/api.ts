@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-export const BASE_URL = 'https://ch-43.na4u.ru/';
+export const BASE_URL = 'https://yarwebapp.ru/';
 export const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
