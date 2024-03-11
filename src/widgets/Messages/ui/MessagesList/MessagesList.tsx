@@ -57,7 +57,7 @@ export const MessagesList: FC<IMessagesList> = ({
             userId={userId}
           />
         ))}
-        {Object.values(messages).length > 2 && (
+        {messages && Object.values(messages).length > 2 && (
           <div ref={triggerElementRef}></div>
         )}
       </div>
