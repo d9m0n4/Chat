@@ -9,7 +9,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const socketInstance = io('https://yarwebapp.ru', {
+    const socketInstance = io(`http://localhost:5000`, {
       withCredentials: true,
       extraHeaders: {
         authorization: `Bearer ${jwtToken}`,

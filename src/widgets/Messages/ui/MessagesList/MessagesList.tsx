@@ -42,6 +42,8 @@ export const MessagesList: FC<IMessagesList> = ({
     );
   }
 
+  console.log(Object.values(messages)[0].length);
+
   return (
     <div
       className={clsx(cls.messages, isLoading && cls['scroll--hidden'])}
@@ -57,7 +59,7 @@ export const MessagesList: FC<IMessagesList> = ({
             userId={userId}
           />
         ))}
-        {Object.keys(messages).length > 2 && (
+        {Object.values(messages)[0].length > 2 && (
           <div ref={triggerElementRef}></div>
         )}
       </div>

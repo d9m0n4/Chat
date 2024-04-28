@@ -1,9 +1,12 @@
 import axios, { AxiosError } from 'axios';
+import { config } from 'dotenv';
 
-export const BASE_URL = 'https://yarwebapp.ru';
+export const BASE_URL = process.env.REACT_APP_SERVER_URL;
+const token = localStorage.getItem('jwt');
 export const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
+  headers: { Authorization: `Bearer ${token}` },
 });
 
 api.interceptors.request.use(
