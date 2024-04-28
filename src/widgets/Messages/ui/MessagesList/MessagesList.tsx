@@ -42,8 +42,6 @@ export const MessagesList: FC<IMessagesList> = ({
     );
   }
 
-  console.log(Object.values(messages)[0].length);
-
   return (
     <div
       className={clsx(cls.messages, isLoading && cls['scroll--hidden'])}

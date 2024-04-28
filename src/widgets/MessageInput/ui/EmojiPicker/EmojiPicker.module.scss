@@ -1,6 +1,6 @@
 .EmojiPicker {
   position: absolute;
-  bottom: 70px;
+  bottom: var(--textarea-height);
   left: 0;
   z-index: 9;
 }

@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import { ReactComponent as Emoji } from 'shared/assets/icons/emoji.svg';
+import useMediaQuery from 'shared/hooks/useMediaQuery/useMediaQuery';
 import { Button } from 'shared/ui/Button';
 
 import cls from './EmojiPicker.module.scss';
@@ -11,6 +12,7 @@ interface EmojiPickerProps {
 }
 const EmojiPicker: FC<EmojiPickerProps> = ({ onSelect }) => {
   const [isOpened, setIsOpened] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 425px)');
 
   return (
     <div>
@@ -34,7 +36,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({ onSelect }) => {
             searchPosition="none"
             locale="ru"
             emojiSize="16"
-            perLine={9}
+            perLine={isMobile ? 6 : 9}
             onEmojiSelect={(emoji: any) => {
               if (!emoji?.native) return;
               onSelect(emoji.native);
