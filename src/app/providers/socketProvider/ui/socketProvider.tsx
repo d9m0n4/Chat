@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { config } from 'dotenv';
 import { SocketContext } from 'shared/config/context/SocketContext';
 import { Socket, io } from 'socket.io-client';
 
@@ -9,7 +10,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const socketInstance = io(`http://localhost:5000`, {
+    const socketInstance = io(`${process.env.REACT_APP_SERVER_URL}`, {
       withCredentials: true,
       extraHeaders: {
         authorization: `Bearer ${jwtToken}`,
