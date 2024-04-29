@@ -57,7 +57,7 @@ export const Message: FC<IMessage> = ({
             {files.map((file) => (
               <div key={file.id} className={cls.item}>
                 <a
-                  href={`http://localhost:5000${file.url}`}
+                  href={`${BASE_URL}${file.url}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -6,6 +6,7 @@ import { FileThumb } from 'shared/ui/FileIcon';
 import { fileSize } from 'shared/utils/fileSize/fileSize';
 import { formatDate } from 'shared/utils/formatDate/formatDate';
 
+import { BASE_URL } from '../../../shared/config/api';
 import { Attachment } from '../model/types/Attachment';
 import cls from './Attach.module.scss';
 
@@ -38,11 +39,7 @@ export const Attach: FC<IAttachProps> = ({
         </div>
       </div>
       <Button className={cls.download}>
-        <a
-          href={`http://localhost:5000${url}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href={`${BASE_URL}${url}`} target="_blank" rel="noopener noreferrer">
           <Download className="icon" />
         </a>
       </Button>
