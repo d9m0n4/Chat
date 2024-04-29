@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 
 import { ReactComponent as Download } from 'shared/assets/icons/download.svg';
+import { BASE_URL } from 'shared/config/api';
 import { Button } from 'shared/ui/Button';
 import { FileThumb } from 'shared/ui/FileIcon';
 import { fileSize } from 'shared/utils/fileSize/fileSize';
 import { formatDate } from 'shared/utils/formatDate/formatDate';
 
-import { BASE_URL } from '../../../shared/config/api';
 import { Attachment } from '../model/types/Attachment';
 import cls from './Attach.module.scss';
 
